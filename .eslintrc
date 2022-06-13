@@ -1,4 +1,12 @@
 {
-  "env": {"node": true},
-  "extends": "bengler"
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
+  "rules": {
+    "semi": ["error", "always"]
+  }
 }

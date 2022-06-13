@@ -1,46 +1,48 @@
 function normalizeNumber(number) {
-  const num = String(number)
-  return num.replace(/,/g, '.').replace(/\s/g, '').replace(/,/g, '.')
+  const num = String(number);
+  return num.replace(/,/g, ".").replace(/\s/g, "").replace(/,/g, ".");
 }
 
 function numberFilter(number) {
   if (!number) {
-    return null
+    return null;
   }
 
   if (number.value) {
-    return number.value
+    return number.value;
   }
 
-  const num = String(number)
-  if (num.indexOf('-') !== -1) {
-    return num.split('-').map(numberFilter).join('-')
+  const num = String(number);
+  if (num.indexOf("-") !== -1) {
+    return num.split("-").map(numberFilter).join("-");
   }
 
-  return Number(normalizeNumber(number))
+  if (num.indexOf("<") === 0) {
+    return num; //Sugar with less than <3 g/l
+  }
+
+  return Number(normalizeNumber(number));
 }
 
 numberFilter.greedy = function (number) {
-  const num = normalizeNumber(number)
-  if (num === '') {
-    return null
+  const num = normalizeNumber(number);
+  if (num === "") {
+    return null;
   }
 
-  const normalized = num
-    .replace(/[^\d.]/g, '')
-    .replace(/(^\.+|\.+$)/g, '')
+  const normalized = num.replace(/[^\d.]/g, "").replace(/(^\.+|\.+$)/g, "");
 
-  return Number(normalized)
-}
+  return Number(normalized);
+};
 
 numberFilter.nullify = function (nulls) {
   return function (number) {
     if (nulls.indexOf(number) > -1) {
-      return null
+      return null;
     }
 
-    return numberFilter(number)
-  }
-}
+    return numberFilter(number);
+  };
+};
 
-module.exports = numberFilter
+module.exports = numberFilter;

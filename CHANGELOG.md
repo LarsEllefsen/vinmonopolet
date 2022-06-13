@@ -9,6 +9,7 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 - Product: Removed categories property as it no longer exists.
 - Product: removed isComplete(), as populate returns a new object instead.
 - Removed onlyCount option from getProducts. It is now its own function getProductCount.
+- Minimum Node version is now 12.
 
 ### Added
 - Product: Added allergens property.

@@ -8,7 +8,7 @@ import numberFilter from "../filters/number";
 import foodPairingFilter from "../filters/foodPairing";
 import productUrl from "../util/productUrl";
 
-module.exports = {
+export default {
   Varenummer: ["code"],
   Varenavn: ["name", textFilter],
   Volum: ["containerSize", volumeFilter],

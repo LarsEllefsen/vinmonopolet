@@ -32,8 +32,18 @@
 // export { default as Pagination } from "./models/Category";
 
 // export { default as getProducts } from "./retrievers/getProducts";
+import Facet from "./models/Facet";
+import FacetValue from "./models/FacetValue";
+import * as FacetCategory from "./models/FacetCategories";
+import FoodPairing from "./models/FoodPairing";
+import Pagination from "./models/Pagination";
+import BaseProduct, { PopulatedProduct } from "./models/Product";
+import ProductImage from "./models/ProductImage";
+import ProductStatus from "./models/ProductStatus";
+import RawMaterial from "./models/RawMaterial";
+import Store from "./models/Store";
 
-import getProducts from "./retrievers/getProducts";
+import getProducts, { getProductCount } from "./retrievers/getProducts";
 import getProduct from "./retrievers/getProduct";
 import getFacets from "./retrievers/getFacets";
 import getProductByBarcode from "./retrievers/getProductByBarcode";
@@ -45,7 +55,20 @@ import searchProducts from "./retrievers/searchProducts";
 import stream from "./stream";
 
 export default {
+  Facet,
+  FacetValue,
+  FacetCategory,
+  FoodPairing,
+  Pagination,
+  BaseProduct,
+  PopulatedProduct,
+  ProductImage,
+  ProductStatus,
+  RawMaterial,
+  Store,
+
   getProducts,
+  getProductCount,
   getProduct,
   getFacets,
   getProductByBarcode,

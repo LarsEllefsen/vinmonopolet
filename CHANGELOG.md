@@ -7,6 +7,7 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 ### Breaking changes
 - Product: Removed property containerSize in favor of Volume to more closely mirror the api.
 - Product: Removed categories property as it no longer exists.
+- Split Product into BaseProduct and PopulatedProduct. Import for the old Product is now BaseProduct, and populate returns a new instance of PopulatedProduct instead.
 - Product: removed isComplete(), as populate returns a new object instead.
 - Removed onlyCount option from getProducts. It is now its own function getProductCount.
 - Minimum Node version is now 14.

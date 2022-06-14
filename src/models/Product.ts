@@ -2,7 +2,7 @@ import Category from "./Category";
 import FoodPairing from "./FoodPairing";
 import ProductImage from "./ProductImage";
 
-import * as productMap from "../datamaps/productMap";
+import productMap from "../datamaps/productMap";
 import streamMap from "../datamaps/productStreamMap";
 import camelcase from "../util/camelcase";
 import RawMaterial from "./RawMaterial";

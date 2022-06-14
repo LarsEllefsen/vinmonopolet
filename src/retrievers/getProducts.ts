@@ -17,8 +17,8 @@ interface IOpts {
   sort?:
     | typeof sortFields[number]
     | [typeof sortFields[number], typeof sortOrders[number]];
-  facet?: FacetValue;
-  facets?: Array<FacetValue | undefined>;
+  facet?: FacetValue | string;
+  facets?: Array<FacetValue | string | undefined>;
 }
 
 interface IQuery {

@@ -9,14 +9,14 @@
     "products",
     "stores"
   ],
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf coverage .nyc_output",
     "coverage": "nyc --reporter=html --reporter=lcov --reporter=text _mocha",
     "lint": "eslint .",
     "prepublishOnly": "npm test",
     "test": "ts-mocha test/**/*.test.ts",
-    "a": "tsc ./src/models/Facet.ts"
+    "build": "tsc "
   },
   "engines": {
     "node": ">=6"

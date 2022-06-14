@@ -5,7 +5,7 @@
 import Store from "../models/Store";
 import Pagination from "../models/Pagination";
 import request from "../util/request";
-import { getStores as streamStores } from "../stream";
+import s from "../stream";
 
 const defaults = {
   currentPage: 1,
@@ -31,7 +31,7 @@ interface StoreQuery {
 /**
  * @deprecated The api will no longer return all stores, but instead a max number of stores capped at 126 from the given coordinates.
  */
-export function getStores(opts?: getStoresOptions): Promise<Array<any>> {
+export function getStores(opts?: getStoresOptions): Promise<any> {
   const options = { ...defaults, ...opts };
   const query: StoreQuery = {
     fields: "BASIC",
@@ -72,7 +72,7 @@ function getPagination(currentPage, res) {
 }
 
 async function getAllStores() {
-  const stream = await streamStores();
+  const stream = await s.getStores();
   stream.on("data", (res) => {
     console.log(res);
   });

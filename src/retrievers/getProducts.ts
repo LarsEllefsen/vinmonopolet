@@ -84,7 +84,7 @@ function getQuery(opts?: IOpts): IQuery {
   const queryParts = {
     freeTextSearch: "",
     sort: "relevance",
-    facets: [],
+    facets: [] as string[],
   };
 
   if (options.query) {

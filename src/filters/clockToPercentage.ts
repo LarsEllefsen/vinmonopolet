@@ -1,4 +1,4 @@
-function clockToPrctFilter(val) {
+function clockToPrctFilter(val: string | number) {
   const num = Number(val);
 
   if (isNaN(num) || num === 0) {
@@ -16,4 +16,4 @@ clockToPrctFilter.range = (val) => {
     .join(" - ");
 };
 
-module.exports = clockToPrctFilter;
+export default clockToPrctFilter;

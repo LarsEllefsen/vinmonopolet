@@ -1,22 +1,12 @@
-const foodPairingMap = [
-  { code: "A", identifier: "aperitif", name: "Aperitiff/avec" },
-  { code: "B", identifier: "shellfish", name: "Skalldyr" },
-  { code: "C", identifier: "fish", name: " Fisk" },
-  { code: "D", identifier: "light_meat", name: "Lyst kjøtt" },
-  { code: "E", identifier: "beef", name: "Storfe" },
-  { code: "F", identifier: "mutton", name: "Lam og sau" },
-  { code: "G", identifier: "small_game", name: "Småvilt og fugl" },
-  { code: "H", identifier: "large_game", name: "Storvilt" },
-  { code: "L", identifier: "cheese", name: "Ost" },
-  { code: "N", identifier: "dessert", name: "Dessert, kake, frukt" },
-  { code: "Q", identifier: "pork", name: "Svinekjøtt" },
-  { code: "R", identifier: "vegetables", name: "Grønnsaker" },
-];
+interface IFoodPairingMap {
+  [key: string]: FoodPairing;
+}
 
 class FoodPairing {
   code: string;
   identifier: string;
   name: string;
+  byName: FoodPairing | null = null;
 
   constructor({ code, identifier, name }) {
     this.code = code;
@@ -24,6 +14,7 @@ class FoodPairing {
     this.name = name;
     // this.byName =
   }
+  static byName: IFoodPairingMap = {};
 }
 
 FoodPairing.prototype.toString = function () {
@@ -46,7 +37,7 @@ FoodPairing.prototype.toString = function () {
   { code: "R", identifier: "vegetables", name: "Grønnsaker" },
 ].forEach((pairing) => {
   FoodPairing[pairing.code] = new FoodPairing(pairing);
-  FoodPairing[pairing.name] = new FoodPairing(pairing);
+  FoodPairing.byName[pairing.name] = new FoodPairing(pairing);
 });
 
 export default FoodPairing;

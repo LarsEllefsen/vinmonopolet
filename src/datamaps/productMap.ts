@@ -1,14 +1,3 @@
-// const FoodPairing = require("../models/FoodPairing");
-// const ProductImage = require("../models/ProductImage");
-// const RawMaterial = require("../models/RawMaterial");
-// const Category = require("../models/Category");
-// const productUrl = require("../util/productUrl");
-// const clockToPercentage = require("../filters/clockToPercentage");
-// const number = require("../filters/number");
-// const status = require("../filters/status");
-// const price = require("../filters/price");
-// const year = require("../filters/year");
-
 import FoodPairing from "../models/FoodPairing";
 import ProductImage from "../models/ProductImage";
 import RawMaterial from "../models/RawMaterial";
@@ -39,7 +28,7 @@ const toVolume = (volume) => {
 };
 
 /* eslint-disable camelcase */
-module.exports = {
+export default {
   productType: ["productType", productType],
   isGoodFor: ["foodPairing", matchPairings],
   litrePrice: ["pricePerLiter", price],

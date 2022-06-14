@@ -1,12 +1,12 @@
-const textFilter = require("../filters/text");
-const volumeFilter = require("../filters/volume");
-const priceFilter = require("../filters/price");
-const joinFilter = require("../filters/join");
-const clockToPrctFilter = require("../filters/clockToPercentage");
-const trimFilter = require("../filters/trim");
-const numberFilter = require("../filters/number");
-const foodPairingFilter = require("../filters/foodPairing");
-const productUrl = require("../util/productUrl");
+import textFilter from "../filters/text";
+import volumeFilter from "../filters/volume";
+import priceFilter from "../filters/price";
+import joinFilter from "../filters/join";
+import clockToPrctFilter from "../filters/clockToPercentage";
+import trimFilter from "../filters/trim";
+import numberFilter from "../filters/number";
+import foodPairingFilter from "../filters/foodPairing";
+import productUrl from "../util/productUrl";
 
 module.exports = {
   Varenummer: ["code"],

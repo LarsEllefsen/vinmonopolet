@@ -1,12 +1,12 @@
-const FoodPairing = require("../models/FoodPairing");
-const number = require("../filters/number");
-const clockToPercentage = require("../filters/clockToPercentage");
-const boolean = require("../filters/boolean");
+import FoodPairing from "../models/FoodPairing";
+import number from "../filters/number";
+import clockToPercentage from "../filters/clockToPercentage";
+import boolean from "../filters/boolean";
 
-const pairingCodeToIdentifier = (code) =>
+const pairingCodeToIdentifier = (code: string) =>
   FoodPairing[code] && FoodPairing[code].identifier;
 
-module.exports = {
+export default {
   Butikker: ["stores"],
   Pris: ["price"],
   isGoodfor: ["foodPairing", pairingCodeToIdentifier],

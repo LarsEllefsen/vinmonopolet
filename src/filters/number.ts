@@ -45,4 +45,4 @@ numberFilter.nullify = function (nulls) {
   };
 };
 
-module.exports = numberFilter;
+export default numberFilter;

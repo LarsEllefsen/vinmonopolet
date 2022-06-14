@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-const openingHoursFilter = require("../filters/openingHours");
-const numberFilter = require("../filters/number");
+import openingHoursFilter from "../filters/openingHours";
+import numberFilter from "../filters/number";
 
-module.exports = {
+export default {
   Butikknavn: ["name"],
   Gateadresse: ["streetAddress"],
   Gate_postnummer: ["streetZip"],

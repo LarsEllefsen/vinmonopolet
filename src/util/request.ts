@@ -55,9 +55,9 @@ sendRequest.head = (path, options) =>
     })
   );
 
-sendRequest.raw = (url) => {
+sendRequest.raw = (url: string): Promise<Response> => {
   const fetch = fetchCookie(nodeFetch);
-  fetch(url);
+  return fetch(url);
 };
 
 function getErrorMessage(status, statusText) {

@@ -7,20 +7,30 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 ### Breaking changes
 - Product: Removed property containerSize in favor of Volume to more closely mirror the api.
 - Product: Removed categories property as it no longer exists.
-- Split Product into BaseProduct and PopulatedProduct. Import for the old Product is now BaseProduct, and populate returns a new instance of PopulatedProduct instead.
+- Product: Removed pointOfService property, as it no longer exists.
+- Split Product into BaseProduct, StreamProduct and PopulatedProduct. Import for the old Product is now BaseProduct, and populate returns a new instance of PopulatedProduct instead. 
 - Product: removed isComplete(), as populate returns a new object instead.
 - Removed onlyCount option from getProducts. It is now its own function getProductCount.
+- Removed getStores as vinmonopolet now only returns a maximum of 126 stores. The old functionality is now effectively split in two new APIs:
+    - getAllStores: Takes no arguments and returns all stores without pagination.
+    - searchStores: Takes the same arguments as the old getStores (And effectively the same functionality) but will never be able to return more than 126 stores.
+- Store model is changed to better reflect the new API.
+- stream.getProducts now only returns name and code as per april 2021. This is due to changes from vinmonopolet.
 - Minimum Node version is now 14.
 
 ### Added
 - Product: Added allergens property.
 - Product: Added style property.
 - Facets: Added static strings to generate product category facets.
+- GetProductCount function that returns the count of a given getProducts query.
+- PopulatedProduct model.
+- GetAllStores and SearchStores functions (see Breaking Changes).
+- GetProductsByStore now returns the store number along pagination and products.
 
 ### Changed
 - GetStores is completely rewritten. The old api is no longer in use, and the current one returns a maximum of 126 stores in total. 
 Instead we just use the stream api and make it more "synchronous" for those who dont want to use the stream implementation.
-- Simplified stream api.
+- Facet: Facet title now maps to the "code" property instead of the name property. This should restore the old functionality where title now maps to the english name.
 
 ### Removed
 - Removed the Request package as it is deprecated. Opted to use node-fetch instead.

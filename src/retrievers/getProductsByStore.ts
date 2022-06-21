@@ -1,35 +1,43 @@
 import objectAssign from "object-assign";
 import FacetValue from "../models/FacetValue";
-import getProducts from "./getProducts";
+import getProducts, { getProductsResponse } from "./getProducts";
 
 interface getProductsByStoreOptions {
   facets?: Array<FacetValue | undefined>;
   facet?: FacetValue;
+  limit?: number;
 }
 
-function getProductsByStore(store, opts?: getProductsByStoreOptions) {
+interface getProductsByStoreResponse extends getProductsResponse {
+  store: string;
+}
+
+async function getProductsByStore(
+  store,
+  opts?: getProductsByStoreOptions
+): Promise<getProductsByStoreResponse> {
   const id = typeof store.name === "undefined" ? store : store.name;
-  const facet = new FacetValue({
+
+  const storeFacet = new FacetValue({
     query: { query: { value: `availableInStores:${id}` } },
   });
-  const options = Object.assign({}, opts || {});
 
-  if (options.facet) {
-    options.facets?.push(options.facet);
-  }
-
-  let facets = [facet];
-  if (options.facets) {
-    const safeFacets: FacetValue[] = options.facets.filter(
+  let facets = [storeFacet];
+  if (opts?.facet) facets.push(opts?.facet);
+  if (opts?.facets) {
+    const safeFacets: FacetValue[] = opts?.facets.filter(
       (facet) => facet !== undefined
     ) as FacetValue[];
     facets = facets.concat(safeFacets);
   }
 
-  delete options.facet;
-  options.facets = facets;
+  delete opts?.facet;
 
-  return getProducts(options);
+  const options = { limit: opts?.limit, facets: facets };
+
+  const allProducts = await getProducts(options);
+
+  return { ...allProducts, store };
 }
 
 export default getProductsByStore;

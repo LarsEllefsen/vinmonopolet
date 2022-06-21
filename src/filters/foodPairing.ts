@@ -1,6 +1,6 @@
 import FoodPairing from "../models/FoodPairing";
 
-export default (values: string[]): FoodPairing[] => {
+export default (values?: string[] | null): FoodPairing[] => {
   if (!values) {
     return [];
   }

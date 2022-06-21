@@ -1,15 +1,6 @@
-// const request = require("request-promise-native");
-// const objectAssign = require("object-assign");
-// const qs = require("query-string");
-// const promiseProps = require("promise-props");
-
 import qs from "query-string";
-import promiseProps from "promise-props";
 import nodeFetch, { Response } from "node-fetch";
 import fetchCookie from "fetch-cookie";
-
-import fs from "fs";
-import p from "path";
 
 const baseUrl = "https://app.vinmonopolet.no/vmpws/v2/vmp";
 
@@ -29,7 +20,6 @@ function sendRequest(
   const reqOpts = options.request || {};
   const base = options.baseUrl || baseUrl;
   const url = `${base}${path}${query}`;
-
   return fetch(url, reqOpts);
 }
 

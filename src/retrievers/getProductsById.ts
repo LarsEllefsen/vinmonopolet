@@ -4,7 +4,7 @@ import getProduct from "./getProduct";
 
 const getProductsByIds = (
   ids: string[],
-  limit
+  limit?: number
 ): Promise<Array<PopulatedProduct>> => {
   return promiseMap(ids, limit || 5, getProduct);
 };

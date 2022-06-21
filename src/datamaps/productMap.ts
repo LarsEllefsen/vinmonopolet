@@ -15,7 +15,7 @@ const matchPairings = (pairings) =>
 const toCategory = (category) => new Category(category);
 const toCategories = (cats) => cats.map(toCategory);
 const toImages = (imgs) => imgs.map((img) => new ProductImage(img));
-const toRawMaterial = (mats) =>
+const toRawMaterial = (mats): RawMaterial[] | null =>
   mats ? mats.map((mat) => new RawMaterial(mat)) : null;
 
 const productType = (mainCat) => mainCat.value;

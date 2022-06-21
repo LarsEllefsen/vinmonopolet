@@ -10,7 +10,7 @@ const enc = (str) =>
     .replace(/~/g, "%7E")
     .replace(/!/g, "%21");
 
-export default (url, row) => {
+export default (url, row?) => {
   const path = String(url);
   if (path[0] === "/") {
     return `${baseUrl}${path}`;

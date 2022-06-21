@@ -106,8 +106,8 @@ class Facet {
   values: FacetValue[];
 
   constructor(facet) {
-    const [title, valueFilter] = facetsMap[facet.name] || [];
-    this.title = title || facet.name;
+    const [title, valueFilter] = facetsMap[facet.code] || [];
+    this.title = title || facet.code;
     this.name = facet.name;
     this.displayName = displayNames[facet.name] || facet.name;
     this.category = facet.category;

@@ -1,11 +1,18 @@
 import chai, { expect } from "chai";
 import vinmonopolet from "../src/index";
-import BaseProduct from "../src/models/Product";
+import BaseProduct, { PopulatedProduct } from "../src/models/Product";
 import chaiAsPromised from "chai-as-promised";
+import mocha from "mocha";
 
 import { transform, countBy } from "lodash";
-
+import filters from "../src/filters";
+import productUrl from "../src/util/productUrl";
 chai.use(chaiAsPromised);
+
+/* Don't depend on mocha globals */
+const describe = mocha.describe;
+const it = mocha.it;
+
 /* Helper functions */
 const first = (res) => res.products[0];
 
@@ -19,6 +26,12 @@ const dupes = (array) =>
     },
     []
   );
+
+const getProductCode = (): Promise<string> =>
+  vinmonopolet
+    .getProducts({ sort: ["price", "desc"], limit: 1 })
+    .then(first)
+    .then((res) => res.code);
 
 describe("vinmonopolet", () => {
   describe("getProducts", () => {
@@ -301,6 +314,232 @@ describe("vinmonopolet", () => {
   });
 
   describe("getStores", () => {
-    // it('can get')
+    it("can all stores", async () => {
+      const stores = await vinmonopolet.getAllStores();
+      expect(stores).to.have.length.above(300);
+    });
+
+    it("can search for store by query", async () => {
+      const { stores } = await vinmonopolet.searchStores({
+        query: "Oslo, Aker Brygge",
+      });
+      expect(stores[0].name).to.be.equal("Oslo, Aker Brygge");
+    });
+
+    it("can search for store by location", async () => {
+      const { stores } = await vinmonopolet.searchStores({
+        nearLocation: {
+          lat: 63.405,
+          lon: 10.402,
+        },
+      });
+      expect(stores[0].name).to.be.equal("Trondheim, Byåsen");
+    });
+
+    it("returns pagination info", () =>
+      vinmonopolet.searchStores({}).then((res) => {
+        expect(res.stores).to.be.an("array").and.have.lengthOf(10);
+        expect(res.pagination).to.be.an.instanceOf(vinmonopolet.Pagination);
+        expect(res.pagination).to.have.property("currentPage", 0);
+        expect(res.pagination).to.have.property("pageSize", 10);
+        expect(res.pagination).to.have.property("hasNext", true);
+        expect(res.pagination).to.have.property("hasPrevious", false);
+        expect(res.pagination?.totalPages).to.be.a("number").and.be.above(10);
+        expect(res.pagination?.totalResults)
+          .to.be.a("number")
+          .and.be.above(100);
+      }));
+  });
+
+  describe("getFacets", () => {
+    it("can get facets list, returns promise of array", async () => {
+      expect(vinmonopolet.getFacets()).to.eventually.have.length.above(0);
+    });
+
+    it("Cooerces to Facet instance", async () => {
+      const facets = await vinmonopolet.getFacets();
+      facets.forEach((facet) =>
+        expect(facet).to.be.instanceOf(vinmonopolet.Facet)
+      );
+    });
+
+    it("populates facets with title, name, category and values", async () => {
+      const facets = await vinmonopolet.getFacets();
+      facets.forEach((facet) => {
+        expect(facet).to.have.property("title");
+        expect(facet).to.have.property("name");
+        expect(facet).to.have.property("category");
+        expect(facet).to.have.property("values").and.be.an("array");
+
+        facet.values.forEach((val) =>
+          expect(val).to.be.an.instanceOf(vinmonopolet.FacetValue)
+        );
+      });
+    });
+
+    it("can use returned facets to search for products", async () => {
+      const facets = await vinmonopolet.getFacets();
+      const countryFacet = facets.find(
+        (facet) => facet.title === "mainCountry"
+      );
+      expect(countryFacet).to.be.an.instanceOf(vinmonopolet.Facet);
+
+      const norwayFacetValue = countryFacet?.values.find(
+        (val) => val.name === "Norge"
+      );
+      expect(norwayFacetValue).to.be.an.instanceOf(vinmonopolet.FacetValue);
+
+      const { products } = await vinmonopolet.getProducts({
+        limit: 3,
+        facet: norwayFacetValue,
+      });
+
+      products.forEach((product) => {
+        expect(product).to.have.property("mainCountry");
+        expect(product.mainCountry).to.have.property("name", "Norge");
+      });
+    });
+  });
+
+  describe("searchProducts", () => {
+    it("takes the same options as getProducts", async () => {
+      const { products } = await vinmonopolet.searchProducts("valpolicella", {
+        limit: 3,
+        sort: ["price", "asc"],
+      });
+
+      products.reduce((prevPrice, prod) => {
+        expect(prod.price).to.be.above(prevPrice);
+        expect(prod.name.toLowerCase()).to.include("valpolicella");
+        return prod.price;
+      }, 0);
+    });
+  });
+
+  describe("getProduct", () => {
+    it("fetches a given product", async () => {
+      expect(vinmonopolet.getProduct("gavekort"))
+        .to.eventually.be.an.instanceOf(vinmonopolet.BaseProduct)
+        .and.include.keys({ code: "gavekort", name: "Gavekort" });
+    });
+
+    it("populates with food pairing that can be stringified", async () => {
+      const code = await getProductCode();
+      const product = await vinmonopolet.getProduct(code);
+      product.foodPairing?.forEach((food) => {
+        expect(food).to.be.an.instanceOf(vinmonopolet.FoodPairing);
+        expect(food.toString()).to.be.a("string").and.have.length.above(0);
+      });
+    });
+
+    it("populates with raw materials that can be stringified", async () => {
+      const code = await getProductCode();
+      const product = await vinmonopolet.getProduct(code);
+      product.rawMaterial?.forEach((raw) => {
+        expect(raw).to.be.an.instanceOf(vinmonopolet.RawMaterial);
+        expect(raw.toString()).to.be.a("string").and.have.length.above(0);
+      });
+    });
+
+    it("populates with product images that can be stringified", async () => {
+      const code = await getProductCode();
+      const product = await vinmonopolet.getProduct(code);
+      product.images?.forEach((img) => {
+        expect(img).to.be.an.instanceOf(vinmonopolet.ProductImage);
+        expect(img.toString()).to.match(/^https?:\/\//);
+      });
+    });
+  });
+
+  describe("getProductsById", () => {
+    it("fetches products by id", async () => {
+      const { products } = await vinmonopolet.getProducts({
+        query: "valpolicella",
+        limit: 3,
+      });
+
+      const codes = products.map((product) => product.code);
+
+      const productsById = await vinmonopolet.getProductsByIds(codes);
+
+      productsById.forEach((prod) => {
+        expect(prod.name.toLowerCase()).to.contain("valpolicella");
+      });
+    });
+  });
+
+  describe("getProductsByStore", () => {
+    it("fetches products by store id", () => {
+      expect(
+        vinmonopolet
+          .getProductsByStore("160", { limit: 3 })
+          .then((i) => i.products)
+      ).to.eventually.have.length(3);
+    });
+
+    it("fetches products by store and with facet", async () => {
+      const { products, store } = await vinmonopolet.getProductsByStore("160", {
+        facet: vinmonopolet.Facet.Category.BEER,
+      });
+      expect(store).to.be.equal("160");
+      products.forEach((prod) => expect(prod.productType).to.equal("Øl"));
+    });
+  });
+
+  describe("stream.getProducts", () => {
+    it("It can stream the whole dataset without crashing", (done) => {
+      let totalProducts = 0;
+      const stream = vinmonopolet.stream.getProducts();
+      const onProduct = (prod) => {
+        expect(prod).to.be.an.instanceOf(vinmonopolet.StreamProduct);
+        expect(prod.code).to.be.a("string").and.have.length.above(0);
+        expect(prod).to.not.be.an.instanceOf(
+          PopulatedProduct,
+          "should not say stream products are complete"
+        );
+        totalProducts++;
+      };
+
+      stream.on("data", onProduct).once("end", () => {
+        expect(totalProducts).to.be.above(20000);
+        done();
+      });
+    }).timeout(20000);
+  });
+
+  describe("stream.getStores", () => {
+    it("can stream the entire set of data without crashing", (done) => {
+      let totalStores = 0;
+      const stream = vinmonopolet.stream.getStores();
+      stream
+        .on("data", (prod) => {
+          expect(prod).to.be.an.instanceOf(vinmonopolet.Store);
+          expect(prod.name).to.be.a("string").and.have.length.above(0);
+          totalStores++;
+        })
+        .once("end", () => {
+          expect(totalStores).to.be.above(300);
+          done();
+        });
+    }).timeout(20000);
+  });
+
+  describe("edge cases", () => {
+    it("handles dirty data in filters", () => {
+      expect(filters.foodPairing()).to.be.an("array").and.have.lengthOf(0);
+      expect(filters.foodPairing(null)).to.be.an("array").and.have.lengthOf(0);
+
+      expect(filters.number.greedy("")).to.be.a("null");
+
+      expect(filters.openingHours("stengt")).to.be.a("null");
+      expect(filters.openingHours("Stengt")).to.be.a("null");
+
+      expect(filters.price(null)).to.be.a("null");
+
+      expect(filters.volume(null)).to.be.a("null");
+      expect(filters.volume(0.75)).to.equal(0.75);
+
+      expect(productUrl("1234")).to.equal("https://www.vinmonopolet.no/p/1234");
+    });
   });
 });

@@ -1,13 +1,11 @@
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import vinmonopolet from "../src/index";
 import BaseProduct, { PopulatedProduct } from "../src/models/Product";
-import chaiAsPromised from "chai-as-promised";
 import mocha from "mocha";
 
 import { transform, countBy } from "lodash";
 import filters from "../src/filters";
 import productUrl from "../src/util/productUrl";
-chai.use(chaiAsPromised);
 
 /* Don't depend on mocha globals */
 const describe = mocha.describe;

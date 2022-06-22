@@ -10,3 +10,6 @@ test
 coverage
 example
 src
+tsconfig.json
+.github
+.vscode

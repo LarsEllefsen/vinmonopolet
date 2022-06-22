@@ -54,16 +54,17 @@ describe("vinmonopolet", () => {
       expect(products).to.have.lengthOf(1);
     });
 
-    it("can apply an offset (page number)", () => {
-      Promise.all([
-        vinmonopolet.getProducts({ limit: 1 }).then(first),
-        vinmonopolet.getProducts({ limit: 1, page: 2 }).then(first),
-      ]).then((res) => {
-        expect(res[0].code).to.not.equal(
-          res[1].code,
-          "products are not the same when applying page"
-        );
+    it("can apply an offset (page number)", async () => {
+      const { products } = await vinmonopolet.getProducts({ limit: 1 });
+      const { products: products2 } = await vinmonopolet.getProducts({
+        limit: 1,
+        page: 2,
       });
+
+      expect(products[0].code).to.not.equal(
+        products2[0].code,
+        "products are not the same when applying page"
+      );
     });
 
     it("can apply sorting by relevance (as a string)", async () => {
@@ -152,13 +153,13 @@ describe("vinmonopolet", () => {
       expect(products[0].code).to.eq(products2[0].code);
     });
 
-    it("throws if trying to sort on unknown field", async () => {
+    it("throws if trying to sort on unknown field", () => {
       expect(() => {
         vinmonopolet.getProducts({ sort: "foo" });
       }).to.throw(/not valid.*?relevance/);
     });
 
-    it("throws if trying to sort in unknown order", async () => {
+    it("throws if trying to sort in unknown order", () => {
       expect(() => {
         vinmonopolet.getProducts({ sort: ["price", "bar"] });
       }).to.throw(/not valid.*?asc/);
@@ -293,23 +294,20 @@ describe("vinmonopolet", () => {
 
   describe("getProductCount", () => {
     it("can get a total count for a regular query", async () => {
-      expect(vinmonopolet.getProductCount({ sort: "name" }))
-        .to.eventually.be.a("number")
-        .and.be.above(0);
+      const count = await vinmonopolet.getProductCount({ sort: "name" });
+      expect(count).to.be.a("number").and.be.above(0);
     });
 
     it("can get a total count regardless of options", async () => {
-      expect(
-        vinmonopolet.getProductCount({
-          sort: ["name", "desc"],
-          query: "valpolicella",
-          limit: 10,
-          page: 2,
-          facets: [vinmonopolet.Facet.Category.RED_WINE],
-        })
-      )
-        .to.eventually.be.a("number")
-        .and.be.above(0);
+      const count = await vinmonopolet.getProductCount({
+        sort: ["name", "desc"],
+        query: "valpolicella",
+        limit: 10,
+        page: 2,
+        facets: [vinmonopolet.Facet.Category.RED_WINE],
+      });
+
+      expect(count).to.be.a("number").and.be.above(0);
     });
   });
 
@@ -353,7 +351,8 @@ describe("vinmonopolet", () => {
 
   describe("getFacets", () => {
     it("can get facets list, returns promise of array", async () => {
-      expect(vinmonopolet.getFacets()).to.eventually.have.length.above(0);
+      const facets = await vinmonopolet.getFacets();
+      expect(facets).to.have.length.above(0);
     });
 
     it("Cooerces to Facet instance", async () => {
@@ -418,8 +417,9 @@ describe("vinmonopolet", () => {
 
   describe("getProduct", () => {
     it("fetches a given product", async () => {
-      expect(vinmonopolet.getProduct("gavekort"))
-        .to.eventually.be.an.instanceOf(vinmonopolet.BaseProduct)
+      const product = await vinmonopolet.getProduct("gavekort");
+      expect(product)
+        .to.be.an.instanceOf(vinmonopolet.PopulatedProduct)
         .and.include.keys({ code: "gavekort", name: "Gavekort" });
     });
 
@@ -469,12 +469,12 @@ describe("vinmonopolet", () => {
   });
 
   describe("getProductsByStore", () => {
-    it("fetches products by store id", () => {
-      expect(
-        vinmonopolet
-          .getProductsByStore("160", { limit: 3 })
-          .then((i) => i.products)
-      ).to.eventually.have.length(3);
+    it("fetches products by store id", async () => {
+      const { products, store } = await vinmonopolet.getProductsByStore("160", {
+        limit: 3,
+      });
+      expect(products).to.have.length(3);
+      expect(store).to.equal("160");
     });
 
     it("fetches products by store and with facet", async () => {

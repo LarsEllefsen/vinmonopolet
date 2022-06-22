@@ -4,7 +4,7 @@ import fetchCookie from "fetch-cookie";
 
 const baseUrl = "https://app.vinmonopolet.no/vmpws/v2/vmp";
 
-interface IRequestOptions {
+export interface IRequestOptions {
   query?: string;
   baseUrl?: string;
   request?: any;

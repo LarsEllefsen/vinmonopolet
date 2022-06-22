@@ -10,13 +10,14 @@
     "stores"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf coverage .nyc_output",
     "coverage": "nyc --reporter=html --reporter=lcov --reporter=text _mocha",
     "lint": "eslint .",
     "prepublishOnly": "npm test",
     "test": "ts-mocha test/**/*.test.ts",
-    "build": "tsc "
+    "build": "rimraf dist && tsc"
   },
   "engines": {
     "node": ">=6"

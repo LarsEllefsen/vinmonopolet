@@ -10,7 +10,7 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "allowJs": true,
-    "declaration": false,
+    "declaration": true,
     "types": ["node"]
   },
   "exclude": ["dist", "node_modules"],

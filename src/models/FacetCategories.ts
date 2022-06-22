@@ -1,6 +1,3 @@
-import { FacetCategory } from "./Facet";
-import FacetValue from "./FacetValue";
-
 export const ALCOHOL_FREE = "ALCOHOL_FREE";
 export const RED_WINE = "RED_WINE";
 export const ROSE_WINE = "ROSE_WINE";

@@ -10,7 +10,7 @@ const sortFields = ["relevance", "name", "price"] as const;
 const sortOrders = ["asc", "desc"] as const;
 const sortTakesOrder = ["name", "price"] as const;
 
-interface IOpts {
+export interface IGetProductsOptions {
   limit?: number;
   page?: number;
   query?: string;
@@ -21,19 +21,21 @@ interface IOpts {
   facets?: Array<FacetValue | string | undefined>;
 }
 
-interface IQuery {
+export interface IGetProductsResponse {
+  pagination: Pagination;
+  products: Product[];
+}
+
+export interface IQuery {
   pageSize: number;
   currentPage: number;
   fields: string;
   query: string;
 }
 
-export interface getProductsResponse {
-  pagination: Pagination;
-  products: Product[];
-}
-
-function getProducts(opts?: IOpts): Promise<getProductsResponse> {
+function getProducts(
+  opts?: IGetProductsOptions
+): Promise<IGetProductsResponse> {
   const options = { ...defaults, ...opts };
   const query = getQuery(opts);
 
@@ -76,7 +78,7 @@ function getSortParam(sort) {
   return [sortField, newSortOrder].filter(Boolean).join("-");
 }
 
-function getQuery(opts?: IOpts): IQuery {
+function getQuery(opts?: IGetProductsOptions): IQuery {
   const options = { ...defaults, ...opts };
 
   // The `query` query parameter (heh) has the following syntax (a bit weird, this);
@@ -116,12 +118,14 @@ function getQuery(opts?: IOpts): IQuery {
   return query;
 }
 
-export const getProductCount = (opts?: IOpts): Promise<number> => {
+export const getProductCount = (
+  opts?: IGetProductsOptions
+): Promise<number> => {
   const query = getQuery(opts);
-  const getter = request.get;
+  const getter = request.head;
   const req = getter("/products/search", { query });
 
-  return req.then((res) => Number(res.headers["x-total-count"]));
+  return req.then((res) => Number(res.headers.get("x-total-count")));
 };
 
 export default getProducts;

@@ -1,6 +1,6 @@
 import objectAssign from "object-assign";
 import FacetValue from "../models/FacetValue";
-import getProducts, { getProductsResponse } from "./getProducts";
+import getProducts, { IGetProductsResponse } from "./getProducts";
 
 interface getProductsByStoreOptions {
   facets?: Array<FacetValue | undefined>;
@@ -8,7 +8,7 @@ interface getProductsByStoreOptions {
   limit?: number;
 }
 
-interface getProductsByStoreResponse extends getProductsResponse {
+interface getProductsByStoreResponse extends IGetProductsResponse {
   store: string;
 }
 

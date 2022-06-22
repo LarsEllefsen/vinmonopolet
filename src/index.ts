@@ -20,6 +20,19 @@ import searchProducts from "./retrievers/searchProducts";
 
 import stream from "./stream";
 
+const test = async () => {
+  const { products } = await getProducts({ limit: 1 });
+  const { products: products2 } = await getProducts({
+    limit: 1,
+    page: 2,
+  });
+
+  console.log(products[0]);
+  console.log(products2[0]);
+};
+
+// test();
+
 export default {
   Facet,
   FacetValue,

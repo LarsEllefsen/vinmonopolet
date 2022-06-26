@@ -14,7 +14,9 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 - Removed getStores as vinmonopolet now only returns a maximum of 126 stores. The old functionality is now effectively split in two new APIs:
     - getAllStores: Takes no arguments and returns all stores without pagination.
     - searchStores: Takes the same arguments as the old getStores (And effectively the same functionality) but will never be able to return more than 126 stores.
-- Store model is changed to better reflect the new API.
+- Store model is changed to better reflect the new API:
+    - Like products Store is now split into BaseStore and PopulatedStore. This is due to changes from vinmonopolet.
+    - getAllStores will return PopulatedProduct w
 - Streams now return a promise you need to resolve before you can interact with the stream.
 - stream.getProducts now only returns name and code as per april 2021. This is due to changes in data from Vinmonopolet.
 - Minimum Node version is now 14.
@@ -27,12 +29,9 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 - PopulatedProduct model.
 - GetAllStores and SearchStores functions (see Breaking Changes).
 - GetProductsByStore now returns the store number along pagination and products.
+- SearchStore function.
 
 ### Changed
 - GetStores is completely rewritten. The old api is no longer in use, and the current one returns a maximum of 126 stores in total. 
 Instead we just use the stream api and make it more "synchronous" for those who dont want to use the stream implementation.
 - Facet: Facet title now maps to the "code" property instead of the name property. This should restore the old functionality where title now maps to the english name.
-
-### Removed
-- Removed the Request package as it is deprecated. Opted to use node-fetch instead.
-- Removed through2 package as it is deprecated. Opted to use built-in node stream transform.

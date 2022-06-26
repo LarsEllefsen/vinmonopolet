@@ -8,10 +8,25 @@ const defaults = {
   longitude: 10.7515334,
 };
 
-interface ISearchStoresOptions {
-  currentPage?: number;
+export interface ISearchStoresOptions {
+  /**
+   * Which page of the pagination you want to get. (Default: 1)
+   */
+  page?: number;
+
+  /**
+   * A freetext query used to search for stores. Note that only query OR nearLocation can be used at once, with query giving precidence.
+   */
   query?: string;
+
+  /**
+   * Latitude and longitude coordinates used to search for stores near these coordinates. Note that only query OR nearLocation can be used at once, with query giving precidence.
+   */
   nearLocation?: { lat: number; lon: number };
+
+  /**
+   * The number of stores returned in a single page. Default:
+   */
   pageSize?: number;
 }
 
@@ -24,8 +39,14 @@ interface IStoreQuery {
   fields: string;
 }
 
-interface ISearchStoreResult {
+export interface ISearchStoreResult {
+  /**
+   *  A list of stores. Represents one page of the results, use pagination.next to fetch next page of results.
+   */
   stores: BaseStore[];
+  /**
+   * Pagination object used to traverse the results.
+   */
   pagination?: Pagination;
 }
 
@@ -37,7 +58,7 @@ export function searchStores(
   }
   const lat = opts?.nearLocation?.lat ?? defaults.latitude;
   const lon = opts?.nearLocation?.lon ?? defaults.longitude;
-  return searchByLocation(lat, lon);
+  return searchByLocation(lat, lon, opts?.page, opts?.pageSize);
 }
 
 function searchByQuery(querystring: string): Promise<ISearchStoreResult> {
@@ -75,9 +96,7 @@ function searchByLocation(
   });
 
   return req.then((res) => ({
-    stores: (res.stores || []).map(
-      (i) => new PopulatedStore(i)
-    ) as PopulatedStore[],
+    stores: (res.stores || []).map((i) => new BaseStore(i)) as BaseStore[],
     pagination: new Pagination(
       getPagination(query.currentPage, pageSize, res.pagination),
       { nearLocation: { lat, lon } } as ISearchStoresOptions,

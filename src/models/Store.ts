@@ -12,7 +12,7 @@ const getOpeningHours = (
   try {
     let weekDayOpening =
       store["Apn_" + weekday.toLowerCase().replace("ø", "o")];
-    weekDayOpening = weekDayOpening ?? store.openingHours?.weekDayOpeningList;
+    weekDayOpening = weekDayOpening ?? store.openingTimes;
     if (Array.isArray(weekDayOpening)) {
       const weekDayEntry = weekDayOpening.find(
         (entry) => entry.weekDay.toLowerCase() === weekday.toLowerCase()
@@ -111,11 +111,10 @@ export class BaseStore {
    */
   populate(): Promise<PopulatedStore> {
     return new Promise((resolve, reject) => {
-      getStore(this.storeNumber)
-        .then((populatedStore) => resolve(populatedStore))
-        .catch((err) => {
-          reject(err);
-        });
+      import("../retrievers/getStore").then((getStore) => {
+        const populatedStore = getStore.default(this.storeNumber);
+        resolve(populatedStore);
+      });
     });
   }
 }

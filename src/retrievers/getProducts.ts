@@ -24,23 +24,29 @@ export interface IGetProductsOptions {
    */
   query?: string;
   /**
-   * Sorting options for the results.
+   * Sorting options for the results.  E.g ["price", "asc"] or just "price";
    */
   sort?:
     | typeof sortFields[number]
     | [typeof sortFields[number], typeof sortOrders[number]];
   /**
-   * Facet used to filter the products on given properties.
+   * Get all products with this facet (property).
    */
   facet?: FacetValue | string;
   /**
-   * Multiple facets used to filter the products on given properties.
+   * An array of facets. Gets all products with these properties.
    */
   facets?: Array<FacetValue | string | undefined>;
 }
 
 export interface IGetProductsResponse {
+  /**
+   * Pagination object used to traverse the results.
+   */
   pagination: Pagination;
+  /**
+   * a list of products. Represents one page of the results, use pagination.next to fetch next page of results.
+   */
   products: Product[];
 }
 

@@ -1,14 +1,41 @@
 class Pagination {
+  /**
+   * The current page of the results.
+   */
   currentPage: number;
+
+  /**
+   * The number of results in each page.
+   */
   pageSize: number;
+
+  /**
+   * The total number of pages in the response.
+   */
   totalPages: number;
+
+  /**
+   * The total number of items in the response.
+   */
   totalResults: number;
+
+  /**
+   * Is true if there are more pages.
+   */
   hasNext: boolean;
+
+  /**
+   * Is true if there previous pages.
+   */
   hasPrevious: boolean;
+
+  /**
+   * A string of the sort options used.
+   */
   sort: string;
 
-  private fetcher: (opts?: any) => any;
-  options: any;
+  private fetcher: (opts?: any) => Promise<any>;
+  private options: any;
 
   constructor(paging, options, fetcher: () => any) {
     this.currentPage = paging.currentPage;

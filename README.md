@@ -63,8 +63,8 @@ vinmonopolet.getProduct('1174701').then(product => {
 ```
 
 ### getProductsByStore
-### <code>getProductsByStore(store_id: string)</code>
-**Returns: <code>Promise<IGetProductsResponse>**</code>
+### <code>getProductsByStore(store_number: string, options? [IGetProductsByStoreOptions](#IGetProductsByStoreOptions))</code>
+**Returns: <code>Promise<[IGetProductsResponse](#IGetProductsResponse)>**</code>
 
 Gets all products in stock in a given store. Takes the store id as parameter.
 
@@ -149,6 +149,20 @@ import vinmonopolet from 'vinmonopolet';
 
 vinmonopolet.getStores().then(stores => {
   console.log(stores)
+})
+```
+
+### getStore
+### <code>getStore(store_number: string)</code>
+**Returns: <code>Promise<[PopulatedStore](#PopulatedStore)>**</code>
+
+Gets a single store by store number.
+
+```ts
+import vinmonopolet from 'vinmonopolet';
+
+vinmonopolet.getStore("114").then(store => {
+  console.log(store)
 })
 ```
 
@@ -443,46 +457,188 @@ class PopulatedProduct extends BaseProduct {
   vintage: number | null;
 ```
 
-### Store
+### BaseStore
 
-
+A basic representation of a store with the core information. baseStore.populate() returns a new instance of [PopulatedStore](#populatedstore) with more detailed information.
 
 ```ts
-{
-  name: 'Oslo, Briskeby',
-  streetAddress: 'Briskebyveien 48',
-  streetZip: '0258',
-  streetCity: 'OSLO',
-  postalAddress: 'Postboks  123',
-  postalZip: '0258',
-  postalCity: 'OSLO',
-  phoneNumber: '04560',
-  // Store category between 1 and 7, or independent (Norwegian)
-  // The higher the number, the better the product selection
-  category: 'Kategori 6',
-  // Coordinates (longitude, latitude)
-  gpsCoordinates: [10.7169757, 59.9206481],
+class BaseStore {
+  /**
+   * Unique ID for the store.
+   */
+  storeNumber: string;
+  /**
+   * The name of the store
+   */
+  name: string;
+  /**
+   * The street address of the store.
+   */
+  streetAddress: string;
+  /**
+   * The zip code of the store.
+   */
+  streetZip: string;
+  /**
+   * The city the store is located in.
+   */
+  streetCity: string;
+  /**
+   * The postal address. Usually just the same as streetAddress.
+   */
+  postalAddress: string;
+  /**
+   * The zip code of the stores postal address. Usually just the same as streetZip.
+   */
+  postalZip: string;
+  /**
+   * The postal city of the store. Usually just the same as the streetCity property.
+   */
+  postalCity: string;
+  /**
+   * The phone number for the store.
+   */
+  phoneNumber: string;
+  /**
+   * GPS coordinates of the store given as a [lat, lon] array.
+   */
+  gpsCoordinates: [number, number];
 
-  // Opening hour details for the given week
-  // Numbers in `opens` and `closes` are minutes since midnight.
-  // In other words: 600 means 10AM, 1080 means 6PM
-  // Any null values means it's closed
-  weekNumber: 20,
-  openingHoursMonday: {opens: 600, closes: 1080},
-  openingHoursTuesday: {opens: 600, closes: 1080},
-  openingHoursWednesday: {opens: 600, closes: 1080},
-  openingHoursThursday: null,
-  openingHoursFriday: {opens: 540, closes: 1080},
-  openingHoursSaturday: {opens: 540, closes: 900},
+  /**
+   * Returns a new instance of PopulatedStore, with more fields.
+   * @returns Promise<PopulatedStore>
+   */
+  populate(): Promise<PopulatedStore> {
+    return new Promise((resolve, reject) => {
+      getStore(this.storeNumber)
+        .then((populatedStore) => resolve(populatedStore))
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+}
+```
 
-  // Opening hour details for the next week
-  weekNumberNext: 21,
-  openingHoursNextMonday: {opens: 600, closes: 1080},
-  openingHoursNextTuesday: {opens: 600, closes: 1080},
-  openingHoursNextWednesday: {opens: 600, closes: 1080},
-  openingHoursNextThursday: {opens: 600, closes: 1080},
-  openingHoursNextFriday: {opens: 540, closes: 1080},
-  openingHoursNextSaturday: null
+### PopulatedStore
+
+Fully detailed representation of the store. **NOTE: Unless using getAllStores, openinghours for next week, as well as week numbers wil be undefined**.
+
+```ts
+class PopulatedStore extends BaseStore {
+  /**
+   * The category of the store. The category ranges from 1 to 7, where 1 is the lowest possible product selection and 7 is the best possible product selection.
+   */
+  category: string;
+  /**
+   * The current week. Usually undefined unless using getAllStores.
+   */
+  weekNumber: number | undefined;
+  /**
+   * An oject representing the opening and closing times of the store on monday this week. Is null if the store is not open that day.
+   */
+  openingHoursMonday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on tuesday this week. Is null if the store is not open that day.
+   */
+  openingHoursTuesday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on wednesday this week. Is null if the store is not open that day.
+   */
+  openingHoursWednesday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on thursday this week. Is null if the store is not open that day.
+   */
+  openingHoursThursday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on friday this week. Is null if the store is not open that day.
+   */
+  openingHoursFriday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on saturday this week. Is null if the store is not open that day.
+   */
+  openingHoursSaturday: IOpeningHours | null;
+  /**
+   * The next weeks number.
+   */
+  weekNumberNext: number;
+  /**
+   * An oject representing the opening and closing times of the store on monday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextMonday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on tuesday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextTuesday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on wendesday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextWednesday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on thursday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextThursday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on friday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextFriday: IOpeningHours | null;
+  /**
+   * An oject representing the opening and closing times of the store on saturday next week. Is null if the store is not open that day.
+   */
+  openingHoursNextSaturday: IOpeningHours | null;
+}
+```
+
+### Pagination 
+
+The pagination model is returned as part of every paginated request. It contains information regarding the total products, page size, current page as well as methods for traversing the result set.
+
+```ts
+class Pagination {
+  /**
+  * The current page of the results.
+  */
+  currentPage: number;
+
+  /**
+  * The number of results in each page.
+  */
+  pageSize: number;
+
+  /**
+  * The total number of pages in the response.
+  */
+  totalPages: number;
+
+  /**
+  * The total number of items in the response.
+  */
+  totalResults: number;
+
+  /**
+  * Is true if there are more pages.
+  */
+  hasNext: boolean;
+
+  /**
+  * Is true if there previous pages.
+  */
+  hasPrevious: boolean;
+
+  /**
+  * A string of the sort options used.
+  */
+  sort: string;
+
+  /**
+  * Returns the next page of the results.
+  */
+  next(): Promise<any>
+
+  /**
+  * Returns the previous page of the results.
+  */
+  previous(): Promise<any>
 }
 ```
 
@@ -495,11 +651,35 @@ const sortFields: readonly ["relevance", "name", "price"];
 const sortOrders: readonly ["asc", "desc"];
 
 interface IGetProductsOptions {
+export interface IGetProductsOptions {
+  /**
+   * Limits the number of products returned in a single, paginated response (Default: 50)
+   */
   limit?: number;
+
+  /**
+   * Which page of the pagination you want to get. (Default: 1)
+   */
   page?: number;
+
+  /**
+   * A freetext query used to filter the products.
+   */
   query?: string;
-  sort?: typeof sortFields[number] | [typeof sortFields[number], typeof sortOrders[number]]; // E.g ["price", "asc"] or just "price";
+
+  /**
+  * Sorting options for the results.  E.g ["price", "asc"] or just "price";
+  */
+  sort?: typeof sortFields[number] | [typeof sortFields[number], typeof sortOrders[number]];
+
+  /**
+  * Get all products with this facet (property).
+  */
   facet?: FacetValue | string;
+
+  /**
+  * An array of facets. Gets all products with these properties.
+  */
   facets?: Array<FacetValue | string | undefined>;
 }
 ```
@@ -507,8 +687,99 @@ interface IGetProductsOptions {
 ### IGetProductsResponse
 ```ts
 interface IGetProductsResponse {
-    pagination: Pagination;
-    products: Product[];
+  /**
+   * Pagination object used to traverse the results.
+   */
+  pagination: Pagination;
+
+  /**
+   * a list of products. Represents one page of the results, use pagination.next to fetch next page of results.
+   */
+  products: Product[];
+}
+```
+
+### IGetProductsByStoreOptions
+
+```ts
+interface IGetProductsByStoreOptions {
+  /**
+   * An array of facets. Gets all products with these properties.
+   */
+  facets?: Array<FacetValue | undefined>;
+
+  /**
+   * Get all products with this facet (property).
+   */
+  facet?: FacetValue;
+
+  /**
+   * Limits the number of products returned in a single, paginated response (Default: 50)
+   */
+  limit?: number;
+}
+```
+
+### IGetProductsByStoreResponse 
+```ts
+interface getProductsByStoreResponse extends IGetProductsResponse {
+    /**
+   * Pagination object used to traverse the results.
+   */
+  pagination: Pagination;
+
+  /**
+   * a list of products. Represents one page of the results, use pagination.next to fetch next page of results.
+   */
+  products: Product[];
+
+  /**
+   * The store number for the results
+   */
+  store: string;
+}
+```
+
+### ISearchStoresOptions
+```ts
+interface ISearchStoresOptions {
+  /**
+   * Which page of the pagination you want to get. (Default: 1)
+   */
+  page?: number;
+
+  /**
+   * A freetext query used to search for stores. Note that only query OR nearLocation can be used at once, with query giving precidence.
+   */
+  query?: string;
+
+  /**
+   * Latitude and longitude coordinates used to search for stores near these coordinates. Note that only query OR nearLocation can be used at once, with query giving precidence.
+   */
+  nearLocation?: { lat: number; lon: number };
+
+  /**
+   * The number of stores returned in a single page. Default:
+   */
+  pageSize?: number;
+}
+```
+
+### ISearchStoresResults
+
+**Note: pagination is not present when searching by query.**
+
+```ts
+interface ISearchStoreResult {
+  /**
+   *  A list of stores. Represents one page of the results, use pagination.next to fetch next page of results.
+   */
+  stores: BaseStore[];
+
+  /**
+   * Pagination object used to traverse the results.
+   */
+  pagination?: Pagination;
 }
 ```
 

@@ -2,9 +2,20 @@ import objectAssign from "object-assign";
 import FacetValue from "../models/FacetValue";
 import getProducts, { IGetProductsResponse } from "./getProducts";
 
-interface getProductsByStoreOptions {
+interface IGetProductsByStoreOptions {
+  /**
+   * An array of facets. Gets all products with these properties.
+   */
   facets?: Array<FacetValue | undefined>;
+
+  /**
+   * Get all products with this facet (property).
+   */
   facet?: FacetValue;
+
+  /**
+   * Limits the number of products returned in a single, paginated response (Default: 50)
+   */
   limit?: number;
 }
 
@@ -14,7 +25,7 @@ interface getProductsByStoreResponse extends IGetProductsResponse {
 
 async function getProductsByStore(
   store,
-  opts?: getProductsByStoreOptions
+  opts?: IGetProductsByStoreOptions
 ): Promise<getProductsByStoreResponse> {
   const id = typeof store.name === "undefined" ? store : store.name;
 

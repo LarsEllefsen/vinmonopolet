@@ -6,6 +6,7 @@ import mocha from "mocha";
 import { transform, countBy } from "lodash";
 import filters from "../src/filters";
 import productUrl from "../src/util/productUrl";
+import { IGetProductsResponse } from "../src/retrievers/getProducts";
 
 /* Don't depend on mocha globals */
 const describe = mocha.describe;
@@ -232,7 +233,7 @@ describe("vinmonopolet", () => {
 
     it("can use the pagination info to traverse next/previous page", () => {
       const chunks: any[] = [];
-      const getNext = (res) => {
+      const getNext = (res: IGetProductsResponse) => {
         chunks.push(res.products[0]);
         return res.pagination.next();
       };

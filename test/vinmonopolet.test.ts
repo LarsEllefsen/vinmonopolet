@@ -310,7 +310,7 @@ describe("vinmonopolet", () => {
   });
 
   describe("getStores", () => {
-    it("can all stores", async () => {
+    it("can get all stores", async () => {
       const stores = await vinmonopolet.getAllStores();
       expect(stores).to.have.length.above(300);
     });
@@ -485,40 +485,44 @@ describe("vinmonopolet", () => {
   });
 
   describe("stream.getProducts", () => {
-    it("It can stream the whole dataset without crashing", (done) => {
-      let totalProducts = 0;
-      const stream = vinmonopolet.stream.getProducts();
-      const onProduct = (prod) => {
-        expect(prod).to.be.an.instanceOf(vinmonopolet.StreamProduct);
-        expect(prod.code).to.be.a("string").and.have.length.above(0);
-        expect(prod).to.not.be.an.instanceOf(
-          PopulatedProduct,
-          "should not say stream products are complete"
-        );
-        totalProducts++;
-      };
+    it("It can stream the whole dataset without crashing", async () => {
+      const stream = await vinmonopolet.stream.getProducts();
+      return new Promise((resolve, reject) => {
+        let totalProducts = 0;
+        const onProduct = (prod) => {
+          expect(prod).to.be.an.instanceOf(vinmonopolet.StreamProduct);
+          expect(prod.code).to.be.a("string").and.have.length.above(0);
+          expect(prod).to.not.be.an.instanceOf(
+            PopulatedProduct,
+            "should not say stream products are complete"
+          );
+          totalProducts++;
+        };
 
-      stream.on("data", onProduct).once("end", () => {
-        expect(totalProducts).to.be.above(20000);
-        done();
+        stream.on("data", onProduct).once("end", () => {
+          expect(totalProducts).to.be.above(20000);
+          resolve();
+        });
       });
     }).timeout(20000);
   });
 
   describe("stream.getStores", () => {
-    it("can stream the entire set of data without crashing", (done) => {
-      let totalStores = 0;
-      const stream = vinmonopolet.stream.getStores();
-      stream
-        .on("data", (prod) => {
-          expect(prod).to.be.an.instanceOf(vinmonopolet.Store);
-          expect(prod.name).to.be.a("string").and.have.length.above(0);
-          totalStores++;
-        })
-        .once("end", () => {
-          expect(totalStores).to.be.above(300);
-          done();
-        });
+    it("can stream the entire set of data without crashing", async () => {
+      const stream = await vinmonopolet.stream.getStores();
+      return new Promise((resolve, reject) => {
+        let totalStores = 0;
+        stream
+          .on("data", (prod) => {
+            expect(prod).to.be.an.instanceOf(vinmonopolet.Store);
+            expect(prod.name).to.be.a("string").and.have.length.above(0);
+            totalStores++;
+          })
+          .once("end", () => {
+            expect(totalStores).to.be.above(300);
+            resolve();
+          });
+      });
     }).timeout(20000);
   });
 

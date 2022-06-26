@@ -12,17 +12,11 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-        "import": "./dist/esm/index.js",
-        "require": "./dist/cjs/index.js"
-    }
-  },
+  "browser": "dist/browser/index.js",
   "scripts": {
     "clean": "rimraf coverage .nyc_output",
     "coverage": "nyc --reporter=html --reporter=lcov --reporter=text _mocha",
     "lint": "eslint .",
-
     "test": "ts-mocha test/**/*.test.ts",
     "build": "rimraf dist && npm run build:cjs && npm run build:esm",
     "build:cjs": "tsc",
@@ -38,6 +32,7 @@
   "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.18.5",
     "@types/chai": "^4.3.1",
     "@types/expect": "^24.3.0",
     "@types/mocha": "^9.1.1",
@@ -60,7 +55,6 @@
   "dependencies": {
     "csv-parser": "^1.12.0",
     "fetch-cookie": "^2.0.5",
-    "got": "^11.0.0",
     "node-fetch": "^2.0.0",
     "promise-map-limit": "^1.0.0",
     "query-string": "^4.3.4",

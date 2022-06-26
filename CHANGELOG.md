@@ -1,10 +1,10 @@
 #Changelog
 
-## [6.0.0] - date here
+## [1.0.0] - date here
 
 A complete "rewrite" (or translation if you will) to TypeScript.
 
-### Breaking changes
+### Breaking changes IF YOU ARE COMING FROM THE ORGINAL VINMONOPOLET PACKAGE:
 - Product: Removed property containerSize in favor of Volume to more closely mirror the api.
 - Product: Removed categories property as it no longer exists.
 - Product: Removed pointOfService property, as it no longer exists.
@@ -15,7 +15,8 @@ A complete "rewrite" (or translation if you will) to TypeScript.
     - getAllStores: Takes no arguments and returns all stores without pagination.
     - searchStores: Takes the same arguments as the old getStores (And effectively the same functionality) but will never be able to return more than 126 stores.
 - Store model is changed to better reflect the new API.
-- stream.getProducts now only returns name and code as per april 2021. This is due to changes from vinmonopolet.
+- Streams now return a promise you need to resolve before you can interact with the stream.
+- stream.getProducts now only returns name and code as per april 2021. This is due to changes in data from Vinmonopolet.
 - Minimum Node version is now 14.
 
 ### Added

@@ -1,32 +1,43 @@
 import csvUrls from "./csvUrls";
-import got from "got";
 import csv from "csv-parser";
+import fetch from "node-fetch";
 import through from "through2";
 import Store from "./models/Store";
 import { StreamProduct } from "./models/Product";
+import { Transform } from "stream";
 
-function getCsvStream(url: string, transformer): NodeJS.ReadableStream {
-  const readStream = got.stream(url);
-  return readStream
-    .pipe(csv({ separator: ";" }))
-    .pipe(through.obj(transformer));
+async function getCsvStream(
+  url: string,
+  transformer
+): Promise<NodeJS.ReadableStream> {
+  const { body } = await fetch(url);
+
+  
+  return body.pipe(csv({ separator: ";" })).pipe(transformer);
 }
 
-const transformStore: through.TransformFunction = function (store, enc, cb) {
-  this.push(new Store(store));
-  cb();
-};
-
-const transformProduct: through.TransformFunction = function (prod, enc, cb) {
-  this.push(new StreamProduct(prod));
-  cb();
-};
-
 const getProducts = () => {
+  const transformProduct = new Transform({
+    objectMode: true,
+    transform(chunk, enc, cb) {
+      const product = new StreamProduct(chunk);
+      this.push(product);
+      cb();
+    }
+  })
   return getCsvStream(csvUrls.products, transformProduct);
 };
 
 const getStores = () => {
+  const transformStore = new Transform({
+    objectMode: true,
+    transform(chunk, enc, cb) {
+      const store = new Store(chunk);
+      this.push(store);
+      cb();
+    }
+  })
+
   return getCsvStream(csvUrls.stores, transformStore);
 };
 

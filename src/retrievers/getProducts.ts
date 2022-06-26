@@ -11,13 +11,31 @@ const sortOrders = ["asc", "desc"] as const;
 const sortTakesOrder = ["name", "price"] as const;
 
 export interface IGetProductsOptions {
+  /**
+   * Limits the number of products returned in a single, paginated response (Default: 50)
+   */
   limit?: number;
+  /**
+   * Which page of the pagination you want to get. (Default: 1)
+   */
   page?: number;
+  /**
+   * A freetext query used to filter the products.
+   */
   query?: string;
+  /**
+   * Sorting options for the results.
+   */
   sort?:
     | typeof sortFields[number]
     | [typeof sortFields[number], typeof sortOrders[number]];
+  /**
+   * Facet used to filter the products on given properties.
+   */
   facet?: FacetValue | string;
+  /**
+   * Multiple facets used to filter the products on given properties.
+   */
   facets?: Array<FacetValue | string | undefined>;
 }
 

@@ -97,7 +97,7 @@ function getPagination(currentPage, pageSize, res) {
 }
 
 async function getAllStores(): Promise<Store[]> {
-  const readableStream = stream.getStores();
+  const readableStream = await stream.getStores();
   const storeStream: Promise<Store[]> = new Promise((resolve, reject) => {
     const completeResponse: Store[] = [];
     const onData = (chunk: Store) => {

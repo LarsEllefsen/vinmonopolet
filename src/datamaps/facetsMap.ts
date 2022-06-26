@@ -3,7 +3,7 @@ import number from "../filters/number";
 import clockToPercentage from "../filters/clockToPercentage";
 import boolean from "../filters/boolean";
 
-const pairingCodeToIdentifier = (code: string) =>
+const pairingCodeToIdentifier = (code: string): FoodPairing =>
   FoodPairing[code] && FoodPairing[code].identifier;
 
 export default {

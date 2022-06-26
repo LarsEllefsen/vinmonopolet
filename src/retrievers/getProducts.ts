@@ -45,6 +45,7 @@ export interface IGetProductsResponse {
 }
 
 export interface IQuery {
+  [prop: string]: number | string;
   pageSize: number;
   currentPage: number;
   fields: string;

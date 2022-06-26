@@ -320,6 +320,7 @@ describe("vinmonopolet", () => {
         query: "Oslo, Aker Brygge",
       });
       expect(stores[0].name).to.be.equal("Oslo, Aker Brygge");
+      expect(stores[0]).to.be.instanceOf(vinmonopolet.BaseStore);
     });
 
     it("can search for store by location", async () => {
@@ -345,6 +346,22 @@ describe("vinmonopolet", () => {
           .to.be.a("number")
           .and.be.above(100);
       }));
+
+    it("can populated a BaseStore", async () => {
+      const { stores } = await vinmonopolet.searchStores();
+      const populatedStore = await stores[0].populate();
+      expect(populatedStore).to.be.instanceOf(vinmonopolet.PopulatedStore);
+      expect(populatedStore).to.have.property("category");
+      expect(populatedStore).to.have.property("openingHoursFriday");
+      expect(populatedStore.openingHoursFriday?.opens).to.not.be.undefined.and
+        .not.be.null;
+    });
+
+    it("can get a store by id", async () => {
+      const store = await vinmonopolet.getStore("143");
+      expect(store).to.be.instanceOf(vinmonopolet.PopulatedStore);
+      expect(store.storeNumber).to.equal("143");
+    });
   });
 
   describe("getFacets", () => {
@@ -514,7 +531,7 @@ describe("vinmonopolet", () => {
         let totalStores = 0;
         stream
           .on("data", (prod) => {
-            expect(prod).to.be.an.instanceOf(vinmonopolet.Store);
+            expect(prod).to.be.an.instanceOf(vinmonopolet.PopulatedStore);
             expect(prod.name).to.be.a("string").and.have.length.above(0);
             totalStores++;
           })

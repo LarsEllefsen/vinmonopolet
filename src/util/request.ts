@@ -5,7 +5,7 @@ import fetchCookie from "fetch-cookie";
 const baseUrl = "https://app.vinmonopolet.no/vmpws/v2/vmp";
 
 export interface IRequestOptions {
-  query?: string;
+  query?: { [prop: string]: string | number };
   baseUrl?: string;
   request?: any;
 }
@@ -23,7 +23,10 @@ function sendRequest(
   return fetch(url, reqOpts);
 }
 
-sendRequest.get = (path, options): Promise<any> =>
+sendRequest.get = (
+  path: string,
+  options: IRequestOptions
+): Promise<{ [prop: string]: any }> =>
   sendRequest(path, options)
     .then((data) => {
       const { status, statusText } = data;

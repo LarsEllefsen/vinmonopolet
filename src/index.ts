@@ -7,7 +7,7 @@ import BaseProduct, { PopulatedProduct, StreamProduct } from "./models/Product";
 import ProductImage from "./models/ProductImage";
 import ProductStatus from "./models/ProductStatus";
 import RawMaterial from "./models/RawMaterial";
-import Store from "./models/Store";
+import PopulatedStore, { BaseStore } from "./models/Store";
 
 import getProducts, { getProductCount } from "./retrievers/getProducts";
 import getProduct from "./retrievers/getProduct";
@@ -17,21 +17,9 @@ import getProductsByStore from "./retrievers/getProductsByStore";
 import getProductsByIds from "./retrievers/getProductsById";
 import getAllStores, { searchStores } from "./retrievers/getStores";
 import searchProducts from "./retrievers/searchProducts";
+import getStore from "./retrievers/getStore";
 
 import stream from "./stream";
-
-const test = async () => {
-  const { products } = await getProducts({ limit: 1 });
-  const { products: products2 } = await getProducts({
-    limit: 1,
-    page: 2,
-  });
-
-  console.log(products[0]);
-  console.log(products2[0]);
-};
-
-// test();
 
 export default {
   Facet,
@@ -45,7 +33,8 @@ export default {
   ProductImage,
   ProductStatus,
   RawMaterial,
-  Store,
+  PopulatedStore,
+  BaseStore,
 
   getProducts,
   getProductCount,
@@ -55,6 +44,7 @@ export default {
   getProductsByStore,
   getProductsByIds,
   getAllStores,
+  getStore,
   searchStores,
   searchProducts,
   stream,

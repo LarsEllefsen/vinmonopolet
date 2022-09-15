@@ -1,7 +1,7 @@
 {
-  "name": "vinmonopolet",
+  "name": "vinmonopolet-ts",
   "description": "Extracts information on products, categories and stores from Vinmonopolet",
-  "version": "5.1.0",
+  "version": "1.0.0",
   "keywords": [
     "vinmonopolet",
     "beer",
@@ -12,7 +12,6 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "browser": "dist/browser/index.js",
   "scripts": {
     "clean": "rimraf coverage .nyc_output",
     "coverage": "nyc --reporter=html --reporter=lcov --reporter=text _mocha",
@@ -27,9 +26,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:rexxars/vinmonopolet.git"
+    "url": "git@github.com:LarsEllefsen/vinmonopolet.git"
   },
   "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
+  "contributors": [
+    {
+      "name": "Lars Moe Ellefsen",
+      "email": "larsmoeellefsen@gmail.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.18.5",

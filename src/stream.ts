@@ -1,7 +1,6 @@
 import csvUrls from "./csvUrls";
 import csv from "csv-parser";
 import fetch from "node-fetch";
-import through from "through2";
 import Store from "./models/Store";
 import { StreamProduct } from "./models/Product";
 import { Transform } from "stream";

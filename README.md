@@ -1,4 +1,4 @@
-# vinmonopolet
+# vinmonopolet-ts
 
 **This is a fork of the original packge: https://www.npmjs.com/package/vinmonopolet**
 
@@ -8,11 +8,11 @@ Extracts information on products and stores from Vinmonopolet.
 The `vinmonopolet` library can be installed using [npm](https://npmjs.org/):
 
 ```bash
-npm install vinmonopolet
+npm install vinmonopolet-ts
 ```
 
 ```bash
-yarn add vinmonopolet
+yarn add vinmonopolet-ts
 ```
 
 ## Disclaimer & terms of service

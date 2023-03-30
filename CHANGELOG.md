@@ -1,27 +1,37 @@
 #Changelog
 
-## [1.0.0] - date here
+## [2.0.0]
+
+Changed package export method to individual exports so that you no longer need to import the whole package.
+
+### Breaking changes
+
+The package no longer exports a default object, but rather individual exports.
+
+## [1.0.0]
 
 A complete "rewrite" (or translation if you will) to TypeScript.
 
 ### Breaking changes IF YOU ARE COMING FROM THE ORGINAL VINMONOPOLET PACKAGE:
+
 - Product: Removed property containerSize in favor of Volume to more closely mirror the api.
 - Product: Removed categories property as it no longer exists.
 - Product: Removed pointOfService property, as it no longer exists.
-- Split Product into BaseProduct, StreamProduct and PopulatedProduct. Import for the old Product is now BaseProduct, and populate returns a new instance of PopulatedProduct instead. 
+- Split Product into BaseProduct, StreamProduct and PopulatedProduct. Import for the old Product is now BaseProduct, and populate returns a new instance of PopulatedProduct instead.
 - Product: removed isComplete(), as populate returns a new object instead.
 - Removed onlyCount option from getProducts. It is now its own function getProductCount.
 - Removed getStores as vinmonopolet now only returns a maximum of 126 stores. The old functionality is now effectively split in two new APIs:
-    - getAllStores: Takes no arguments and returns all stores without pagination.
-    - searchStores: Takes the same arguments as the old getStores (And effectively the same functionality) but will never be able to return more than 126 stores.
+  - getAllStores: Takes no arguments and returns all stores without pagination.
+  - searchStores: Takes the same arguments as the old getStores (And effectively the same functionality) but will never be able to return more than 126 stores.
 - Store model is changed to better reflect the new API:
-    - Like products Store is now split into BaseStore and PopulatedStore. This is due to changes from vinmonopolet.
-    - getAllStores will return PopulatedProduct w
+  - Like products Store is now split into BaseStore and PopulatedStore. This is due to changes from vinmonopolet.
+  - getAllStores will return PopulatedProduct w
 - Streams now return a promise you need to resolve before you can interact with the stream.
 - stream.getProducts now only returns name and code as per april 2021. This is due to changes in data from Vinmonopolet.
 - Minimum Node version is now 14.
 
 ### Added
+
 - Product: Added allergens property.
 - Product: Added style property.
 - Facets: Added static strings to generate product category facets.
@@ -32,6 +42,7 @@ A complete "rewrite" (or translation if you will) to TypeScript.
 - SearchStore function.
 
 ### Changed
-- GetStores is completely rewritten. The old api is no longer in use, and the current one returns a maximum of 126 stores in total. 
-Instead we just use the stream api and make it more "synchronous" for those who dont want to use the stream implementation.
+
+- GetStores is completely rewritten. The old api is no longer in use, and the current one returns a maximum of 126 stores in total.
+  Instead we just use the stream api and make it more "synchronous" for those who dont want to use the stream implementation.
 - Facet: Facet title now maps to the "code" property instead of the name property. This should restore the old functionality where title now maps to the english name.

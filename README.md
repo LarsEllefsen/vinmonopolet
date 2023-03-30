@@ -9,11 +9,11 @@ Extracts information on products and stores from Vinmonopolet.
 The `vinmonopolet` library can be installed using [npm](https://npmjs.org/):
 
 ```bash
-npm install vinmonopolet
+npm install vinmonopolet-ts
 ```
 
 ```bash
-yarn add vinmonopolet
+yarn add vinmonopolet-ts
 ```
 
 ## Disclaimer & terms of service
@@ -39,7 +39,7 @@ Get all products with the given facet and/or query. If no options are present it
 example:
 
 ```ts
-import { getProducts, Facet } from "vinmonopolet";
+import { getProducts, Facet } from "vinmonopolet-ts";
 
 getProducts().then((response) => {
   console.log(response.products); // Array of products
@@ -64,7 +64,7 @@ getProducts({ facet: Facet.category.BEER, sort: ["price", "desc"] }).then(
 Gets a specific product by its code / id. Returns a fully populated product instance.
 
 ```ts
-import { getProduct } from "vinmonopolet";
+import { getProduct } from "vinmonopolet-ts";
 
 getProduct("1174701").then((product) => {
   console.log(product);
@@ -80,7 +80,7 @@ getProduct("1174701").then((product) => {
 Gets all products in stock in a given store. Takes the store id as parameter.
 
 ```ts
-import { getProductsByStore } from "vinmonopolet";
+import { getProductsByStore } from "vinmonopolet-ts";
 
 getProductsByStore("160").then((response) => {
   console.log(response.products); // Array of products
@@ -97,7 +97,7 @@ getProductsByStore("160").then((response) => {
 Returns all products that matches the given query.
 
 ```ts
-import { searchProducts } from "vinmonopolet";
+import { searchProducts } from "vinmonopolet-ts";
 
 searchProducts("valpolicella", { sort: ["price", "asc"] }).then((response) => {
   console.log(response.products); // Array of products
@@ -112,7 +112,7 @@ searchProducts("valpolicella", { sort: ["price", "asc"] }).then((response) => {
 **Returns: <code>Promise<[PopulatedProduct](#PopulatedProduct)>**</code>
 
 ```ts
-import { getProduct } from "vinmonopolet";
+import { getProduct } from "vinmonopolet-ts";
 
 getProduct("5060154910315").then((product) => {
   console.log(product);
@@ -128,7 +128,7 @@ getProduct("5060154910315").then((product) => {
 Gets all products given by the code array.
 
 ```js
-import { getProductsById } from "vinmonopolet";
+import { getProductsById } from "vinmonopolet-ts";
 
 getProductsById(["1174701", "1148714"]).then((product) => {
   console.log(product);
@@ -146,7 +146,7 @@ Gets all available facets. Facets are used to filter products on a given propert
 example usage:
 
 ```ts
-import { getFacets, getProducts } from "vinmonopolet";
+import { getFacets, getProducts } from "vinmonopolet-ts";
 
 getFacets()
   .then((facets) => {
@@ -171,7 +171,7 @@ getFacets()
 Gets all Vinmonopolet stores.
 
 ```ts
-import { getStores } from "vinmonopolet";
+import { getStores } from "vinmonopolet-ts";
 
 getStores().then((stores) => {
   console.log(stores);
@@ -187,7 +187,7 @@ getStores().then((stores) => {
 Gets a single store by store number.
 
 ```ts
-import { getStore } from "vinmonopolet";
+import { getStore } from "vinmonopolet-ts";
 
 getStore("114").then((store) => {
   console.log(store);
@@ -204,7 +204,7 @@ Searches for stores with the given options. Returns a paginated results in desce
 Note that the stores returned through this method may lack some properties, this is due to a limitation from vinmonopolet.
 
 ```ts
-import { searchStores } from "vinmonopolet";
+import { searchStores } from "vinmonopolet-ts";
 
 // Search by name
 searchStores({ query: "Trondheim" }).then((res) => {
@@ -228,7 +228,7 @@ searchStores({ nearLocation: { lat: 59.910478, lon: 10.743937 } }).then(
 **Returns: <code>Promise<NodeJS.ReadableStream>**</code>
 
 ```ts
-import { stream, StreamProduct } from "vinmonopolet";
+import { stream, StreamProduct } from "vinmonopolet-ts";
 
 stream.getProducts().then((stream: NodeJS.ReadableStream) => {
   stream
@@ -248,7 +248,7 @@ stream.getProducts().then((stream: NodeJS.ReadableStream) => {
 **Returns: <code>Promise<NodeJS.ReadableStream>**</code>
 
 ```ts
-import { stream, store } from "vinmonopolet";
+import { stream, store } from "vinmonopolet-ts";
 
 stream.getStores().then((stream: NodeJS.ReadableStream) => {
   stream
@@ -271,7 +271,7 @@ Note that facets are not strongly typed, but there are however "static" facets f
 These static Facets can be used like this:
 
 ```ts
-import { Facet, FacetCategory, getProducts } from "vinmonopolet";
+import { Facet, FacetCategory, getProducts } from "vinmonopolet-ts";
 
 async function approach1() {
   const productCategory = Facet.Category.CIDER; //Or MEAD, or WHITE_WINE etc...

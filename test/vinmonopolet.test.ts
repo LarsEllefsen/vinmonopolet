@@ -1,6 +1,29 @@
 import { expect } from "chai";
-import vinmonopolet from "../src/index";
-import BaseProduct, { PopulatedProduct } from "../src/models/Product";
+import {
+  getAllStores,
+  getProducts,
+  getProductCount,
+  getFacets,
+  getProductsByStore,
+  getProduct,
+  getProductsByIds,
+  getStore,
+  Facet,
+  Pagination,
+  searchStores,
+  BaseStore,
+  PopulatedStore,
+  FacetValue,
+  searchProducts,
+  FoodPairing,
+  ProductImage,
+  RawMaterial,
+  stream,
+} from "../src/index";
+import BaseProduct, {
+  PopulatedProduct,
+  StreamProduct,
+} from "../src/models/Product";
 import mocha from "mocha";
 
 import { transform, countBy } from "lodash";
@@ -27,35 +50,34 @@ const dupes = (array) =>
   );
 
 const getProductCode = (): Promise<string> =>
-  vinmonopolet
-    .getProducts({ sort: ["price", "desc"], limit: 1 })
+  getProducts({ sort: ["price", "desc"], limit: 1 })
     .then(first)
     .then((res) => res.code);
 
 describe("vinmonopolet", () => {
   describe("getProducts", () => {
     it("can get a basic listing of products", async () => {
-      const { products } = await vinmonopolet.getProducts();
+      const { products } = await getProducts();
       expect(products).to.have.length.above(0);
     });
 
     it("returns array of Product instances", async () => {
-      const { products } = await vinmonopolet.getProducts();
+      const { products } = await getProducts();
       products.forEach((product) => {
         expect(product).to.be.an.instanceOf(BaseProduct);
       });
     });
 
     it("Can apply a limit", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
       });
       expect(products).to.have.lengthOf(1);
     });
 
     it("can apply an offset (page number)", async () => {
-      const { products } = await vinmonopolet.getProducts({ limit: 1 });
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({ limit: 1 });
+      const { products: products2 } = await getProducts({
         limit: 1,
         page: 2,
       });
@@ -67,7 +89,7 @@ describe("vinmonopolet", () => {
     });
 
     it("can apply sorting by relevance (as a string)", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         sort: "relevance",
         limit: 1,
       });
@@ -75,11 +97,11 @@ describe("vinmonopolet", () => {
     });
 
     it("can apply sorting by name (as a string)", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
         sort: "price",
       });
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products: products2 } = await getProducts({
         limit: 1,
         sort: "name",
       });
@@ -91,11 +113,11 @@ describe("vinmonopolet", () => {
     });
 
     it("can apply sorting by name (ascending/descending)", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
         sort: ["name", "asc"],
       });
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products: products2 } = await getProducts({
         limit: 1,
         sort: ["name", "desc"],
       });
@@ -107,11 +129,11 @@ describe("vinmonopolet", () => {
     });
 
     it("can apply sorting by price (as a string)", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
         sort: "name",
       });
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products: products2 } = await getProducts({
         limit: 1,
         sort: "price",
       });
@@ -123,15 +145,15 @@ describe("vinmonopolet", () => {
     });
 
     it("can apply sorting by price (ascending/descending)", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
         sort: ["price", "asc"],
       });
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products: products2 } = await getProducts({
         limit: 1,
         sort: ["price", "desc"],
       });
-
+      console.log(products[0].price);
       expect(products[0].price).to.be.below(
         products2[0].price,
         "products are not the same when applying different sorts"
@@ -139,12 +161,12 @@ describe("vinmonopolet", () => {
     });
 
     it("applying sort order to relevance makes no difference", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 1,
         sort: ["relevance", "asc"],
       });
 
-      const { products: products2 } = await vinmonopolet.getProducts({
+      const { products: products2 } = await getProducts({
         limit: 1,
         sort: ["relevance", "desc"],
       });
@@ -154,27 +176,27 @@ describe("vinmonopolet", () => {
 
     it("throws if trying to sort on unknown field", () => {
       expect(() => {
-        vinmonopolet.getProducts({ sort: "foo" });
+        getProducts({ sort: "foo" });
       }).to.throw(/not valid.*?relevance/);
     });
 
     it("throws if trying to sort in unknown order", () => {
       expect(() => {
-        vinmonopolet.getProducts({ sort: ["price", "bar"] });
+        getProducts({ sort: ["price", "bar"] });
       }).to.throw(/not valid.*?asc/);
     });
 
     it("can apply facet to limit result scope", async () => {
-      const { products } = await vinmonopolet.getProducts({
-        facet: vinmonopolet.Facet.Category.MEAD,
+      const { products } = await getProducts({
+        facet: Facet.Category.MEAD,
       });
 
       products.forEach((prod) => expect(prod.productType).to.equal("Mjød"));
     });
 
     it("can apply multiple facets to limit result scope", async () => {
-      const { products } = await vinmonopolet.getProducts({
-        facets: [vinmonopolet.Facet.Category.BEER, "mainCountry:norge"],
+      const { products } = await getProducts({
+        facets: [Facet.Category.BEER, "mainCountry:norge"],
       });
 
       products.forEach(
@@ -186,18 +208,18 @@ describe("vinmonopolet", () => {
 
     it("throws is trying to apply invalid facet value", async () => {
       expect(() => {
-        vinmonopolet.getProducts({ facet: "fooBar" });
+        getProducts({ facet: "fooBar" });
       }).to.throw(/<facet>:<value>/);
     });
 
     it("accepts cooercion of valid facet values", () => {
       expect(() => {
-        vinmonopolet.getProducts({ facet: "mainCategory:rødvin" });
+        getProducts({ facet: "mainCategory:rødvin" });
       }).to.not.throw();
     });
 
     it("can apply a freetext query", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         query: "valpolicella",
         limit: 3,
       });
@@ -208,20 +230,20 @@ describe("vinmonopolet", () => {
     });
 
     it("returns empty array if no results are found", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         query: `nonexistant${Date.now()}`,
       });
       expect(products).to.have.lengthOf(0);
     });
 
     it("returns pagination info", async () => {
-      const { pagination, products } = await vinmonopolet.getProducts({
+      const { pagination, products } = await getProducts({
         limit: 1,
         sort: ["name", "asc"],
       });
 
       expect(products).to.be.an("array").and.have.lengthOf(1);
-      expect(pagination).to.be.an.instanceOf(vinmonopolet.Pagination);
+      expect(pagination).to.be.an.instanceOf(Pagination);
       expect(pagination).to.have.property("currentPage", 0);
       expect(pagination).to.have.property("pageSize", 1);
       expect(pagination).to.have.property("hasNext", true);
@@ -255,8 +277,7 @@ describe("vinmonopolet", () => {
         );
       };
 
-      return vinmonopolet
-        .getProducts({ limit: 1 })
+      return getProducts({ limit: 1 })
         .then(getNext)
         .then(getNext)
         .then(getNext)
@@ -265,7 +286,7 @@ describe("vinmonopolet", () => {
     });
 
     it("can get a populated product instance", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         query: "valpolicella",
         limit: 1,
       });
@@ -273,11 +294,11 @@ describe("vinmonopolet", () => {
       const populatedProduct = await products[0].populate();
 
       expect(populatedProduct).to.have.property("ageLimit").and.be.above(17);
-      expect(populatedProduct).to.be.instanceOf(vinmonopolet.PopulatedProduct);
+      expect(populatedProduct).to.be.instanceOf(PopulatedProduct);
     });
 
     it("can get a populated product instance", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         query: "valpolicella",
         limit: 1,
       });
@@ -285,25 +306,23 @@ describe("vinmonopolet", () => {
       const populatedProduct = await products[0].populate();
       const rePopulatedProduct = await populatedProduct.populate();
       expect(rePopulatedProduct).to.have.property("ageLimit").and.be.above(17);
-      expect(rePopulatedProduct).to.be.instanceOf(
-        vinmonopolet.PopulatedProduct
-      );
+      expect(rePopulatedProduct).to.be.instanceOf(PopulatedProduct);
     });
   });
 
   describe("getProductCount", () => {
     it("can get a total count for a regular query", async () => {
-      const count = await vinmonopolet.getProductCount({ sort: "name" });
+      const count = await getProductCount({ sort: "name" });
       expect(count).to.be.a("number").and.be.above(0);
     });
 
     it("can get a total count regardless of options", async () => {
-      const count = await vinmonopolet.getProductCount({
+      const count = await getProductCount({
         sort: ["name", "desc"],
         query: "valpolicella",
         limit: 10,
         page: 2,
-        facets: [vinmonopolet.Facet.Category.RED_WINE],
+        facets: [Facet.Category.RED_WINE],
       });
 
       expect(count).to.be.a("number").and.be.above(0);
@@ -312,20 +331,20 @@ describe("vinmonopolet", () => {
 
   describe("getStores", () => {
     it("can get all stores", async () => {
-      const stores = await vinmonopolet.getAllStores();
+      const stores = await getAllStores();
       expect(stores).to.have.length.above(300);
     });
 
     it("can search for store by query", async () => {
-      const { stores } = await vinmonopolet.searchStores({
+      const { stores } = await searchStores({
         query: "Oslo, Aker Brygge",
       });
       expect(stores[0].name).to.be.equal("Oslo, Aker Brygge");
-      expect(stores[0]).to.be.instanceOf(vinmonopolet.BaseStore);
+      expect(stores[0]).to.be.instanceOf(BaseStore);
     });
 
     it("can search for store by location", async () => {
-      const { stores } = await vinmonopolet.searchStores({
+      const { stores } = await searchStores({
         nearLocation: {
           lat: 63.405,
           lon: 10.402,
@@ -335,9 +354,9 @@ describe("vinmonopolet", () => {
     });
 
     it("returns pagination info", () =>
-      vinmonopolet.searchStores({}).then((res) => {
+      searchStores({}).then((res) => {
         expect(res.stores).to.be.an("array").and.have.lengthOf(10);
-        expect(res.pagination).to.be.an.instanceOf(vinmonopolet.Pagination);
+        expect(res.pagination).to.be.an.instanceOf(Pagination);
         expect(res.pagination).to.have.property("currentPage", 0);
         expect(res.pagination).to.have.property("pageSize", 10);
         expect(res.pagination).to.have.property("hasNext", true);
@@ -349,9 +368,9 @@ describe("vinmonopolet", () => {
       }));
 
     it("can populated a BaseStore", async () => {
-      const { stores } = await vinmonopolet.searchStores();
+      const { stores } = await searchStores();
       const populatedStore = await stores[0].populate();
-      expect(populatedStore).to.be.instanceOf(vinmonopolet.PopulatedStore);
+      expect(populatedStore).to.be.instanceOf(PopulatedStore);
       expect(populatedStore).to.have.property("category");
       expect(populatedStore).to.have.property("openingHoursFriday");
       expect(populatedStore.openingHoursFriday?.opens).to.not.be.undefined.and
@@ -359,27 +378,25 @@ describe("vinmonopolet", () => {
     });
 
     it("can get a store by id", async () => {
-      const store = await vinmonopolet.getStore("143");
-      expect(store).to.be.instanceOf(vinmonopolet.PopulatedStore);
+      const store = await getStore("143");
+      expect(store).to.be.instanceOf(PopulatedStore);
       expect(store.storeNumber).to.equal("143");
     });
   });
 
   describe("getFacets", () => {
     it("can get facets list, returns promise of array", async () => {
-      const facets = await vinmonopolet.getFacets();
+      const facets = await getFacets();
       expect(facets).to.have.length.above(0);
     });
 
     it("Cooerces to Facet instance", async () => {
-      const facets = await vinmonopolet.getFacets();
-      facets.forEach((facet) =>
-        expect(facet).to.be.instanceOf(vinmonopolet.Facet)
-      );
+      const facets = await getFacets();
+      facets.forEach((facet) => expect(facet).to.be.instanceOf(Facet));
     });
 
     it("populates facets with title, name, category and values", async () => {
-      const facets = await vinmonopolet.getFacets();
+      const facets = await getFacets();
       facets.forEach((facet) => {
         expect(facet).to.have.property("title");
         expect(facet).to.have.property("name");
@@ -387,24 +404,24 @@ describe("vinmonopolet", () => {
         expect(facet).to.have.property("values").and.be.an("array");
 
         facet.values.forEach((val) =>
-          expect(val).to.be.an.instanceOf(vinmonopolet.FacetValue)
+          expect(val).to.be.an.instanceOf(FacetValue)
         );
       });
     });
 
     it("can use returned facets to search for products", async () => {
-      const facets = await vinmonopolet.getFacets();
+      const facets = await getFacets();
       const countryFacet = facets.find(
         (facet) => facet.title === "mainCountry"
       );
-      expect(countryFacet).to.be.an.instanceOf(vinmonopolet.Facet);
+      expect(countryFacet).to.be.an.instanceOf(Facet);
 
       const norwayFacetValue = countryFacet?.values.find(
         (val) => val.name === "Norge"
       );
-      expect(norwayFacetValue).to.be.an.instanceOf(vinmonopolet.FacetValue);
+      expect(norwayFacetValue).to.be.an.instanceOf(FacetValue);
 
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         limit: 3,
         facet: norwayFacetValue,
       });
@@ -418,13 +435,13 @@ describe("vinmonopolet", () => {
 
   describe("searchProducts", () => {
     it("takes the same options as getProducts", async () => {
-      const { products } = await vinmonopolet.searchProducts("valpolicella", {
+      const { products } = await searchProducts("valpolicella", {
         limit: 3,
         sort: ["price", "asc"],
       });
 
       products.reduce((prevPrice, prod) => {
-        expect(prod.price).to.be.above(prevPrice);
+        expect(prod.price).to.not.be.below(prevPrice);
         expect(prod.name.toLowerCase()).to.include("valpolicella");
         return prod.price;
       }, 0);
@@ -433,35 +450,35 @@ describe("vinmonopolet", () => {
 
   describe("getProduct", () => {
     it("fetches a given product", async () => {
-      const product = await vinmonopolet.getProduct("gavekort");
+      const product = await getProduct("gavekort");
       expect(product)
-        .to.be.an.instanceOf(vinmonopolet.PopulatedProduct)
+        .to.be.an.instanceOf(PopulatedProduct)
         .and.include.keys({ code: "gavekort", name: "Gavekort" });
     });
 
     it("populates with food pairing that can be stringified", async () => {
       const code = await getProductCode();
-      const product = await vinmonopolet.getProduct(code);
+      const product = await getProduct(code);
       product.foodPairing?.forEach((food) => {
-        expect(food).to.be.an.instanceOf(vinmonopolet.FoodPairing);
+        expect(food).to.be.an.instanceOf(FoodPairing);
         expect(food.toString()).to.be.a("string").and.have.length.above(0);
       });
     });
 
     it("populates with raw materials that can be stringified", async () => {
       const code = await getProductCode();
-      const product = await vinmonopolet.getProduct(code);
+      const product = await getProduct(code);
       product.rawMaterial?.forEach((raw) => {
-        expect(raw).to.be.an.instanceOf(vinmonopolet.RawMaterial);
+        expect(raw).to.be.an.instanceOf(RawMaterial);
         expect(raw.toString()).to.be.a("string").and.have.length.above(0);
       });
     });
 
     it("populates with product images that can be stringified", async () => {
       const code = await getProductCode();
-      const product = await vinmonopolet.getProduct(code);
+      const product = await getProduct(code);
       product.images?.forEach((img) => {
-        expect(img).to.be.an.instanceOf(vinmonopolet.ProductImage);
+        expect(img).to.be.an.instanceOf(ProductImage);
         expect(img.toString()).to.match(/^https?:\/\//);
       });
     });
@@ -469,14 +486,14 @@ describe("vinmonopolet", () => {
 
   describe("getProductsById", () => {
     it("fetches products by id", async () => {
-      const { products } = await vinmonopolet.getProducts({
+      const { products } = await getProducts({
         query: "valpolicella",
         limit: 3,
       });
 
       const codes = products.map((product) => product.code);
 
-      const productsById = await vinmonopolet.getProductsByIds(codes);
+      const productsById = await getProductsByIds(codes);
 
       productsById.forEach((prod) => {
         expect(prod.name.toLowerCase()).to.contain("valpolicella");
@@ -486,7 +503,7 @@ describe("vinmonopolet", () => {
 
   describe("getProductsByStore", () => {
     it("fetches products by store id", async () => {
-      const { products, store } = await vinmonopolet.getProductsByStore("160", {
+      const { products, store } = await getProductsByStore("160", {
         limit: 3,
       });
       expect(products).to.have.length(3);
@@ -494,8 +511,8 @@ describe("vinmonopolet", () => {
     });
 
     it("fetches products by store and with facet", async () => {
-      const { products, store } = await vinmonopolet.getProductsByStore("160", {
-        facet: vinmonopolet.Facet.Category.BEER,
+      const { products, store } = await getProductsByStore("160", {
+        facet: Facet.Category.BEER,
       });
       expect(store).to.be.equal("160");
       products.forEach((prod) => expect(prod.productType).to.equal("Øl"));
@@ -504,11 +521,11 @@ describe("vinmonopolet", () => {
 
   describe("stream.getProducts", () => {
     it("It can stream the whole dataset without crashing", async () => {
-      const stream = await vinmonopolet.stream.getProducts();
+      const _stream = await stream.getProducts();
       return new Promise((resolve, reject) => {
         let totalProducts = 0;
         const onProduct = (prod) => {
-          expect(prod).to.be.an.instanceOf(vinmonopolet.StreamProduct);
+          expect(prod).to.be.an.instanceOf(StreamProduct);
           expect(prod.code).to.be.a("string").and.have.length.above(0);
           expect(prod).to.not.be.an.instanceOf(
             PopulatedProduct,
@@ -517,7 +534,7 @@ describe("vinmonopolet", () => {
           totalProducts++;
         };
 
-        stream.on("data", onProduct).once("end", () => {
+        _stream.on("data", onProduct).once("end", () => {
           expect(totalProducts).to.be.above(20000);
           resolve();
         });
@@ -527,12 +544,12 @@ describe("vinmonopolet", () => {
 
   describe("stream.getStores", () => {
     it("can stream the entire set of data without crashing", async () => {
-      const stream = await vinmonopolet.stream.getStores();
+      const _stream = await stream.getStores();
       return new Promise((resolve, reject) => {
         let totalStores = 0;
-        stream
+        _stream
           .on("data", (prod) => {
-            expect(prod).to.be.an.instanceOf(vinmonopolet.PopulatedStore);
+            expect(prod).to.be.an.instanceOf(PopulatedStore);
             expect(prod.name).to.be.a("string").and.have.length.above(0);
             totalStores++;
           })

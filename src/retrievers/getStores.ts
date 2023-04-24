@@ -47,7 +47,7 @@ export interface ISearchStoreResult {
   /**
    * Pagination object used to traverse the results.
    */
-  pagination?: Pagination;
+  pagination?: Pagination<ISearchStoreResult>;
 }
 
 export function searchStores(

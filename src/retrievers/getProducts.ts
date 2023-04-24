@@ -43,7 +43,7 @@ export interface IGetProductsResponse {
   /**
    * Pagination object used to traverse the results.
    */
-  pagination: Pagination;
+  pagination: Pagination<IGetProductsResponse>;
   /**
    * a list of products. Represents one page of the results, use pagination.next to fetch next page of results.
    */
@@ -69,7 +69,11 @@ function getProducts(
 
   return req.then((res) => ({
     products: (res.products || []).map((i) => new Product(i)),
-    pagination: new Pagination(res.pagination, options, getProducts),
+    pagination: new Pagination<IGetProductsResponse>(
+      res.pagination,
+      options,
+      getProducts
+    ),
   }));
 }
 

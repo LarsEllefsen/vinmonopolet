@@ -1,4 +1,4 @@
-class Pagination {
+class Pagination<T> {
   /**
    * The current page of the results.
    */
@@ -34,10 +34,10 @@ class Pagination {
    */
   sort: string;
 
-  private fetcher: (opts?: any) => Promise<any>;
+  private fetcher: (opts?: any) => Promise<T>;
   private options: any;
 
-  constructor(paging, options, fetcher: () => any) {
+  constructor(paging, options, fetcher: () => Promise<T>) {
     this.currentPage = paging.currentPage;
     this.pageSize = paging.pageSize;
     this.totalPages = paging.totalPages;

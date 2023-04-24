@@ -17,6 +17,11 @@ interface IGetProductsByStoreOptions {
    * Limits the number of products returned in a single, paginated response (Default: 50)
    */
   limit?: number;
+
+  /**
+   * Which page of the pagination you want to get. (Default: 1)
+   */
+  page?: number;
 }
 
 interface getProductsByStoreResponse extends IGetProductsResponse {
@@ -24,13 +29,11 @@ interface getProductsByStoreResponse extends IGetProductsResponse {
 }
 
 async function getProductsByStore(
-  store,
+  store: string,
   opts?: IGetProductsByStoreOptions
 ): Promise<getProductsByStoreResponse> {
-  const id = typeof store.name === "undefined" ? store : store.name;
-
   const storeFacet = new FacetValue({
-    query: { query: { value: `availableInStores:${id}` } },
+    query: { query: { value: `availableInStores:${store}` } },
   });
 
   let facets = [storeFacet];
@@ -42,9 +45,7 @@ async function getProductsByStore(
     facets = facets.concat(safeFacets);
   }
 
-  delete opts?.facet;
-
-  const options = { limit: opts?.limit, facets: facets };
+  const options = { limit: opts?.limit, facets: facets, page: opts?.page ?? 1 };
 
   const allProducts = await getProducts(options);
 

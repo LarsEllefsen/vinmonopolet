@@ -198,7 +198,7 @@ describe("vinmonopolet", () => {
       const { products } = await getProducts({
         facets: [Facet.Category.BEER, "mainCountry:norge"],
       });
-
+      console.log(products);
       products.forEach(
         (prod) =>
           expect(prod.productType).to.equal("Øl") &&
@@ -516,6 +516,47 @@ describe("vinmonopolet", () => {
       });
       expect(store).to.be.equal("160");
       products.forEach((prod) => expect(prod.productType).to.equal("Øl"));
+    });
+
+    it("can use use page option to traverse the result set", async () => {
+      const chunks: any[] = [];
+      let currentPage = 1;
+      const getNext = (res: IGetProductsResponse) => {
+        chunks.push(res.products[0]);
+        currentPage++;
+        return getProductsByStore("160", {
+          limit: 1,
+          page: currentPage,
+        });
+      };
+
+      const getPrev = (res) => {
+        chunks.push(res.products[0]);
+        currentPage--;
+        return getProductsByStore("160", {
+          limit: 1,
+          page: currentPage,
+        });
+      };
+
+      const assertLast = (res) => {
+        const productNames = chunks.map((prod) => prod.name);
+        expect(dupes(productNames)).to.have.lengthOf(
+          0,
+          "should not have any duplicates when paginating"
+        );
+        expect(res.products[0].name).to.equal(
+          chunks[2].name,
+          "prev should go back to previous page"
+        );
+      };
+
+      return getProductsByStore("160", { limit: 1, page: currentPage })
+        .then(getNext)
+        .then(getNext)
+        .then(getNext)
+        .then(getPrev)
+        .then(assertLast);
     });
   });
 

@@ -1,5 +1,16 @@
 #Changelog
 
+## [2.0.3]
+
+#### Added
+
+- GetProductsByStore now accepts page option.
+- Paginatiation now has correct return type for next and previous functions.
+
+### Changed
+
+- GetProductsByStore store parameter is now statically typed as a string.
+
 ## [2.0.0]
 
 Changed package export method to individual exports so that you no longer need to import the whole package.

@@ -1,6 +1,9 @@
 import objectAssign from "object-assign";
 import FacetValue from "../models/FacetValue";
-import getProducts, { IGetProductsResponse } from "./getProducts";
+import getProducts, {
+  IGetProductsOptions,
+  IGetProductsResponse,
+} from "./getProducts";
 
 interface IGetProductsByStoreOptions {
   /**
@@ -24,14 +27,14 @@ interface IGetProductsByStoreOptions {
   page?: number;
 }
 
-interface getProductsByStoreResponse extends IGetProductsResponse {
+export interface IGetProductsByStoreResponse extends IGetProductsResponse {
   store: string;
 }
 
 async function getProductsByStore(
   store: string,
   opts?: IGetProductsByStoreOptions
-): Promise<getProductsByStoreResponse> {
+): Promise<IGetProductsByStoreResponse> {
   const storeFacet = new FacetValue({
     query: { query: { value: `availableInStores:${store}` } },
   });
@@ -45,7 +48,11 @@ async function getProductsByStore(
     facets = facets.concat(safeFacets);
   }
 
-  const options = { limit: opts?.limit, facets: facets, page: opts?.page ?? 1 };
+  const options = {
+    limit: opts?.limit,
+    facets: facets,
+    page: opts?.page ?? 1,
+  } as IGetProductsOptions;
 
   const allProducts = await getProducts(options);
 

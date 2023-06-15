@@ -20,6 +20,7 @@ function sendRequest(
   const reqOpts = options.request || {};
   const base = options.baseUrl || baseUrl;
   const url = `${base}${path}${query}`;
+  console.log(url);
   return fetch(url, reqOpts);
 }
 
@@ -30,6 +31,7 @@ sendRequest.get = (
   sendRequest(path, options)
     .then((data) => {
       const { status, statusText } = data;
+
       if (status >= 400) {
         throw new Error(getErrorMessage(status, statusText));
       }

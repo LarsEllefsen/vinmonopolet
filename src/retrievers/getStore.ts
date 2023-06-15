@@ -2,7 +2,7 @@ import PopulatedStore from "../models/Store";
 import request from "../util/request";
 
 const getStore = async (store_id: string): Promise<PopulatedStore> => {
-  const res = await request.get(`/api/stores/${store_id}`, {
+  const res = await request.get(`/vmpws/v2/vmp/stores/${store_id}`, {
     baseUrl: "https://www.vinmonopolet.no",
     query: { fields: "FULL" },
   });

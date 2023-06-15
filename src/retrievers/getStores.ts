@@ -66,7 +66,7 @@ function searchByQuery(querystring: string): Promise<ISearchStoreResult> {
     query: querystring,
   };
 
-  const req = request.get("/api/stores/autocomplete", {
+  const req = request.get("/vmpws/v2/vmp/stores/autocomplete", {
     baseUrl: "https://www.vinmonopolet.no",
     query,
   });
@@ -90,7 +90,7 @@ function searchByLocation(
     longitude: lon,
   };
 
-  const req = request.get("/api/stores", {
+  const req = request.get("/vmpws/v2/vmp/stores", {
     baseUrl: "https://www.vinmonopolet.no",
     query,
   });

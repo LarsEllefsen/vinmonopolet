@@ -20,7 +20,6 @@ function sendRequest(
   const reqOpts = options.request || {};
   const base = options.baseUrl || baseUrl;
   const url = `${base}${path}${query}`;
-  console.log(url);
   return fetch(url, reqOpts);
 }
 

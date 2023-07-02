@@ -8,6 +8,7 @@ import number from "../filters/number";
 import status from "../filters/status";
 import price from "../filters/price";
 import year from "../filters/year";
+import { Volume } from "../models/Volume";
 
 const matchPairings = (pairings) =>
   pairings.map((pairing) => FoodPairing[pairing.code]);
@@ -20,11 +21,11 @@ const toRawMaterial = (mats): RawMaterial[] | null =>
 
 const productType = (mainCat) => mainCat.value;
 const toVolume = (volume) => {
-  return {
-    value: number(volume?.value),
-    formattedValue: volume?.formattedValue,
-    unit: volume?.formattedValue?.split(" ")[1],
-  };
+  return new Volume(
+    number(volume?.value),
+    volume?.formattedValue,
+    volume?.formattedValue?.split(" ")[1]
+  );
 };
 
 /* eslint-disable camelcase */

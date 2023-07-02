@@ -1,3 +1,4 @@
+// import "reflect-metadata";
 import { expect } from "chai";
 import {
   getAllStores,
@@ -30,6 +31,9 @@ import { transform, countBy } from "lodash";
 import filters from "../src/filters";
 import productUrl from "../src/util/productUrl";
 import { IGetProductsResponse } from "../src/retrievers/getProducts";
+import { IGetProductsByStoreResponse } from "../src/retrievers/getProductsByStore";
+import { plainToInstance } from "class-transformer";
+import { ValidationError, validate } from "class-validator";
 
 /* Don't depend on mocha globals */
 const describe = mocha.describe;
@@ -198,7 +202,7 @@ describe("vinmonopolet", () => {
       const { products } = await getProducts({
         facets: [Facet.Category.BEER, "mainCountry:norge"],
       });
-      console.log(products);
+
       products.forEach(
         (prod) =>
           expect(prod.productType).to.equal("Øl") &&
@@ -618,6 +622,45 @@ describe("vinmonopolet", () => {
       expect(filters.volume(0.75)).to.equal(0.75);
 
       expect(productUrl("1234")).to.equal("https://www.vinmonopolet.no/p/1234");
+    });
+  });
+
+  describe("Model validation", () => {
+    it("baseProduct conforms to validation", async () => {
+      const { products } = await getProducts({ limit: 5 });
+      const validateProduct = async (product: BaseProduct) => {
+        const validationErrors = await validate(product);
+
+        if (validationErrors.length > 0)
+          throw new Error(
+            "Validation of BaseProduct failed: " + validationErrors
+          );
+
+        return validationErrors;
+      };
+
+      for (const product of products) {
+        const validationErrors = await validateProduct(product);
+        expect(validationErrors).to.have.length(0);
+      }
+    });
+
+    it("populatedProduct conforms to validation", async () => {
+      const { products } = await getProducts({ limit: 5 });
+      const populatedProduct = await getProduct(products[0].code);
+      const validateProduct = async (product: BaseProduct) => {
+        const validationErrors = await validate(product);
+
+        if (validationErrors.length > 0)
+          throw new Error(
+            "Validation of BaseProduct failed: " + validationErrors
+          );
+
+        return validationErrors;
+      };
+
+      const validationErrors = await validateProduct(populatedProduct);
+      expect(validationErrors).to.have.length(0);
     });
   });
 });

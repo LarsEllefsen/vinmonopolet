@@ -1,3 +1,5 @@
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+
 const sizeMatcher = /cache\/(\d+)x(\d+)[/-]/;
 
 export type ImageSize = {
@@ -13,10 +15,23 @@ export type ImageProps = {
 };
 
 class ProductImage {
+  @IsString()
+  @IsNotEmpty()
   format: string;
-  description: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsNotEmpty()
   type: string;
+
+  @IsString()
+  @IsNotEmpty()
   url: string;
+
+  @IsOptional()
   size: ImageSize | null;
 
   constructor(img: ImageProps) {

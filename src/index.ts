@@ -1,3 +1,4 @@
+import "reflect-metadata";
 export { default as Facet } from "./models/Facet";
 export { default as FacetValue } from "./models/FacetValue";
 export * as FacetCategory from "./models/FacetCategories";

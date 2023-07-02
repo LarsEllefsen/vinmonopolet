@@ -12,7 +12,8 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "types": ["node"],
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "experimentalDecorators": true
   },
   "exclude": ["dist", "node_modules"],
   "include": ["src/**/*.ts", "src/**/*.js"]

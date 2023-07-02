@@ -1,3 +1,5 @@
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+
 interface ICategory {
   code: string;
   name: string;
@@ -5,8 +7,16 @@ interface ICategory {
 }
 
 class Category {
+  @IsOptional()
+  @IsString()
   code: string | null;
+
+  @IsOptional()
+  @IsString()
   name: string | null;
+
+  @IsOptional()
+  @IsString()
   url: string | null;
 
   constructor({ code, name, url }: ICategory) {

@@ -1,5 +1,16 @@
 #Changelog
 
+## [2.1.0]
+
+#### Added
+
+- Added getProductReleases
+- Added upcomingProduct facet
+
+### Breaking changes
+
+- Minimum node version is now v18
+
 ## [2.0.4]
 
 #### Added

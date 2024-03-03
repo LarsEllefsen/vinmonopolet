@@ -116,5 +116,6 @@ class Facet {
   }
 
   static Category: FacetCategory = FacetCategoryMapping();
+  static UpcomingProducts = "upcomingProduct:true";
 }
 export default Facet;

@@ -20,6 +20,7 @@ import {
   ProductImage,
   RawMaterial,
   stream,
+  getProductReleases,
 } from "../src/index";
 import BaseProduct, {
   PopulatedProduct,
@@ -31,9 +32,8 @@ import { transform, countBy } from "lodash";
 import filters from "../src/filters";
 import productUrl from "../src/util/productUrl";
 import { IGetProductsResponse } from "../src/retrievers/getProducts";
-import { IGetProductsByStoreResponse } from "../src/retrievers/getProductsByStore";
-import { plainToInstance } from "class-transformer";
-import { ValidationError, validate } from "class-validator";
+import { validate } from "class-validator";
+import ProductRelease from "../src/models/ProductRelease";
 
 /* Don't depend on mocha globals */
 const describe = mocha.describe;
@@ -157,7 +157,7 @@ describe("vinmonopolet", () => {
         limit: 1,
         sort: ["price", "desc"],
       });
-      console.log(products[0].price);
+
       expect(products[0].price).to.be.below(
         products2[0].price,
         "products are not the same when applying different sorts"
@@ -564,6 +564,15 @@ describe("vinmonopolet", () => {
     });
   });
 
+  describe("getProductReleases", () => {
+    it("Can get a list of product releases", async () => {
+      const productReleases = await getProductReleases();
+
+      expect(productReleases).to.not.have.length(0);
+      expect(productReleases[0]).to.be.instanceOf(ProductRelease);
+    });
+  });
+
   describe("stream.getProducts", () => {
     it("It can stream the whole dataset without crashing", async () => {
       const _stream = await stream.getProducts();
@@ -627,7 +636,10 @@ describe("vinmonopolet", () => {
 
   describe("Model validation", () => {
     it("baseProduct conforms to validation", async () => {
-      const { products } = await getProducts({ limit: 5 });
+      const { products } = await getProducts({
+        limit: 5,
+        facet: Facet.Category.BEER,
+      });
       const validateProduct = async (product: BaseProduct) => {
         const validationErrors = await validate(product);
 

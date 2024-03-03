@@ -116,6 +116,9 @@ class Facet {
   }
 
   static Category: FacetCategory = FacetCategoryMapping();
-  static UpcomingProduct = "upcomingProduct:true";
+  static UpcomingProduct = new FacetValue({
+    name: "Upcoming product",
+    query: { query: { value: "upcomingProduct:true" } },
+  });
 }
 export default Facet;

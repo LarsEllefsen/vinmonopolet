@@ -1,5 +1,11 @@
 #Changelog
 
+## [2.1.1]
+
+### Changed
+
+- Made UpcomingProduct a FacetValue object
+
 ## [2.1.0]
 
 #### Added

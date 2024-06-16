@@ -27,5 +27,3 @@ export { default as getAllStores, searchStores } from "./retrievers/getStores";
 export { default as searchProducts } from "./retrievers/searchProducts";
 export { default as getStore } from "./retrievers/getStore";
 export { default as getProductReleases } from "./retrievers/getProductReleases";
-
-export { default as stream } from "./stream";

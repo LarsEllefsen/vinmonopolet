@@ -19,7 +19,6 @@ import {
   FoodPairing,
   ProductImage,
   RawMaterial,
-  stream,
   getProductReleases,
 } from "../src/index";
 import BaseProduct, {
@@ -186,6 +185,7 @@ describe("vinmonopolet", () => {
 
     it("throws if trying to sort in unknown order", () => {
       expect(() => {
+        //@ts-expect-error
         getProducts({ sort: ["price", "bar"] });
       }).to.throw(/not valid.*?asc/);
     });
@@ -377,8 +377,8 @@ describe("vinmonopolet", () => {
       expect(populatedStore).to.be.instanceOf(PopulatedStore);
       expect(populatedStore).to.have.property("category");
       expect(populatedStore).to.have.property("openingHoursFriday");
-      expect(populatedStore.openingHoursFriday?.opens).to.not.be.undefined.and
-        .not.be.null;
+      expect(populatedStore.openingHours[0]).to.not.be.undefined.and.not.be
+        .null;
     });
 
     it("can get a store by id", async () => {
@@ -571,48 +571,6 @@ describe("vinmonopolet", () => {
       expect(productReleases).to.not.have.length(0);
       expect(productReleases[0]).to.be.instanceOf(ProductRelease);
     });
-  });
-
-  describe("stream.getProducts", () => {
-    it("It can stream the whole dataset without crashing", async () => {
-      const _stream = await stream.getProducts();
-      return new Promise((resolve, reject) => {
-        let totalProducts = 0;
-        const onProduct = (prod) => {
-          expect(prod).to.be.an.instanceOf(StreamProduct);
-          expect(prod.code).to.be.a("string").and.have.length.above(0);
-          expect(prod).to.not.be.an.instanceOf(
-            PopulatedProduct,
-            "should not say stream products are complete"
-          );
-          totalProducts++;
-        };
-
-        _stream.on("data", onProduct).once("end", () => {
-          expect(totalProducts).to.be.above(20000);
-          resolve();
-        });
-      });
-    }).timeout(20000);
-  });
-
-  describe("stream.getStores", () => {
-    it("can stream the entire set of data without crashing", async () => {
-      const _stream = await stream.getStores();
-      return new Promise((resolve, reject) => {
-        let totalStores = 0;
-        _stream
-          .on("data", (prod) => {
-            expect(prod).to.be.an.instanceOf(PopulatedStore);
-            expect(prod.name).to.be.a("string").and.have.length.above(0);
-            totalStores++;
-          })
-          .once("end", () => {
-            expect(totalStores).to.be.above(300);
-            resolve();
-          });
-      });
-    }).timeout(20000);
   });
 
   describe("edge cases", () => {

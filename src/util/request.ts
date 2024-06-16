@@ -23,10 +23,7 @@ function sendRequest(
   return fetch(url, reqOpts);
 }
 
-sendRequest.get = (
-  path: string,
-  options: IRequestOptions
-): Promise<{ [prop: string]: any }> =>
+sendRequest.get = <T>(path: string, options: IRequestOptions): Promise<T> =>
   sendRequest(path, options)
     .then((data) => {
       const { status, statusText } = data;

@@ -65,7 +65,7 @@ function getProducts(
   const query = getQuery(opts);
 
   const getter = request.get;
-  const req = getter("/products/search", { query });
+  const req = getter<{ [key: string]: any }>("/products/search", { query });
 
   return req.then((res) => ({
     products: (res.products || []).map((i) => new Product(i)),

@@ -3,7 +3,7 @@ import Facet from "../models/Facet";
 
 function getFacets(): Promise<Array<Facet>> {
   return request
-    .get("/vmpws/v2/vmp/search", {
+    .get<{ [key: string]: any }>("/vmpws/v2/vmp/search", {
       baseUrl: "https://www.vinmonopolet.no",
       query: {
         fields: "FULL",

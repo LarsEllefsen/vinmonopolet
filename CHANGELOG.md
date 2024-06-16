@@ -1,5 +1,22 @@
 #Changelog
 
+## [3.0.0]
+
+### Changed
+
+- getAllStores now uses the vinmonopolet api instead of the stream api.
+- Adjusted BaseStore and PopulatedStore to match the new api.
+
+### Breaking changes
+
+- Removed stream package. Vinmonopolet no longer maintains a csv of products and stores.
+- getStores now returns BaseStore instead of PopulatedStore. You will need to call .populate() on the BaseStore if you want a PopulatedStore.
+- Adjusted BaseStore and PopulatedStore:
+  - StreetZip is now called zip
+  - StreetCity is now called city
+  - Removed phoneNumber, weekNumber, weekNumberNext postalAddress postalZip and postalCity
+  - openingHours are now in an array called openingHours instead of individual properties.
+
 ## [2.1.1]
 
 ### Changed

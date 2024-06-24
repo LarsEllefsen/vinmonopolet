@@ -21,7 +21,7 @@ import { Volume } from "./Volume";
 const defaultCategory = { code: null, name: null, url: null };
 const defaultAvailability: IAvailability = {
   deliveryAvailability: { availableForPurchase: true, infos: [] },
-  storeAvailability: { availableForPurchase: true, infos: [] },
+  storesAvailability: { availableForPurchase: true, infos: [] },
 };
 
 const mapFromStreamObject = (prod, product) => {
@@ -49,7 +49,7 @@ interface IAvailability {
     availableForPurchase: boolean;
     infos: { availability: string; readableValue: string }[];
   };
-  storeAvailability: {
+  storesAvailability: {
     availableForPurchase: boolean;
     infos: { availability: string; readableValue: string }[];
   };
@@ -181,7 +181,7 @@ class BaseProduct {
   /**
    * information regarding the product availability either in stores or through mail.
    */
-  availability: IAvailability = defaultAvailability;
+  productAvailability: IAvailability = defaultAvailability;
   /**
    * A boolean representing if the product is currently buyable.
    */

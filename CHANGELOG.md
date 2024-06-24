@@ -1,5 +1,11 @@
 #Changelog
 
+## [4.0.0]
+
+### Breaking changes
+
+- Adjusted product availability to reflect changes from the Vinmonopolet api.
+
 ## [3.0.0]
 
 ### Changed

@@ -20,8 +20,8 @@ import { Volume } from "./Volume";
 
 const defaultCategory = { code: null, name: null, url: null };
 const defaultAvailability: IAvailability = {
-  deliveryAvailability: { available: true, mainText: "" },
-  storeAvailability: { available: true, mainText: "" },
+  deliveryAvailability: { availableForPurchase: true, infos: [] },
+  storeAvailability: { availableForPurchase: true, infos: [] },
 };
 
 const mapFromStreamObject = (prod, product) => {
@@ -45,8 +45,14 @@ const mapFromStreamObject = (prod, product) => {
 };
 
 interface IAvailability {
-  deliveryAvailability: { available: boolean; mainText: string };
-  storeAvailability: { available: boolean; mainText: string };
+  deliveryAvailability: {
+    availableForPurchase: boolean;
+    infos: { availability: string; readableValue: string }[];
+  };
+  storeAvailability: {
+    availableForPurchase: boolean;
+    infos: { availability: string; readableValue: string }[];
+  };
 }
 
 export class StreamProduct {

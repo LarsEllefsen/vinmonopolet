@@ -1,5 +1,11 @@
 #Changelog
 
+## [4.0.0]
+
+### Breaking changes
+
+- Availability is renamed to ProductAvailability to match changes in the Vinmonopolet API.
+
 ## [3.1.0]
 
 ### Changed

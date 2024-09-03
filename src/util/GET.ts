@@ -1,16 +1,9 @@
-interface IGETOptions {
-  queryParams?: { [key: string]: string };
-}
+export async function GET<T>(url: string, queryparams?: URLSearchParams) {
+  const urlSearchParams = queryparams ?? "";
 
-export async function GET<T>(url: string, { queryParams }: IGETOptions) {
-  const urlSearchParams = queryParams
-    ? `?${new URLSearchParams(queryParams)}`
-    : "";
-
-  const response = await fetch(url + urlSearchParams);
+  const response = await fetch(url + "?" + urlSearchParams);
 
   if (!response.ok) {
-    console.log(response.status);
     const errorMessage = await response.text();
     throw new Error(errorMessage);
   }

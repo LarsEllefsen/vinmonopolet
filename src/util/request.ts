@@ -2,7 +2,7 @@ import qs from "query-string";
 import nodeFetch, { Response } from "node-fetch";
 import fetchCookie from "fetch-cookie";
 
-const baseUrl = "https://app.vinmonopolet.no/vmpws/v2/vmp";
+const baseUrl = "https://www.vinmonopolet.no/vmpws/v2/vmp/";
 
 export interface IRequestOptions {
   query?: { [prop: string]: string | number };

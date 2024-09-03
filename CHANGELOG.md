@@ -1,5 +1,15 @@
 #Changelog
 
+## [5.0.0]
+
+- Fixed broken api endpoints.
+
+### Breaking changes
+
+- Removed getProductCount
+- Facet option in getProduct is replaced by facets.
+- Removed searchProducts. Replaced by getProducts with query option.
+
 ## [4.0.0]
 
 ### Breaking changes

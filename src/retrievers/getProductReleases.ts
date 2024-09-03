@@ -43,11 +43,7 @@ function toProductRelease(dto: ProductReleaseDTO) {
 async function getProductReleases() {
   const { contentSearchResult } = await GET<ISearchUpcomingReleasesDTO>(
     VINMONOPOLET_SEARCH_URL,
-    {
-      queryParams: {
-        categoryCode: "lanseringer",
-      },
-    }
+    new URLSearchParams({ categoryCode: "lanseringer" })
   );
 
   return contentSearchResult.results.map(toProductRelease);

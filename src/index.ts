@@ -3,7 +3,7 @@ export { default as Facet } from "./models/Facet";
 export { default as FacetValue } from "./models/FacetValue";
 export * as FacetCategory from "./models/FacetCategories";
 export { default as FoodPairing } from "./models/FoodPairing";
-export { default as GetProductsPagination } from "./models/Pagination";
+export { default as Pagination } from "./models/Pagination";
 export {
   default as BaseProduct,
   PopulatedProduct,

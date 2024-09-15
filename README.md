@@ -88,37 +88,6 @@ getProductsByStore("160").then((response) => {
 });
 ```
 
-### searchProducts
-
-### <code>searchproducts(query: string, options?: IGetProductOptions), defaults?: [Options](#IGetProductsOptions))</code>
-
-**Returns: <code>Promise<[IGetProductsResponse](#IGetProductsResponse)>**</code>
-
-Returns all products that matches the given query.
-
-```ts
-import { searchProducts } from "vinmonopolet-ts";
-
-searchProducts("valpolicella", { sort: ["price", "asc"] }).then((response) => {
-  console.log(response.products); // Array of products
-  console.log(response.pagination); // Info on pagination
-});
-```
-
-### getProductByBarcode
-
-### <code>getProductByBarcode(barcode: string)</code>
-
-**Returns: <code>Promise<[PopulatedProduct](#PopulatedProduct)>**</code>
-
-```ts
-import { getProduct } from "vinmonopolet-ts";
-
-getProduct("5060154910315").then((product) => {
-  console.log(product);
-});
-```
-
 ### getProductsById
 
 ### <code>getProductsById(codes: string[])</code>
@@ -162,18 +131,18 @@ getFacets()
   });
 ```
 
-### getStores
+### getAllStores
 
-### <code>getStores()</code>
+### <code>getAllStores()</code>
 
 **Returns: <code>Promise<Store[]>**</code>
 
 Gets all Vinmonopolet stores.
 
 ```ts
-import { getStores } from "vinmonopolet-ts";
+import { getAllStores } from "vinmonopolet-ts";
 
-getStores().then((stores) => {
+getAllStores().then((stores) => {
   console.log(stores);
 });
 ```
@@ -221,51 +190,11 @@ searchStores({ nearLocation: { lat: 59.910478, lon: 10.743937 } }).then(
 );
 ```
 
-### stream.getProducts (Node only)
-
-### <code>stream.getProducts()</code>
-
-**Returns: <code>Promise<NodeJS.ReadableStream>**</code>
-
-```ts
-import { stream, StreamProduct } from "vinmonopolet-ts";
-
-stream.getProducts().then((stream: NodeJS.ReadableStream) => {
-  stream
-    .on("data", function (product: StreamProduct) {
-      console.log(product);
-    })
-    .on("end", function () {
-      console.log("Done!");
-    });
-});
-```
-
-### stream.getStores (Node only)
-
-### <code>stream.getStoress()</code>
-
-**Returns: <code>Promise<NodeJS.ReadableStream>**</code>
-
-```ts
-import { stream, store } from "vinmonopolet-ts";
-
-stream.getStores().then((stream: NodeJS.ReadableStream) => {
-  stream
-    .on("data", function (store: Store) {
-      console.log(store);
-    })
-    .on("end", function () {
-      console.log("Done!");
-    });
-});
-```
-
 ## Models
 
 ### Facet
 
-Facets are used to filter products when getting products through searchProducts, getProducts or the likes. Example of facets are product country of origin (mainCountry), product category (mainCategory) and vintage (year).
+Facets are used to filter products when getting products through getProducts and the likes. Example of facets are product country of origin (mainCountry), product category (mainCategory) and vintage (year).
 Note that facets are not strongly typed, but there are however "static" facets for main product category supplied with this package. There are also exports of the static strings for this facet should you need it.
 
 These static Facets can be used like this:
@@ -303,10 +232,6 @@ class BaseProduct {
    */
   name: string;
   /**
-   * The product type (Øl, Mjød, Hvitvin etc)
-   */
-  productType: string;
-  /**
    * The url to the vinmonopol.no product page
    */
   url: string;
@@ -321,11 +246,11 @@ class BaseProduct {
   /**
    * An array of product images
    */
-  images: ProductImage[] = [];
+  images: ProductImage[];
   /**
    * The volume of the product.
    */
-  volume = { value: 0, unit: "cl", formattedValue: "" };
+  volume: { value: number; unit: string; formattedValue: string };
 
   // Classification
   /**
@@ -424,7 +349,7 @@ class PopulatedProduct extends BaseProduct {
   /**
    * A set of Foodpairing objects. Describes what food the product pairs well with.
    */
-  foodPairing: FoodPairing[] | null = null;
+  foodPairing: FoodPairing[] | null;
   /**
    *  A bool representing if the product is kosher.
    */
@@ -450,7 +375,7 @@ class PopulatedProduct extends BaseProduct {
   /**
    *  An array of RawMaterial objects.
    */
-  rawMaterial: RawMaterial[] | null = null;
+  rawMaterial: RawMaterial[] | null;
   /**
    *  A string or number representing the amount of sugar per litre in the product.
    */
@@ -477,13 +402,13 @@ class PopulatedProduct extends BaseProduct {
    * The fullness of the product in percentage.
    */
   fullness : number;
-  style = defaultCategory;
+  style : { code: string; description: string; name: string };
 
   // meta
   /**
    * The minimum age limit in order to buy this product.
    */
-  ageLimit = 18;
+  ageLimit : number;
 
   // These tend to not be set
   description : string;

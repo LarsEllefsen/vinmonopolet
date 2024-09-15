@@ -1,7 +1,7 @@
 {
   "name": "vinmonopolet-ts",
   "description": "Extracts information on products, categories and stores from Vinmonopolet",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "keywords": [
     "vinmonopolet",
     "beer",

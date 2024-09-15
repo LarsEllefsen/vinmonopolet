@@ -1,10 +1,11 @@
-import Product from "../../models/Product";
+import Product from "../../models/product/BaseProduct";
 import GetProductsPagination from "../../models/Pagination";
 import FacetValue from "../../models/FacetValue";
 import { GET } from "../../util/GET";
 import { VINMONOPOLET_SEARCH_URL } from "../../constants";
 import { GetProductsSearchResultDTO } from "./types";
 import Pagination from "../../models/Pagination";
+import { fromDTOToBaseProduct } from "../../models/product/mapper";
 
 const sortFields = ["relevance", "name", "price"] as const;
 const sortOrders = ["asc", "desc"] as const;
@@ -67,9 +68,7 @@ async function getProducts(
       options,
       getProducts
     ),
-    products: productSearchResult.products.map(
-      (product) => new Product(product)
-    ),
+    products: productSearchResult.products.map(fromDTOToBaseProduct),
   };
 }
 

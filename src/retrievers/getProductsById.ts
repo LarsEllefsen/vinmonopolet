@@ -1,6 +1,6 @@
 import promiseMap from "promise-map-limit";
-import { PopulatedProduct } from "../models/Product";
 import getProduct from "./getProduct";
+import { PopulatedProduct } from "../models/product/PopulatedProduct";
 
 const getProductsByIds = (
   ids: string[],

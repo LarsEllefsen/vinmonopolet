@@ -9,7 +9,7 @@ export type ImageSize = {
 
 export type ImageProps = {
   format: string;
-  altText: string;
+  altText?: string;
   imageType: string;
   url: string;
 };

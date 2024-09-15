@@ -1,4 +1,3 @@
-import objectAssign from "object-assign";
 import FacetValue from "../models/FacetValue";
 import getProducts, {
   IGetProductsOptions,

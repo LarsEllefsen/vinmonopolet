@@ -1,10 +1,12 @@
+import { CategoryDTO, ImageDTO } from "../types";
+
 export interface GetProductsSearchResultDTO {
   productSearchResult: ProductsSearchResult;
 }
 
 interface ProductsSearchResult {
   pagination: GetProductsPagination;
-  products: Product[];
+  products: BaseProductDTO[];
 }
 
 export interface GetProductsPagination {
@@ -15,35 +17,25 @@ export interface GetProductsPagination {
   totalResults: number;
 }
 
-interface Product {
+export interface BaseProductDTO {
   buyable: boolean;
   code: string;
-  district: Record<string, unknown>;
+  district: CategoryDTO;
   expired: boolean;
-  images: Image[];
-  main_category: Category;
-  main_country: Category;
-  main_sub_category: Category;
+  images: ImageDTO[];
+  main_category: CategoryDTO;
+  main_country: CategoryDTO;
+  main_sub_category: CategoryDTO;
   name: string;
   price: Price;
   productAvailability: ProductAvailability;
   product_selection: string;
   releaseMode: boolean;
   status: string;
-  sub_District: Record<string, unknown>;
+  sub_District: CategoryDTO;
   sustainable: boolean;
   url: string;
-  volume: Volume;
-}
-
-interface Image {
-  format: string;
-  imageType: string;
-  url: string;
-}
-
-interface Category {
-  name: string;
+  volume: VolumeDTO;
 }
 
 interface Price {
@@ -77,7 +69,7 @@ interface ProductAvailability {
   storesAvailability: StoresAvailability;
 }
 
-interface Volume {
+export interface VolumeDTO {
   formattedValue: string;
   readableValue: string;
   value: number;

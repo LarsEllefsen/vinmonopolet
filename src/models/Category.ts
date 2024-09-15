@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 interface ICategory {
-  code: string;
+  code?: string;
   name: string;
-  url: string;
+  url?: string;
 }
 
 class Category {

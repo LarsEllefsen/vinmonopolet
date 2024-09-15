@@ -1,5 +1,15 @@
 #Changelog
 
+## [5.1.0]
+
+- Moved to new Vinmonopolet endpoints. Fixed previously broken properties and removed properties no longer in use as well as broken methods no longer supported by the new API.
+
+### Changed
+
+- Removed productType from product. Use mainCategory instead.
+- Removed StreamProduct.
+- Removed getProductsByBarcode.
+
 ## [5.0.1]
 
 - Fixed broken export of Pagination

@@ -111,11 +111,11 @@ class BaseProduct {
    * A boolean representing if the product is currently buyable.
    */
   @IsBoolean()
-  buyable = true;
+  buyable;
   /**
    * The status of the product. Most commonly just "active".
    */
-  status = "";
+  status;
 
   constructor(
     code: string,

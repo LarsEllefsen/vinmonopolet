@@ -42,9 +42,9 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.code,
     dto.name,
     dto.url,
-    dto.price.value,
-    calculatePricePerLiter(dto.price.value, dto.volume),
-    dto.images.map(mapToProductImage),
+    dto.price?.value,
+    calculatePricePerLiter(dto.price?.value, dto.volume),
+    dto.images?.map(mapToProductImage) ?? [],
     mapToVolume(dto.volume),
     mapToCategory(dto.main_category)!,
     mapToCategory(dto.main_sub_category),
@@ -54,7 +54,7 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.product_selection,
     dto.buyable,
     dto.status,
-    getAbvFromTraits(dto.content.traits),
+    getAbvFromTraits(dto.content?.traits),
     dto.allergens,
     dto.bioDynamic,
     dto.color,
@@ -63,31 +63,32 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.expired,
     dto.fairTrade,
     dto.gluten,
-    dto.content.isGoodFor.map(mapToFoodPairing),
+    dto.content?.isGoodFor?.map(mapToFoodPairing) ?? [],
     dto.kosher,
-    dto.content.storagePotential.formattedValue,
+    dto.content?.storagePotential?.formattedValue,
     dto.packageType,
     dto.taste,
     dto.smell,
-    dto.content.ingredients.map(mapToRawMaterial),
-    getSugarFromTraits(dto.content.traits),
-    getAcidFromTraits(dto.content.traits),
-    getPropertyFromCharacteristics(dto.content.characteristics, "Garvestoffer"),
-    getPropertyFromCharacteristics(dto.content.characteristics, "Bitterhet"),
-    getPropertyFromCharacteristics(dto.content.characteristics, "Friskhet"),
-    getPropertyFromCharacteristics(dto.content.characteristics, "Fylde"),
+    dto.content?.ingredients?.map(mapToRawMaterial) ?? [],
+    getSugarFromTraits(dto.content?.traits),
+    getAcidFromTraits(dto.content?.traits),
+    getPropertyFromCharacteristics(dto.content?.characteristics, "Garvestoffer"),
+    getPropertyFromCharacteristics(dto.content?.characteristics, "Bitterhet"),
+    getPropertyFromCharacteristics(dto.content?.characteristics, "Friskhet"),
+    getPropertyFromCharacteristics(dto.content?.characteristics, "Fylde"),
     dto.ageLimit,
     dto.description,
     dto.summary,
     dto.method,
     dto.distributor,
-    dto.distributorId.toString(),
+    dto.distributorId?.toString(),
     dto.wholeSaler,
     dto.year ? parseInt(dto.year) : undefined
   );
 }
 
-function calculatePricePerLiter(price: number, volume: VolumeDTO): number {
+function calculatePricePerLiter(price: number | undefined, volume: VolumeDTO): number {
+  if (price === undefined) return 0;
   const unit = getVolumeUnit(volume);
   switch (unit) {
     case "cl":
@@ -97,9 +98,7 @@ function calculatePricePerLiter(price: number, volume: VolumeDTO): number {
     case "l":
       return price / volume.value;
     default:
-      console.warn(
-        `Unknown volume unit ${unit}. Unable to calculate price per liter`
-      );
+      console.warn(`Unknown volume unit ${unit}. Unable to calculate price per liter`);
       return 0;
   }
 }
@@ -114,12 +113,9 @@ function mapToCategory(input?: CategoryDTO) {
 function getVolumeUnit(input: VolumeDTO) {
   const split = input.formattedValue.split(" ");
   if (split.length != 2) {
-    console.warn(
-      `Unable to find volume unit from string ${input.formattedValue}`
-    );
+    console.warn(`Unable to find volume unit from string ${input.formattedValue}`);
     return "";
   }
-
   return split[1].trim().toLowerCase();
 }
 
@@ -136,22 +132,18 @@ function mapToProductImage(input: ImageDTO): ProductImage {
   });
 }
 
-function getAbvFromTraits(traits: TraitDTO[]) {
+function getAbvFromTraits(traits?: TraitDTO[]) {
+  if (!traits) return 0;
   const alcoholTrait = traits.find((trait) => trait.name === "Alkohol");
   if (!alcoholTrait) {
     console.warn("Unable to get abv from response. No trait with 'Alcohol'");
     return 0;
   }
-
   const split = alcoholTrait.formattedValue.split("%");
   if (split.length != 2) {
-    console.warn(
-      "Unable to get abv from alcohol formatted value: " +
-        alcoholTrait.formattedValue
-    );
+    console.warn("Unable to get abv from alcohol formatted value: " + alcoholTrait.formattedValue);
     return 0;
   }
-
   return parseFloat(split[0]);
 }
 
@@ -167,7 +159,8 @@ function mapToRawMaterial(ingredients: IngredientDTO) {
   });
 }
 
-function getSugarFromTraits(traits: TraitDTO[]) {
+function getSugarFromTraits(traits?: TraitDTO[]) {
+  if (!traits) return undefined;
   const trait = traits.find((x) => x.name.toLowerCase() == "sukker");
   if (!trait) return undefined;
   try {
@@ -178,7 +171,8 @@ function getSugarFromTraits(traits: TraitDTO[]) {
   }
 }
 
-function getAcidFromTraits(traits: TraitDTO[]) {
+function getAcidFromTraits(traits?: TraitDTO[]) {
+  if (!traits) return undefined;
   const trait = traits.find((x) => x.name.toLowerCase() == "syre");
   if (!trait) return undefined;
   try {
@@ -190,13 +184,16 @@ function getAcidFromTraits(traits: TraitDTO[]) {
 }
 
 function getPropertyFromCharacteristics(
-  characteristics: characteristicsDTO[],
+  characteristics: characteristicsDTO[] | undefined,
   property: string
 ) {
+  if (!characteristics) return undefined;
+  
   const characteristic = characteristics.find(
     (x) => x.name.toLowerCase() === property.toLowerCase()
   );
   if (characteristic === undefined) return undefined;
+  
   try {
     const split = characteristic.readableValue.split(",");
     const [currentValuesString, maxValueString] = split[1].trim().split("av");
@@ -204,6 +201,7 @@ function getPropertyFromCharacteristics(
     const maxValue = parseInt(maxValueString.trim());
     return Math.round((currentValue / maxValue) * 100);
   } catch (e) {
+    console.warn(`Error parsing characteristic ${property}:`, e);
     return undefined;
   }
 }

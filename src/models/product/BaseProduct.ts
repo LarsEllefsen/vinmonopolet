@@ -84,14 +84,12 @@ class BaseProduct {
   /**
    * The district the product is from. Might not always have values if no district is given.
    */
-  @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
   district?: Category;
   /**
    * The sub-district the product is from. Might not always have values if no sub-district is given.
    */
-  @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
   subDistrict?: Category;

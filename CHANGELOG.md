@@ -1,5 +1,9 @@
 #Changelog
 
+## [5.1.1]
+
+- Removed IsNotEmpty validation from properties that were erroneously annotated.
+
 ## [5.1.0]
 
 - Moved to new Vinmonopolet endpoints. Fixed previously broken properties and removed properties no longer in use as well as broken methods no longer supported by the new API.

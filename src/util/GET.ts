@@ -1,5 +1,3 @@
-import { XMLParser } from "fast-xml-parser";
-
 export async function GET<T>(url: string, queryparams?: URLSearchParams) {
   const urlSearchParams = queryparams?.toString() ?? "";
 

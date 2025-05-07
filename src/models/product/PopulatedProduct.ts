@@ -36,7 +36,7 @@ export class PopulatedProduct extends BaseProduct {
    * A string representation of the products color.
    */
   @IsString()
-  color: string;
+  color?: string;
   /**
    * A bool representing if the product is eco
    */
@@ -105,8 +105,7 @@ export class PopulatedProduct extends BaseProduct {
    *  A string or number representing the amount of sugar per litre in the product.
    */
   @IsOptional()
-  @IsNumber()
-  sugar?: number;
+  sugar?: number | string;
   /**
    * The acidity of the product in percentage.
    */
@@ -166,10 +165,10 @@ export class PopulatedProduct extends BaseProduct {
     price: number,
     pricePerLiter: number,
     images: ProductImage[],
-    volume: Volume,
-    mainCategory: Category,
+    volume: Volume | undefined,
+    mainCategory: Category | undefined,
     subCategory: Category | undefined,
-    country: Category,
+    country: Category | undefined,
     district: Category | undefined,
     subDistrict: Category | undefined,
     productSeelection: string,
@@ -178,7 +177,7 @@ export class PopulatedProduct extends BaseProduct {
     abv: number,
     allergens: string | undefined,
     bioDynamic: boolean,
-    color: string,
+    color: string | undefined,
     eco: boolean,
     environmentalPackaging: boolean,
     expired: boolean,

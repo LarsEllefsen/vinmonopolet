@@ -1,0 +1,71 @@
+{
+    "ageLimit": 0,
+    "bioDynamic": false,
+    "buyable": true,
+    "code": "407",
+    "description": "",
+    "distributor": "ScanLog AS Distribusjonssenter",
+    "distributorId": 900,
+    "eco": false,
+    "environmentalPackaging": false,
+    "expired": false,
+    "fairTrade": false,
+    "gluten": false,
+    "images": [
+        {
+            "altText": "Gaveeske 1 flaske",
+            "format": "superZoom",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/1200x1200-0/407-1.jpg"
+        },
+        {
+            "altText": "Gaveeske 1 flaske",
+            "format": "zoom",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/515x515-0/407-1.jpg"
+        },
+        {
+            "altText": "Gaveeske 1 flaske",
+            "format": "product",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/300x300-0/407-1.jpg"
+        },
+        {
+            "altText": "Gaveeske 1 flaske",
+            "format": "thumbnail",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/96x96-0/407-1.jpg"
+        },
+        {
+            "altText": "Gaveeske 1 flaske",
+            "format": "cartIcon",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/65x65-0/407-1.jpg"
+        }
+    ],
+    "kosher": false,
+    "main_category": {
+        "code": "gaveartikler_og_tilbehør",
+        "name": "Gaveartikler og tilbehør"
+    },
+    "main_sub_category": {
+        "code": "gaveartikler_og_tilbehør_gaveesker",
+        "name": "Gaveesker"
+    },
+    "name": "Gaveeske 1 flaske",
+    "price": {
+        "formattedValue": "Kr 35,00",
+        "readableValue": "35 kroner",
+        "value": 35.0
+    },
+    "product_selection": "Basisutvalget",
+    "releaseMode": false,
+    "similarProducts": false,
+    "status": "utgatt",
+    "statusNotification": false,
+    "summary": "",
+    "sustainable": false,
+    "url": "/c/Gaveeske-1-flaske/p/407",
+    "volume": {},
+    "wholeSaler": "Allsidige Nord AS"
+}

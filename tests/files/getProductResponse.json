@@ -1,0 +1,159 @@
+{
+    "ageLimit": 18,
+    "allergens": "Gluten",
+    "bioDynamic": false,
+    "buyable": true,
+    "code": "7746702",
+    "color": "Skyet, middels dyp strågul.",
+    "content": {
+        "characteristics": [
+            {
+                "name": "Fylde",
+                "readableValue": "Fylde, 8 av 12",
+                "value": "8"
+            },
+            {
+                "name": "Friskhet",
+                "readableValue": "Friskhet, 5 av 12",
+                "value": "5"
+            },
+            {
+                "name": "Bitterhet",
+                "readableValue": "Bitterhet, 7 av 12",
+                "value": "7"
+            }
+        ],
+        "ingredients": [
+            {
+                "code": "999",
+                "formattedValue": "Vann, malt (bygg, hvete), havre, humle, gjær",
+                "readableValue": "Vann, malt (bygg, hvete), havre, humle, gjær"
+            }
+        ],
+        "isGoodFor": [
+            {
+                "code": "A",
+                "name": "Aperitiff"
+            }
+        ],
+        "storagePotential": {
+            "code": "X",
+            "formattedValue": "Drikkeklar, ikke egnet for lagring"
+        },
+        "traits": [
+            {
+                "formattedValue": "8,5%",
+                "name": "Alkohol",
+                "readableValue": "8,5 prosent"
+            }
+        ]
+    },
+    "description": "",
+    "distributor": "Lervig AS",
+    "distributorId": 30898,
+    "district": {
+        "code": "norge_rogaland",
+        "name": "Rogaland",
+        "searchQuery": ":relevance:mainDistrict:norge_rogaland:mainCountry:norge",
+        "url": "/search?searchType=product&q=:relevance:mainDistrict:norge_rogaland:mainCountry:norge"
+    },
+    "eco": false,
+    "environmentalPackaging": true,
+    "expired": false,
+    "fairTrade": false,
+    "gluten": false,
+    "images": [
+        {
+            "altText": "Lervig Supersonic",
+            "format": "superZoom",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/1200x1200-0/7746702-1.jpg"
+        },
+        {
+            "altText": "Lervig Supersonic",
+            "format": "zoom",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/515x515-0/7746702-1.jpg"
+        },
+        {
+            "altText": "Lervig Supersonic",
+            "format": "product",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/300x300-0/7746702-1.jpg"
+        },
+        {
+            "altText": "Lervig Supersonic",
+            "format": "thumbnail",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/96x96-0/7746702-1.jpg"
+        },
+        {
+            "altText": "Lervig Supersonic",
+            "format": "cartIcon",
+            "imageType": "PRIMARY",
+            "url": "https://bilder.vinmonopolet.no/cache/65x65-0/7746702-1.jpg"
+        }
+    ],
+    "kosher": false,
+    "litrePrice": {
+        "formattedValue": "204,2 kr/l",
+        "readableValue": "204 kroner og 20 øre per liter",
+        "value": 204.2
+    },
+    "main_category": {
+        "code": "øl",
+        "name": "Øl"
+    },
+    "main_country": {
+        "code": "norge",
+        "name": "Norge",
+        "searchQuery": ":relevance:mainCountry:norge",
+        "url": "/search?searchType=product&q=:relevance:mainCountry:norge"
+    },
+    "main_producer": {
+        "code": "lervig_as",
+        "name": "Lervig AS",
+        "searchQuery": ":name-asc:brand:lervig_as",
+        "url": "/search?searchType=product&q=:name-asc:brand:lervig_as"
+    },
+    "main_sub_category": {
+        "code": "øl_india_pale_ale",
+        "name": "India pale ale"
+    },
+    "method": "Tradisjonell overgjæret brygging.",
+    "name": "Lervig Supersonic",
+    "packageType": "Emballasje med pant",
+    "price": {
+        "formattedValue": "Kr 104,10",
+        "readableValue": "104 kroner og 10 øre",
+        "value": 104.1
+    },
+    "product_selection": "Basisutvalget",
+    "releaseMode": false,
+    "similarProducts": true,
+    "smell": "Humlepreget, sval og fruktig med ferskt lyst malt, toner av pasjonsfrukt, mango, kamfer og barnål.",
+    "status": "aktiv",
+    "statusNotification": false,
+    "stickers": [
+        {
+            "description": "Emballasjevekt har mest å si for produktets klimafotavtrykk. Lettere glassflasker, aluminium, papp og plast er alle lette og dermed klimasmarte valg.",
+            "group": {
+                "color": "#AAF2C2"
+            },
+            "icon": "environmentpackaging",
+            "sustainability": true,
+            "title": "Klimasmart emballasje"
+        }
+    ],
+    "storeCategory": "SB2L, SB3R",
+    "summary": "",
+    "sustainable": true,
+    "taste": "Fyldig og kremet med tydelig preg av humle, svale urter, ferskt lyst malt, mango og pasjonsfrukt.",
+    "url": "/Land/Norge/Rogaland/Lervig-Supersonic/p/7746702",
+    "volume": {
+        "formattedValue": "50 cl",
+        "readableValue": "50 centiliter",
+        "value": 50.0
+    },
+    "wholeSaler": "Lervig AS"
+}

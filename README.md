@@ -20,6 +20,8 @@ yarn add vinmonopolet-ts
 
 Please see https://www.vinmonopolet.no/datadeling for the terms of service regarding usage of the data retrieved through this module. Please note that this module is not in any way endorsed by or affiliated with Vinmonopolet.
 
+IMPORTANT: Please note that there may be breaking changes at any time. This package aims to closely adhere to the Vinmonopolet api which may change without warning. Any such changes may be introduced in minor versions which may or may not break your project. Please refer to the changelog when upgrading.
+
 ## Changes from the original package
 
 Please see CHANGELOG for a list of breaking changes if you are coming from the original version.
@@ -343,9 +345,9 @@ class PopulatedProduct extends BaseProduct {
    */
   fairTrade: boolean;
   /**
-   * A bool representing if the product contains gluten.
+   * A bool representing if the product is glutenFree.
    */
-  gluten: boolean;
+  glutenFree: boolean;
   /**
    * A set of Foodpairing objects. Describes what food the product pairs well with.
    */

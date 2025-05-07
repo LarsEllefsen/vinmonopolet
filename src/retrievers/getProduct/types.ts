@@ -1,4 +1,5 @@
-import { CategoryDTO, ImageDTO } from "../types";
+import { VolumeDTO } from "../getProducts/types";
+import { CategoryDTO } from "../types";
 
 export type PopulatedProductDTO = {
   ageLimit: number;
@@ -7,7 +8,7 @@ export type PopulatedProductDTO = {
   buyable: boolean;
   code: string;
   color: string;
-  content: {
+  content?: {
     characteristics: characteristicsDTO[];
     ingredients: IngredientDTO[];
     isGoodFor: IsGoodForDTO[];
@@ -37,23 +38,23 @@ export type PopulatedProductDTO = {
     readableValue: string;
     value: number;
   };
-  main_category: {
+  main_category?: {
     code: string;
     name: string;
   };
-  main_country: {
-    code: string;
-    name: string;
-    searchQuery: string;
-    url: string;
-  };
-  main_producer: {
+  main_country?: {
     code: string;
     name: string;
     searchQuery: string;
     url: string;
   };
-  main_sub_category: {
+  main_producer?: {
+    code: string;
+    name: string;
+    searchQuery: string;
+    url: string;
+  };
+  main_sub_category?: {
     code: string;
     name: string;
   };
@@ -62,7 +63,7 @@ export type PopulatedProductDTO = {
   method: string;
   name: string;
   packageType: string;
-  price: {
+  price?: {
     formattedValue: string;
     readableValue: string;
     value: number;
@@ -87,11 +88,7 @@ export type PopulatedProductDTO = {
   tags: string[];
   taste: string;
   url: string;
-  volume: {
-    formattedValue: string;
-    readableValue: string;
-    value: number;
-  };
+  volume?: VolumeDTO | Record<string, never>;
   wholeSaler: string;
   year?: string;
 };

@@ -20,22 +20,22 @@ export interface GetProductsPagination {
 export interface BaseProductDTO {
   buyable: boolean;
   code: string;
-  district: CategoryDTO;
+  district?: CategoryDTO;
   expired: boolean;
   images: ImageDTO[];
-  main_category: CategoryDTO;
-  main_country: CategoryDTO;
-  main_sub_category: CategoryDTO;
+  main_category?: CategoryDTO;
+  main_country?: CategoryDTO;
+  main_sub_category?: CategoryDTO;
   name: string;
-  price: Price;
+  price?: Price;
   productAvailability: ProductAvailability;
   product_selection: string;
   releaseMode: boolean;
   status: string;
-  sub_District: CategoryDTO;
+  sub_District?: CategoryDTO;
   sustainable: boolean;
   url: string;
-  volume: VolumeDTO;
+  volume?: VolumeDTO | Record<string, never>;
 }
 
 interface Price {

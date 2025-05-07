@@ -57,7 +57,7 @@ class BaseProduct {
    */
   @ValidateNested()
   @Type(() => Volume)
-  volume: Volume;
+  volume?: Volume;
 
   // Classification
   /**
@@ -66,7 +66,7 @@ class BaseProduct {
   @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
-  mainCategory: Category;
+  mainCategory?: Category;
   /**
    * The sub category of the product (Porter & Stout, Rom, India Pale Ale etc..).
    */
@@ -80,7 +80,7 @@ class BaseProduct {
   @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
-  mainCountry: Category;
+  mainCountry?: Category;
   /**
    * The district the product is from. Might not always have values if no district is given.
    */
@@ -122,10 +122,10 @@ class BaseProduct {
     price: number,
     pricePerLiter: number,
     images: ProductImage[],
-    volume: Volume,
-    mainCategory: Category,
+    volume: Volume | undefined,
+    mainCategory: Category | undefined,
     subCategory: Category | undefined,
-    country: Category,
+    country: Category | undefined,
     district: Category | undefined,
     subDistrict: Category | undefined,
     productSeelection: string,

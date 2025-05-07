@@ -21,13 +21,13 @@ export function fromDTOToBaseProduct(dto: BaseProductDTO) {
     dto.code,
     dto.name,
     dto.url,
-    dto.price.value,
-    calculatePricePerLiter(dto.price.value, dto.volume),
+    dto.price?.value ?? 0,
+    calculatePricePerLiter(dto.price?.value, dto.volume),
     dto.images.map(mapToProductImage),
     mapToVolume(dto.volume),
-    mapToCategory(dto.main_category)!,
+    mapToCategory(dto.main_category),
     mapToCategory(dto.main_sub_category),
-    mapToCategory(dto.main_country)!,
+    mapToCategory(dto.main_country),
     mapToCategory(dto.district),
     mapToCategory(dto.sub_District),
     dto.product_selection,
@@ -42,13 +42,13 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.code,
     dto.name,
     dto.url,
-    dto.price?.value,
+    dto.price?.value ?? 0,
     calculatePricePerLiter(dto.price?.value, dto.volume),
     dto.images?.map(mapToProductImage) ?? [],
     mapToVolume(dto.volume),
-    mapToCategory(dto.main_category)!,
+    mapToCategory(dto.main_category),
     mapToCategory(dto.main_sub_category),
-    mapToCategory(dto.main_country)!,
+    mapToCategory(dto.main_country),
     mapToCategory(dto.district),
     mapToCategory(dto.sub_District),
     dto.product_selection,
@@ -72,7 +72,10 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.content?.ingredients?.map(mapToRawMaterial) ?? [],
     getSugarFromTraits(dto.content?.traits),
     getAcidFromTraits(dto.content?.traits),
-    getPropertyFromCharacteristics(dto.content?.characteristics, "Garvestoffer"),
+    getPropertyFromCharacteristics(
+      dto.content?.characteristics,
+      "Garvestoffer"
+    ),
     getPropertyFromCharacteristics(dto.content?.characteristics, "Bitterhet"),
     getPropertyFromCharacteristics(dto.content?.characteristics, "Friskhet"),
     getPropertyFromCharacteristics(dto.content?.characteristics, "Fylde"),
@@ -87,9 +90,17 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
   );
 }
 
-function calculatePricePerLiter(price: number | undefined, volume: VolumeDTO): number {
-  if (price === undefined) return 0;
-  const unit = getVolumeUnit(volume);
+function calculatePricePerLiter(
+  price: number | undefined,
+  volume: VolumeDTO | undefined | Record<string, never>
+): number {
+  if (
+    price === undefined ||
+    volume == undefined ||
+    Object.keys(volume).length === 0
+  )
+    return 0;
+  const unit = getVolumeUnit(volume as VolumeDTO);
   switch (unit) {
     case "cl":
       return price / (volume.value / 100);
@@ -98,7 +109,9 @@ function calculatePricePerLiter(price: number | undefined, volume: VolumeDTO): n
     case "l":
       return price / volume.value;
     default:
-      console.warn(`Unknown volume unit ${unit}. Unable to calculate price per liter`);
+      console.warn(
+        `Unknown volume unit ${unit}. Unable to calculate price per liter`
+      );
       return 0;
   }
 }
@@ -113,14 +126,21 @@ function mapToCategory(input?: CategoryDTO) {
 function getVolumeUnit(input: VolumeDTO) {
   const split = input.formattedValue.split(" ");
   if (split.length != 2) {
-    console.warn(`Unable to find volume unit from string ${input.formattedValue}`);
+    console.warn(
+      `Unable to find volume unit from string ${input.formattedValue}`
+    );
     return "";
   }
   return split[1].trim().toLowerCase();
 }
 
-function mapToVolume(input: VolumeDTO) {
-  return new Volume(input.value, input.formattedValue, getVolumeUnit(input));
+function mapToVolume(input: VolumeDTO | undefined | Record<string, never>) {
+  if (input === undefined || Object.keys(input).length === 0) return undefined;
+  return new Volume(
+    input.value,
+    input.formattedValue,
+    getVolumeUnit(input as VolumeDTO)
+  );
 }
 
 function mapToProductImage(input: ImageDTO): ProductImage {
@@ -141,7 +161,10 @@ function getAbvFromTraits(traits?: TraitDTO[]) {
   }
   const split = alcoholTrait.formattedValue.split("%");
   if (split.length != 2) {
-    console.warn("Unable to get abv from alcohol formatted value: " + alcoholTrait.formattedValue);
+    console.warn(
+      "Unable to get abv from alcohol formatted value: " +
+        alcoholTrait.formattedValue
+    );
     return 0;
   }
   return parseFloat(split[0]);
@@ -188,12 +211,12 @@ function getPropertyFromCharacteristics(
   property: string
 ) {
   if (!characteristics) return undefined;
-  
+
   const characteristic = characteristics.find(
     (x) => x.name.toLowerCase() === property.toLowerCase()
   );
   if (characteristic === undefined) return undefined;
-  
+
   try {
     const split = characteristic.readableValue.split(",");
     const [currentValuesString, maxValueString] = split[1].trim().split("av");

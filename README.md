@@ -250,29 +250,29 @@ class BaseProduct {
   /**
    * The volume of the product.
    */
-  volume: { value: number; unit: string; formattedValue: string };
+  volume?: { value: number; unit: string; formattedValue: string };
 
   // Classification
   /**
    * The main category of the product (Øl, mjød, hvitvin etc..)
    */
-  mainCategory: { name: string; code: string; url: string };
+  mainCategory?: { name: string; code: string; url: string };
   /**
    * The sub category of the product (Porter & Stout, Rom, India Pale Ale etc..).
    */
-  mainSubCategory: { name: string; code: string; url: string };
+  mainSubCategory?: { name: string; code: string; url: string };
   /**
    * The country of origin.
    */
-  mainCountry: { name: string; code: string; url: string };
+  mainCountry?: { name: string; code: string; url: string };
   /**
    * The district the product is from. Might not always have values if no district is given.
    */
-  district: { name: string; code: string; url: string };
+  district?: { name: string; code: string; url: string };
   /**
    * The sub-district the product is from. Might not always have values if no sub-district is given.
    */
-  subDistrict: { name: string; code: string; url: string };
+  subDistrict?: { name: string; code: string; url: string };
   /**
    * The given product selection the product is available in (Bestillingsutvalget, Basisutvalget etc).
    */
@@ -282,7 +282,7 @@ class BaseProduct {
   /**
    * information regarding the product availability either in stores or through mail.
    */
-  availability: {
+  productAvailability?: {
     deliveryAvailability: { available: boolean; mainText: string };
     storeAvailability: { available: boolean; mainText: string };
   };
@@ -313,113 +313,113 @@ class PopulatedProduct extends BaseProduct {
   /**
    * The abv (alcohol by volume) of the product.
    */
-  abv : number;
+  abv: number;
   /**
    * If any, the allergens of the product.
    */
-  allergens : string;
+  allergens?: string;
   /**
    * a bool representing if the product is bioDynamic.
    */
-  bioDynamic : boolean;
+  bioDynamic: boolean;
   /**
    * A string representation of the products color.
    */
-  color : string;
+  color?: string;
   /**
    * A bool representing if the product is eco
    */
-  eco : boolean;
+  eco: boolean;
   /**
    * A bool representing if the product has environmental packaging.
    */
-  environmentalPackaging : boolean;
+  environmentalPackaging: boolean;
   /**
    * A bool representing if the product is expired.
    */
-  expired : boolean;
+  expired: boolean;
   /**
    * A bool representing if the product is fairtrade.
    */
-  fairTrade : boolean;
+  fairTrade: boolean;
   /**
    * A bool representing if the product contains gluten.
    */
-  gluten : boolean;
+  gluten: boolean;
   /**
    * A set of Foodpairing objects. Describes what food the product pairs well with.
    */
-  foodPairing: FoodPairing[] | null;
+  foodPairing: FoodPairing[];
   /**
    *  A bool representing if the product is kosher.
    */
-  kosher : boolean;
+  kosher: boolean;
   /**
    *  A string representation of whether the product can be aged further.
    */
-  storable : string;
+  storable?: string;
   /**
    *  A string representation of the container type and material.
    */
-  containerType : string;
+  containerType?: string;
   /**
    *  A string representation of the products taste.
    */
-  taste : string;
+  taste?: string;
   /**
    *  A string representation of the products aroma.
    */
-  aroma : string;
+  aroma?: string;
 
   // Ingredients
   /**
    *  An array of RawMaterial objects.
    */
-  rawMaterial: RawMaterial[] | null;
+  rawMaterial: RawMaterial[];
   /**
    *  A string or number representing the amount of sugar per litre in the product.
    */
-  sugar: string | number : number;
+  sugar?: string | number;
   /**
    * The acidity of the product in percentage.
    */
-  acid : number;
+  acid?: number;
   /**
    * The amounts of tannins in percentage
    */
-  tannins : number;
+  tannins?: number;
 
   // Tasting notes
   /**
    * The bitterness of the product in percentage.
    */
-  bitterness : number;
+  bitterness?: number;
   /**
    * The freshness of the product in percentage.
    */
-  freshness : number;
+  freshness?: number;
   /**
    * The fullness of the product in percentage.
    */
-  fullness : number;
-  style : { code: string; description: string; name: string };
+  fullness?: number;
+  style?: { code: string; description: string; name: string };
 
   // meta
   /**
    * The minimum age limit in order to buy this product.
    */
-  ageLimit : number;
+  ageLimit: number;
 
   // These tend to not be set
-  description : string;
-  summary : string;
-  method : string;
+  description?: string;
+  summary?: string;
+  method?: string;
 
   // Producer/distributer/importer etc
-  distributor : string;
-  distributorId : number;
-  wholesaler : string;
-  vintage: number | null;
+  distributor?: string;
+  distributorId?: number;
+  wholesaler?: string;
+  vintage?: number;
 ```
 
 ### BaseStore

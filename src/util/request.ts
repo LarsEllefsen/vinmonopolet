@@ -32,7 +32,7 @@ sendRequest.get = <T>(path: string, options: IRequestOptions): Promise<T> =>
         throw new Error(getErrorMessage(status, statusText));
       }
 
-      return data.json();
+      return data.json() as T;
     })
     .then((json) => {
       return json;

@@ -1,5 +1,19 @@
 #Changelog
 
+## [5.2.0]
+
+### Changed
+
+- Several BaseProduct and PopulatedProduct properties are now correctly marked as optional:
+
+  - volume
+  - mainCategory
+  - country
+  - color
+
+- PopulatedProduct: Renamed gluten to glutenFree to better reflect what it actually represents.
+- PopulatedProduct: Removed style, as it was removed from the official API long ago.
+
 ## [5.1.1]
 
 - Removed IsNotEmpty validation from properties that were erroneously annotated.

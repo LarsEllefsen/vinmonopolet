@@ -11,7 +11,6 @@ import RawMaterial from "../RawMaterial";
 import ProductImage from "../ProductImage";
 import { Volume } from "../Volume";
 import Category from "../Category";
-import { IAvailability } from "../Availability";
 
 export class PopulatedProduct extends BaseProduct {
   // Detailed product info
@@ -58,10 +57,10 @@ export class PopulatedProduct extends BaseProduct {
   @IsBoolean()
   fairTrade: boolean;
   /**
-   * A bool representing if the product contains gluten.
+   * A bool representing if the product is gluten-free
    */
   @IsBoolean()
-  gluten: boolean;
+  glutenFree: boolean;
   /**
    * A set of Foodpairing objects. Describes what food the product pairs well with.
    */
@@ -138,8 +137,6 @@ export class PopulatedProduct extends BaseProduct {
   @IsOptional()
   @IsNumber()
   fullness?: number;
-
-  style?: { code: string; description: string; name: string };
 
   // meta
   /**
@@ -232,7 +229,7 @@ export class PopulatedProduct extends BaseProduct {
     this.environmentalPackaging = environmentalPackaging;
     this.expired = expired;
     this.fairTrade = fairTrade;
-    this.gluten = gluten;
+    this.glutenFree = gluten;
     this.foodPairing = foodPairing;
     this.kosher = kosher;
     this.storable = storable;

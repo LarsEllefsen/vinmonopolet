@@ -31,7 +31,7 @@ test("Can get beer", async () => {
   expect(product.freshness).toBe(42);
   expect(product.fullness).toBe(67);
   expect(product.productAvailability).toBeUndefined();
-  expect(product.gluten).toBe(false);
+  expect(product.glutenFree).toBe(false);
   expect(product.allergens).toBe("Gluten");
   expect(product.color).toBe("Skyet, middels dyp strågul.");
   expect(product.aroma).toBe(
@@ -58,7 +58,6 @@ test("Can get beer", async () => {
   expect(product.kosher).toBe(false);
   expect(product.vintage).toBeUndefined();
   expect(product.sugar).toBeUndefined();
-  expect(product.style).toBeUndefined();
   expect(product.foodPairing).toEqual([
     {
       byName: null,
@@ -156,7 +155,7 @@ test("Can get gift article item", async () => {
   expect(product.freshness).toBeUndefined();
   expect(product.fullness).toBeUndefined();
   expect(product.productAvailability).toBeUndefined();
-  expect(product.gluten).toBe(false);
+  expect(product.glutenFree).toBe(false);
   expect(product.allergens).toBeUndefined();
   expect(product.color).toBeUndefined();
   expect(product.aroma).toBeUndefined();
@@ -173,7 +172,6 @@ test("Can get gift article item", async () => {
   expect(product.kosher).toBe(false);
   expect(product.vintage).toBeUndefined();
   expect(product.sugar).toBeUndefined();
-  expect(product.style).toBeUndefined();
   expect(product.foodPairing).toHaveLength(0);
   expect(product.volume).toBeUndefined();
   expect(product.wholesaler).toBe("Allsidige Nord AS");

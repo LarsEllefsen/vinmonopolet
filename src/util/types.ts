@@ -124,7 +124,3 @@ interface Volume {
   readableValue: string;
   value: number;
 }
-
-interface ProductResponse {
-  product: Product;
-}

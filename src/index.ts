@@ -9,7 +9,8 @@ export { default as PopulatedProduct } from "./models/product/PopulatedProduct";
 export { default as ProductImage } from "./models/ProductImage";
 export { default as ProductStatus } from "./models/ProductStatus";
 export { default as RawMaterial } from "./models/RawMaterial";
-export { default as PopulatedStore, BaseStore } from "./models/Store";
+export { default as BaseStore } from "./models/Store/BaseStore";
+export { default as PopulatedStore } from "./models/Store/BaseStore";
 
 export { default as getProducts } from "./retrievers/getProducts";
 export { default as getProduct } from "./retrievers/getProduct";

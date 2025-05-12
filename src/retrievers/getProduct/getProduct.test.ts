@@ -188,7 +188,6 @@ test("Can get gift article item", async () => {
     name: "Gaveesker",
     url: null,
   });
-  console.log(product.images);
   expect(product.images).toEqual([
     {
       format: "superZoom",

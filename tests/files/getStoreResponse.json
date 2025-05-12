@@ -1,0 +1,362 @@
+{
+    "address": {
+        "country": {
+            "isocode": "NO",
+            "name": "Norway"
+        },
+        "defaultAddress": false,
+        "formattedAddress": "Stenersgata 1, 0050, Oslo",
+        "id": "8800322650135",
+        "line1": "Stenersgata 1",
+        "line2": "Stenersgata 1",
+        "phone": "22 01 50 00",
+        "postalCode": "0050",
+        "shippingAddress": false,
+        "town": "Oslo",
+        "visibleInAddressBook": true
+    },
+    "assortment": "Kategori 6",
+    "clickAndCollect": false,
+    "displayName": "Oslo, Oslo City",
+    "geoPoint": {
+        "latitude": 59.9126054,
+        "longitude": 10.7515334
+    },
+    "mobileCheckoutEnabled": true,
+    "name": "143",
+    "openingTimes": [
+        {
+            "closingTime": {
+                "formattedHour": "18:00",
+                "hour": 6,
+                "minute": 0
+            },
+            "openingTime": {
+                "formattedHour": "10:00",
+                "hour": 10,
+                "minute": 0
+            },
+            "readableValue": "Åpent fra 10:00 til 18:00",
+            "timeSlotTraffic": [
+                {
+                    "readableValue": "10 til 12, lav trafikk",
+                    "timeSlotEnd": 12,
+                    "timeSlotStart": 10,
+                    "traffic": 8.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "12 til 14, lav trafikk",
+                    "timeSlotEnd": 14,
+                    "timeSlotStart": 12,
+                    "traffic": 11.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "14 til 16, lav trafikk",
+                    "timeSlotEnd": 16,
+                    "timeSlotStart": 14,
+                    "traffic": 20.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "16 til 18, lav trafikk",
+                    "timeSlotEnd": 18,
+                    "timeSlotStart": 16,
+                    "traffic": 32.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                }
+            ],
+            "closed": false,
+            "date": "2025-05-12T00:00:00+02:00",
+            "formattedDate": "Mandag 12. mai",
+            "openingDayDate": {
+                "formattedApiValue": "12052025",
+                "formattedDayValue": "Mandag 12. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "12.05.2025",
+                "readableValue": "tolvte mai 2025",
+                "value": "2025-05-12T00:00:00+02:00",
+                "weekDay": "mandag"
+            },
+            "weekDay": "Mandag"
+        },
+        {
+            "closingTime": {
+                "formattedHour": "18:00",
+                "hour": 6,
+                "minute": 0
+            },
+            "openingTime": {
+                "formattedHour": "10:00",
+                "hour": 10,
+                "minute": 0
+            },
+            "readableValue": "Åpent fra 10:00 til 18:00",
+            "timeSlotTraffic": [
+                {
+                    "readableValue": "10 til 12, lav trafikk",
+                    "timeSlotEnd": 12,
+                    "timeSlotStart": 10,
+                    "traffic": 7.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "12 til 14, lav trafikk",
+                    "timeSlotEnd": 14,
+                    "timeSlotStart": 12,
+                    "traffic": 12.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "14 til 16, lav trafikk",
+                    "timeSlotEnd": 16,
+                    "timeSlotStart": 14,
+                    "traffic": 25.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "16 til 18, middels trafikk",
+                    "timeSlotEnd": 18,
+                    "timeSlotStart": 16,
+                    "traffic": 37.0,
+                    "trafficColor": "YELLOW",
+                    "trafficText": "Middels"
+                }
+            ],
+            "closed": false,
+            "date": "2025-05-13T00:00:00+02:00",
+            "formattedDate": "Tirsdag 13. mai",
+            "openingDayDate": {
+                "formattedApiValue": "13052025",
+                "formattedDayValue": "Tirsdag 13. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "13.05.2025",
+                "readableValue": "trettende mai 2025",
+                "value": "2025-05-13T00:00:00+02:00",
+                "weekDay": "tirsdag"
+            },
+            "weekDay": "Tirsdag"
+        },
+        {
+            "closingTime": {
+                "formattedHour": "18:00",
+                "hour": 6,
+                "minute": 0
+            },
+            "openingTime": {
+                "formattedHour": "10:00",
+                "hour": 10,
+                "minute": 0
+            },
+            "readableValue": "Åpent fra 10:00 til 18:00",
+            "timeSlotTraffic": [
+                {
+                    "readableValue": "10 til 12, lav trafikk",
+                    "timeSlotEnd": 12,
+                    "timeSlotStart": 10,
+                    "traffic": 8.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "12 til 14, lav trafikk",
+                    "timeSlotEnd": 14,
+                    "timeSlotStart": 12,
+                    "traffic": 12.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "14 til 16, lav trafikk",
+                    "timeSlotEnd": 16,
+                    "timeSlotStart": 14,
+                    "traffic": 25.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "16 til 18, middels trafikk",
+                    "timeSlotEnd": 18,
+                    "timeSlotStart": 16,
+                    "traffic": 41.0,
+                    "trafficColor": "YELLOW",
+                    "trafficText": "Middels"
+                }
+            ],
+            "closed": false,
+            "date": "2025-05-14T00:00:00+02:00",
+            "formattedDate": "Onsdag 14. mai",
+            "openingDayDate": {
+                "formattedApiValue": "14052025",
+                "formattedDayValue": "Onsdag 14. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "14.05.2025",
+                "readableValue": "fjortende mai 2025",
+                "value": "2025-05-14T00:00:00+02:00",
+                "weekDay": "onsdag"
+            },
+            "weekDay": "Onsdag"
+        },
+        {
+            "closingTime": {
+                "formattedHour": "18:00",
+                "hour": 6,
+                "minute": 0
+            },
+            "openingTime": {
+                "formattedHour": "10:00",
+                "hour": 10,
+                "minute": 0
+            },
+            "readableValue": "Åpent fra 10:00 til 18:00",
+            "timeSlotTraffic": [
+                {
+                    "readableValue": "10 til 12, lav trafikk",
+                    "timeSlotEnd": 12,
+                    "timeSlotStart": 10,
+                    "traffic": 11.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "12 til 14, lav trafikk",
+                    "timeSlotEnd": 14,
+                    "timeSlotStart": 12,
+                    "traffic": 19.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "14 til 16, middels trafikk",
+                    "timeSlotEnd": 16,
+                    "timeSlotStart": 14,
+                    "traffic": 34.0,
+                    "trafficColor": "YELLOW",
+                    "trafficText": "Middels"
+                },
+                {
+                    "readableValue": "16 til 18, middels trafikk",
+                    "timeSlotEnd": 18,
+                    "timeSlotStart": 16,
+                    "traffic": 53.0,
+                    "trafficColor": "YELLOW",
+                    "trafficText": "Middels"
+                }
+            ],
+            "closed": false,
+            "date": "2025-05-15T00:00:00+02:00",
+            "formattedDate": "Torsdag 15. mai",
+            "openingDayDate": {
+                "formattedApiValue": "15052025",
+                "formattedDayValue": "Torsdag 15. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "15.05.2025",
+                "readableValue": "femtende mai 2025",
+                "value": "2025-05-15T00:00:00+02:00",
+                "weekDay": "torsdag"
+            },
+            "weekDay": "Torsdag"
+        },
+        {
+            "closingTime": {
+                "formattedHour": "18:00",
+                "hour": 6,
+                "minute": 0
+            },
+            "openingTime": {
+                "formattedHour": "10:00",
+                "hour": 10,
+                "minute": 0
+            },
+            "readableValue": "Åpent fra 10:00 til 18:00",
+            "timeSlotTraffic": [
+                {
+                    "readableValue": "10 til 12, lav trafikk",
+                    "timeSlotEnd": 12,
+                    "timeSlotStart": 10,
+                    "traffic": 21.0,
+                    "trafficColor": "GREEN",
+                    "trafficText": "Lav"
+                },
+                {
+                    "readableValue": "12 til 14, middels trafikk",
+                    "timeSlotEnd": 14,
+                    "timeSlotStart": 12,
+                    "traffic": 41.0,
+                    "trafficColor": "YELLOW",
+                    "trafficText": "Middels"
+                },
+                {
+                    "readableValue": "14 til 16, høy trafikk",
+                    "timeSlotEnd": 16,
+                    "timeSlotStart": 14,
+                    "traffic": 81.0,
+                    "trafficColor": "RED",
+                    "trafficText": "Høy"
+                },
+                {
+                    "readableValue": "16 til 18, høy trafikk",
+                    "timeSlotEnd": 18,
+                    "timeSlotStart": 16,
+                    "traffic": 99.0,
+                    "trafficColor": "RED",
+                    "trafficText": "Høy"
+                }
+            ],
+            "closed": false,
+            "date": "2025-05-16T00:00:00+02:00",
+            "formattedDate": "Fredag 16. mai",
+            "openingDayDate": {
+                "formattedApiValue": "16052025",
+                "formattedDayValue": "Fredag 16. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "16.05.2025",
+                "readableValue": "sekstende mai 2025",
+                "value": "2025-05-16T00:00:00+02:00",
+                "weekDay": "fredag"
+            },
+            "weekDay": "Fredag"
+        },
+        {
+            "readableValue": "Stengt",
+            "closed": true,
+            "date": "2025-05-17T00:00:00+02:00",
+            "formattedDate": "Lørdag 17. mai",
+            "message": "Stengt",
+            "openingDayDate": {
+                "formattedApiValue": "17052025",
+                "formattedDayValue": "Lørdag 17. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "17.05.2025",
+                "readableValue": "søttende mai 2025",
+                "value": "2025-05-17T00:00:00+02:00",
+                "weekDay": "lørdag"
+            },
+            "weekDay": "Lørdag"
+        },
+        {
+            "readableValue": "Stengt",
+            "closed": true,
+            "date": "2025-05-18T00:00:00+02:00",
+            "formattedDate": "Søndag 18. mai",
+            "openingDayDate": {
+                "formattedApiValue": "18052025",
+                "formattedDayValue": "Søndag 18. mai",
+                "formattedTimeValue": "00:00",
+                "formattedValue": "18.05.2025",
+                "readableValue": "attende mai 2025",
+                "value": "2025-05-18T00:00:00+02:00",
+                "weekDay": "søndag"
+            },
+            "weekDay": "Søndag"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import PopulatedStore, { BaseStore } from "../models/Store";
+import BaseStore from "../models/Store/BaseStore";
 import Pagination from "../models/Pagination";
 import request from "../util/request";
 

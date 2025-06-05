@@ -1,5 +1,5 @@
 import { afterEach, vi, expect, test } from "vitest";
-import getProducts from ".";
+import getProducts from "../../../src/retrievers/getProducts";
 import { mockFetch } from "../../../tests/mockFetch";
 import searchProductsResponse from "../../../tests/files/searchProductsResponse.json";
 

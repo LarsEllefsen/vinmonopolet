@@ -1,8 +1,8 @@
 import { afterEach, expect, vi, test } from "vitest";
-import getProduct from ".";
-import { mockFetch } from "../../../tests/mockFetch";
-import getProductResponse from "../../../tests/files/getProductResponse.json";
-import getGiftBackProductResponse from "../../../tests/files/getGiftBackProductResponse.json";
+import getProduct from "../../../src/retrievers/getProduct";
+import { mockFetch } from "../../mockFetch";
+import getProductResponse from "../../files/getProductResponse.json";
+import getGiftBackProductResponse from "../../files/getGiftBackProductResponse.json";
 
 afterEach(() => {
   vi.clearAllMocks();

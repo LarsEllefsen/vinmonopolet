@@ -1,7 +1,7 @@
 import { afterEach, vi, expect, test } from "vitest";
 import getStoreResponse from "../../../tests/files/getStoreResponse.json";
 import { mockFetch } from "../../../tests/mockFetch";
-import getStore from ".";
+import getStore from "../../../src/retrievers/getStore";
 
 afterEach(() => {
   vi.clearAllMocks();

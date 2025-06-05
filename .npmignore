@@ -5,8 +5,8 @@
 .travis.yml
 .nyc_output
 npm-debug.log
-test/**/*
-test
+tests/**/*
+tests
 coverage
 example
 src

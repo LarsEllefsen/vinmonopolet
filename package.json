@@ -1,7 +1,7 @@
 {
   "name": "vinmonopolet-ts",
   "description": "Extracts information on products, categories and stores from Vinmonopolet",
-  "version": "5.2.2",
+  "version": "5.2.4",
   "keywords": [
     "vinmonopolet",
     "beer",
@@ -9,7 +9,7 @@
     "products",
     "stores"
   ],
-  "main": "dist/cjs/index.js",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
@@ -56,8 +56,6 @@
     "class-validator": "^0.14.0",
     "csv-parser": "^1.12.0",
     "fetch-cookie": "^2.0.5",
-    "jsdom": "^25.0.0",
-    "node-fetch": "^3.3.2",
     "promise-map-limit": "^1.0.0",
     "query-string": "^4.3.4",
     "reflect-metadata": "^0.1.13",

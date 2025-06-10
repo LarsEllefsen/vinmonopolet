@@ -8,8 +8,12 @@ export async function GET<T>(url: string, queryparams?: URLSearchParams) {
   });
 
   if (!response.ok) {
-    const errorMessage = await response.text();
-    throw new Error(errorMessage);
+    const parsedErrorResponse = await response.text();
+    throw new Error(
+      parsedErrorResponse != ""
+        ? parsedErrorResponse
+        : `Unable to get ${url}?${urlSearchParams}: http error ${response.status}`
+    );
   }
 
   const responseJson = (await response.json()) as any;

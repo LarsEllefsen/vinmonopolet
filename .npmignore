@@ -13,3 +13,4 @@ src
 tsconfig.json
 .github
 .vscode
+.vitest.config.js

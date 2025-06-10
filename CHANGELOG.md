@@ -1,5 +1,12 @@
 #Changelog
 
+## [5.2.3]
+
+### Changed
+
+- Removed node-fetch dependency to keep the package commonjs compatible.
+- Adjusted getFacets to use new endpoint at Vinmonopolet
+
 ## [5.2.2]
 
 ### Changed

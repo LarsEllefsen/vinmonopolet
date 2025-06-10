@@ -1,5 +1,11 @@
 #Changelog
 
+## [5.2.2]
+
+### Changed
+
+- Adjusted getProducts and getProductsByStore in accordance to changes at Vinmonopolet
+
 ## [5.2.0]
 
 ### Changed

@@ -1,7 +1,8 @@
 import { CategoryDTO, ImageDTO } from "../types";
 
 export interface GetProductsSearchResultDTO {
-  productSearchResult: ProductsSearchResult;
+  pagination: GetProductsPagination;
+  products: BaseProductDTO[];
 }
 
 interface ProductsSearchResult {

@@ -57,7 +57,7 @@ async function getProducts(
   options?: IGetProductsOptions
 ): Promise<IGetProductsResponse> {
   const query = createSearchQuery(options);
-  const { productSearchResult } = await GET<GetProductsSearchResultDTO>(
+  const productSearchResult = await GET<GetProductsSearchResultDTO>(
     VINMONOPOLET_SEARCH_URL,
     query
   );

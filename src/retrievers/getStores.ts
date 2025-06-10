@@ -1,4 +1,4 @@
-import BaseStore from "../models/Store/BaseStore";
+import BaseStore from "../models/store/BaseStore";
 import Pagination from "../models/Pagination";
 import request from "../util/request";
 

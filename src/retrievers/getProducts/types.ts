@@ -30,7 +30,7 @@ export interface BaseProductDTO {
   name: string;
   price?: Price;
   productAvailability: ProductAvailability;
-  product_selection: string;
+  product_selection?: string;
   releaseMode: boolean;
   status: string;
   sub_District?: CategoryDTO;

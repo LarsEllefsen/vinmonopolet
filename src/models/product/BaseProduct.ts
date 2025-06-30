@@ -63,7 +63,6 @@ class BaseProduct {
   /**
    * The main category of the product (Øl, mjød, hvitvin etc..)
    */
-  @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
   mainCategory?: Category;
@@ -77,7 +76,6 @@ class BaseProduct {
   /**
    * The country of origin.
    */
-  @IsNotEmpty()
   @ValidateNested()
   @Type(() => Category)
   mainCountry?: Category;
@@ -96,9 +94,8 @@ class BaseProduct {
   /**
    * The given product selection the product is available in (Bestillingsutvalget, Basisutvalget etc).
    */
-  @IsNotEmpty()
   @IsString()
-  productSelection: string;
+  productSelection?: string;
 
   // Stock/store-related
   /**
@@ -128,7 +125,7 @@ class BaseProduct {
     country: Category | undefined,
     district: Category | undefined,
     subDistrict: Category | undefined,
-    productSeelection: string,
+    productSeelection: string | undefined,
     availability: IAvailability | undefined,
     buyable: boolean,
     status: string

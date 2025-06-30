@@ -4,6 +4,12 @@
 
 ### Changed
 
+- ProductSelection is now correctly marked as optional
+
+## [5.2.3]
+
+### Changed
+
 - Removed node-fetch dependency to keep the package commonjs compatible.
 - Adjusted getFacets to use new endpoint at Vinmonopolet
 

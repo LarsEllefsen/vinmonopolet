@@ -1,6 +1,12 @@
 #Changelog
 
-## [5.2.3]
+## [5.2.5]
+
+### Changed
+
+- Added option to set custom User-Agent header based on USER_AGENT environment variable.
+
+## [5.2.4]
 
 ### Changed
 

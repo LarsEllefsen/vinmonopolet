@@ -188,7 +188,7 @@ export class PopulatedProduct extends BaseProduct {
     taste: string | undefined,
     aroma: string | undefined,
     rawMaterial: RawMaterial[],
-    sugar: number | string | undefined,
+    sugar: number | undefined,
     acid: number | undefined,
     tannins: number | undefined,
     bitterness: number | undefined,

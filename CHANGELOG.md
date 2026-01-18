@@ -1,5 +1,11 @@
 #Changelog
 
+## [5.2.7]
+
+### Changed
+
+- Parse sugar level "Under 3 g/l" as 0 instead of a string.
+
 ## [5.2.6]
 
 ### Changed

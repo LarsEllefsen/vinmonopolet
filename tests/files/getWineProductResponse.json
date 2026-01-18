@@ -1,0 +1,73 @@
+{
+    "ageLimit": 18,
+    "bioDynamic": false,
+    "buyable": true,
+    "code": "1234567",
+    "color": "Dyp rubinrød.",
+    "content": {
+        "characteristics": [],
+        "ingredients": [],
+        "isGoodFor": [],
+        "storagePotential": {
+            "code": "X",
+            "formattedValue": "Drikkeklar nå, men kan også lagres"
+        },
+        "traits": [
+            {
+                "formattedValue": "13,5%",
+                "name": "Alkohol",
+                "readableValue": "13,5 prosent"
+            },
+            {
+                "formattedValue": "Under 3 g/l",
+                "name": "Sukker",
+                "readableValue": "Under 3 gram per liter"
+            }
+        ]
+    },
+    "description": "",
+    "distributor": "Test Distributor",
+    "distributorId": 12345,
+    "eco": false,
+    "environmentalPackaging": false,
+    "expired": false,
+    "fairTrade": false,
+    "gluten": false,
+    "images": [],
+    "kosher": false,
+    "main_category": {
+        "code": "rødvin",
+        "name": "Rødvin"
+    },
+    "main_country": {
+        "code": "frankrike",
+        "name": "Frankrike",
+        "searchQuery": ":relevance:mainCountry:frankrike",
+        "url": "/search?searchType=product&q=:relevance:mainCountry:frankrike"
+    },
+    "main_sub_category": {
+        "code": "rødvin_tørr",
+        "name": "Tørr"
+    },
+    "name": "Test Wine",
+    "packageType": "Glassflaske",
+    "price": {
+        "formattedValue": "Kr 150,00",
+        "readableValue": "150 kroner",
+        "value": 150.0
+    },
+    "product_selection": "Basisutvalget",
+    "releaseMode": false,
+    "similarProducts": false,
+    "status": "aktiv",
+    "statusNotification": false,
+    "summary": "",
+    "sustainable": false,
+    "url": "/Land/Frankrike/Test-Wine/p/1234567",
+    "volume": {
+        "formattedValue": "75 cl",
+        "readableValue": "75 centiliter",
+        "value": 75.0
+    },
+    "wholeSaler": "Test Wholesaler"
+}

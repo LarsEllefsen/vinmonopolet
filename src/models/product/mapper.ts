@@ -83,6 +83,7 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.description,
     dto.summary,
     dto.method,
+    mapToCategory(dto.main_producer),
     dto.distributor,
     dto.distributorId?.toString(),
     dto.wholeSaler,
@@ -182,21 +183,22 @@ function mapToRawMaterial(ingredients: IngredientDTO) {
   });
 }
 
-function getSugarFromTraits(traits?: TraitDTO[]) {
+function getSugarFromTraits(traits?: TraitDTO[]): number | string | undefined {
   if (!traits) return undefined;
-  const trait = traits.find((x) => x.name.toLowerCase() == "sukker");
+  const trait = traits.find((x) => x.name.toLowerCase() === "sukker");
   if (!trait) return undefined;
-  try {
-    const split = trait.formattedValue.split(" ");
-    return tryParseFloat(split[0]) ?? tryParseFloat(split[1]);
-  } catch (e) {
-    return undefined;
+  const formattedValue = trait.formattedValue;
+  // If the value starts with "Under", preserve the full string
+  if (formattedValue.toLowerCase().startsWith("under")) {
+    return formattedValue;
   }
+  const split = formattedValue.split(" ");
+  return tryParseFloat(split[0]) ?? tryParseFloat(split[1]);
 }
 
 function getAcidFromTraits(traits?: TraitDTO[]) {
   if (!traits) return undefined;
-  const trait = traits.find((x) => x.name.toLowerCase() == "syre");
+  const trait = traits.find((x) => x.name.toLowerCase() === "syre");
   if (!trait) return undefined;
   try {
     const split = trait.formattedValue.split(" ");

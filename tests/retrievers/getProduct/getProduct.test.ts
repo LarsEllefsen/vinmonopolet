@@ -138,13 +138,13 @@ test("Can get beer", async () => {
   ]);
 });
 
-test("Can parse 'Under 3 g/l' sugar value", async () => {
+test("Can parse 'Under 3 g/l' sugar value as 0", async () => {
   mockFetch(getWineProductResponse);
 
   const product = await getProduct("1234567");
 
   expect(product.code).toBe("1234567");
-  expect(product.sugar).toBe("Under 3 g/l");
+  expect(product.sugar).toBe(0);
 });
 
 test("Can get gift article item", async () => {

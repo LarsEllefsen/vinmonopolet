@@ -183,14 +183,14 @@ function mapToRawMaterial(ingredients: IngredientDTO) {
   });
 }
 
-function getSugarFromTraits(traits?: TraitDTO[]): number | string | undefined {
+function getSugarFromTraits(traits?: TraitDTO[]): number | undefined {
   if (!traits) return undefined;
   const trait = traits.find((x) => x.name.toLowerCase() === "sukker");
   if (!trait) return undefined;
   const formattedValue = trait.formattedValue;
   // If the value starts with "Under", preserve the full string
-  if (formattedValue.toLowerCase().startsWith("under")) {
-    return formattedValue;
+  if (formattedValue.toLowerCase().startsWith("under 3 g/l")) {
+    return 0;
   }
   const split = formattedValue.split(" ");
   return tryParseFloat(split[0]) ?? tryParseFloat(split[1]);

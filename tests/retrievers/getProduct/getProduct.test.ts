@@ -3,6 +3,7 @@ import getProduct from "../../../src/retrievers/getProduct";
 import { mockFetch } from "../../mockFetch";
 import getProductResponse from "../../files/getProductResponse.json";
 import getGiftBackProductResponse from "../../files/getGiftBackProductResponse.json";
+import getWineProductResponse from "../../files/getWineProductResponse.json";
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -93,6 +94,11 @@ test("Can get beer", async () => {
     name: "India pale ale",
     url: null,
   });
+  expect(product.producer).toEqual({
+    code: "lervig_as",
+    name: "Lervig AS",
+    url: "/search?searchType=product&q=:name-asc:brand:lervig_as",
+  });
   expect(product.images).toEqual([
     {
       format: "superZoom",
@@ -130,6 +136,15 @@ test("Can get beer", async () => {
       size: { maxWidth: 65, maxHeight: 65 },
     },
   ]);
+});
+
+test("Can parse 'Under 3 g/l' sugar value", async () => {
+  mockFetch(getWineProductResponse);
+
+  const product = await getProduct("1234567");
+
+  expect(product.code).toBe("1234567");
+  expect(product.sugar).toBe("Under 3 g/l");
 });
 
 test("Can get gift article item", async () => {
@@ -188,6 +203,7 @@ test("Can get gift article item", async () => {
     name: "Gaveesker",
     url: null,
   });
+  expect(product.producer).toBeUndefined();
   expect(product.images).toEqual([
     {
       format: "superZoom",

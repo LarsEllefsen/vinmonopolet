@@ -1,7 +1,7 @@
 export function tryParseFloat(stringToParse: string): number | undefined {
-  try {
-    return parseFloat(stringToParse);
-  } catch {
+  const result = parseFloat(stringToParse);
+  if (isNaN(result)) {
     return undefined;
   }
+  return result;
 }

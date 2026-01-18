@@ -150,6 +150,7 @@ export class PopulatedProduct extends BaseProduct {
   method?: string;
 
   // Producer/distributer/importer etc
+  producer?: Category;
   distributor?: string;
   distributorId?: string;
   wholesaler?: string;
@@ -187,7 +188,7 @@ export class PopulatedProduct extends BaseProduct {
     taste: string | undefined,
     aroma: string | undefined,
     rawMaterial: RawMaterial[],
-    sugar: number | undefined,
+    sugar: number | string | undefined,
     acid: number | undefined,
     tannins: number | undefined,
     bitterness: number | undefined,
@@ -197,6 +198,7 @@ export class PopulatedProduct extends BaseProduct {
     description: string | undefined,
     summary: string | undefined,
     method: string | undefined,
+    producer: Category | undefined,
     distributor: string | undefined,
     distributorId: string | undefined,
     wholesaler: string | undefined,
@@ -247,6 +249,7 @@ export class PopulatedProduct extends BaseProduct {
     this.description = description;
     this.summary = summary;
     this.method = method;
+    this.producer = producer;
     this.distributor = distributor;
     this.distributorId = distributorId;
     this.wholesaler = wholesaler;

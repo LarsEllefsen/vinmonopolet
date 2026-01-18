@@ -1,5 +1,11 @@
 #Changelog
 
+## [5.2.6]
+
+### Changed
+
+- Added producer info to PopulatedProduct, and also added support for parsing sugar level "Under 3 g/l".
+
 ## [5.2.5]
 
 ### Changed

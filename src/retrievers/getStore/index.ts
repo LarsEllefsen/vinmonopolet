@@ -6,7 +6,7 @@ import { IGetStoreDTO } from "./types";
 
 const getStore = async (store_id: string): Promise<PopulatedStore> => {
   const response = await GET<IGetStoreDTO>(
-    `${VINMONOPOLET_STORE_URL}${store_id}`,
+    `${VINMONOPOLET_STORE_URL}/${store_id}`,
     new URLSearchParams({ fields: "FULL" })
   );
 

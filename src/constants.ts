@@ -3,4 +3,4 @@ export const VINMONOPOLET_SEARCH_URL =
 export const VINMONOPOLET_PRODUCT_URL =
   "https://www.vinmonopolet.no/vmpws/v3/vmp/products/";
 export const VINMONOPOLET_STORE_URL =
-  "https://www.vinmonopolet.no/vmpws/v2/vmp/stores/";
+  "https://www.vinmonopolet.no/vmpws/v2/vmp/stores";

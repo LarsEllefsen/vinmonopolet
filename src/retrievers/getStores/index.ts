@@ -28,7 +28,7 @@ export function searchStores(
 
 async function searchByQuery(querystring: string): Promise<ISearchStoreResult> {
   const response = await GET<Omit<IGetStoresResult, "pagination">>(
-    `${VINMONOPOLET_STORE_URL}autocomplete`,
+    `${VINMONOPOLET_STORE_URL}/autocomplete`,
     new URLSearchParams({ query: querystring })
   );
 

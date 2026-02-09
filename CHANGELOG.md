@@ -1,5 +1,11 @@
 #Changelog
 
+## [5.2.8]
+
+### Changed
+
+- Fix bug with trailing slash on VP store search since their API is suddenly failing 
+
 ## [5.2.7]
 
 ### Changed

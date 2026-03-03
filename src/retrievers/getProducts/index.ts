@@ -7,7 +7,7 @@ import { GetProductsSearchResultDTO } from "./types";
 import Pagination from "../../models/Pagination";
 import { fromDTOToBaseProduct } from "../../models/product/mapper";
 
-const sortFields = ["relevance", "name", "price"] as const;
+const sortFields = ["relevance", "name", "price", "alcohol"] as const;
 const sortOrders = ["asc", "desc"] as const;
 export interface IGetProductsOptions {
   /**

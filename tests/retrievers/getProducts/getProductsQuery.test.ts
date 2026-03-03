@@ -42,6 +42,15 @@ describe("getProducts query building", () => {
     expect(q).toBe(":name-asc:");
   });
 
+  test("sort by alcohol descending produces correct query", async () => {
+    mockFetch(searchProductsResponse);
+    await getProducts({ sort: ["alcohol", "desc"] });
+
+    const url = getCapturedUrl();
+    const q = url.searchParams.get("q");
+    expect(q).toBe(":alcohol-desc:");
+  });
+
   test("sort with facets produces correct query", async () => {
     mockFetch(searchProductsResponse);
     const categoryFacet = FacetValue.cooerce("mainCategory:rødvin");

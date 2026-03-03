@@ -74,7 +74,10 @@ async function getProducts(
 
 function createSearchQuery(options?: IGetProductsOptions) {
   const facetquery = options?.facets?.map((facet) => facet.query) ?? [];
-  const sortQuery = options?.sort ? `:${options.sort}:` : ":relevance:";
+  const sortValue = Array.isArray(options?.sort)
+    ? options.sort.join("-")
+    : options?.sort;
+  const sortQuery = sortValue ? `:${sortValue}:` : ":relevance:";
   const textQuery = options?.query ?? "";
   return new URLSearchParams({
     searchType: "product",

@@ -89,10 +89,7 @@ describe("getProductsByStore query building", () => {
     });
 
     const url = getCapturedUrl();
-    console.log(url);
-
     const q = url.searchParams.get("q");
-    console.log(q);
 
     expect(q).toBe(":name-asc:availableInStores:104:mainCategory:rødvin");
   });

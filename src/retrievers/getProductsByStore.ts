@@ -24,6 +24,11 @@ interface IGetProductsByStoreOptions {
    * Which page of the pagination you want to get. (Default: 1)
    */
   page?: number;
+
+  /**
+   * Sorting options for the results. E.g ["price", "asc"] or just "price";
+   */
+  sort?: IGetProductsOptions["sort"];
 }
 
 export interface IGetProductsByStoreResponse extends IGetProductsResponse {
@@ -51,6 +56,7 @@ async function getProductsByStore(
     limit: opts?.limit,
     facets: facets,
     page: opts?.page ?? 1,
+    sort: opts?.sort,
   } as IGetProductsOptions;
 
   const allProducts = await getProducts(options);

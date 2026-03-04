@@ -74,7 +74,7 @@ async function getProducts(
 
 function createSearchQuery(options?: IGetProductsOptions) {
   const facetquery = options?.facets?.map((facet) => facet.query) ?? [];
-  const sortValue = Array.isArray(options?.sort)
+  const sortValue = options && Array.isArray(options?.sort)
     ? options.sort.join("-")
     : options?.sort;
   const sortQuery = sortValue ? `:${sortValue}:` : ":relevance:";

@@ -1,4 +1,9 @@
-#Changelog
+## [5.2.9]
+
+### Changed
+
+- Fixed product sort options for getProducts
+- Added product sort options for getProductByStore
 
 ## [5.2.8]
 

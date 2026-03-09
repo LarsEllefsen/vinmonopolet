@@ -144,6 +144,14 @@ export class PopulatedProduct extends BaseProduct {
    */
   ageLimit: number;
 
+  /**
+   * Store categories for this product.
+   * The number (1-6) indicates which category the product belongs to. Category 6 means that a product is only sold in category 6 stores. Category 3 means that the product is sold in category 3, 4, 5 and 6 stores.
+   * The suffix letter indicates store type: L = Lyst og Lett (LL), R = Rødt og Mørkt (RM).
+   * Example: "SB6L" = category 6 in Lyst og Lett stores, "SB5R" = category 5 in Rødt og Mørkt stores.
+   */
+  storeCategories: string[];
+
   // These tend to not be set
   description?: string;
   summary?: string;
@@ -202,7 +210,8 @@ export class PopulatedProduct extends BaseProduct {
     distributor: string | undefined,
     distributorId: string | undefined,
     wholesaler: string | undefined,
-    vintage: number | undefined
+    vintage: number | undefined,
+    storeCategories?: string[]
   ) {
     super(
       code,
@@ -254,6 +263,7 @@ export class PopulatedProduct extends BaseProduct {
     this.distributorId = distributorId;
     this.wholesaler = wholesaler;
     this.vintage = vintage;
+    this.storeCategories = storeCategories ?? [];
   }
 }
 

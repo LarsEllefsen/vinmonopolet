@@ -73,6 +73,7 @@ export type PopulatedProductDTO = {
   releaseMode: boolean;
   similarProducts: boolean;
   smell: string;
+  storeCategory: string;
   status: string;
   statusNotification: boolean;
   stickers: {

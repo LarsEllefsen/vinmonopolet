@@ -87,8 +87,14 @@ export function fromDTOToPopulatedProduct(dto: PopulatedProductDTO) {
     dto.distributor,
     dto.distributorId?.toString(),
     dto.wholeSaler,
-    dto.year ? parseInt(dto.year) : undefined
+    dto.year ? parseInt(dto.year) : undefined,
+    parseStoreCategory(dto.storeCategory)
   );
+}
+
+function parseStoreCategory(storeCategory?: string): string[] {
+  if (!storeCategory) return [];
+  return storeCategory.split(",").map((s) => s.trim()).filter(Boolean);
 }
 
 function calculatePricePerLiter(

@@ -1,3 +1,9 @@
+## [5.2.11]
+
+### Added
+
+- Added the ability to override vinmonopolet base url by setting an environment variable
+
 ## [5.2.9]
 
 ### Changed
@@ -9,7 +15,7 @@
 
 ### Changed
 
-- Fix bug with trailing slash on VP store search since their API is suddenly failing 
+- Fix bug with trailing slash on VP store search since their API is suddenly failing
 
 ## [5.2.7]
 

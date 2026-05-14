@@ -1,6 +1,8 @@
+const VINMONOPOLET_BASE_URL =
+  process.env.VINMONOPOLET_BASE_URL ?? "https://www.vinmonopolet.no";
 export const VINMONOPOLET_SEARCH_URL =
-  "https://www.vinmonopolet.no/vmpws/v2/vmp/products/search";
+  VINMONOPOLET_BASE_URL + "/vmpws/v2/vmp/products/search";
 export const VINMONOPOLET_PRODUCT_URL =
-  "https://www.vinmonopolet.no/vmpws/v3/vmp/products/";
+  VINMONOPOLET_BASE_URL + "/vmpws/v3/vmp/products/";
 export const VINMONOPOLET_STORE_URL =
-  "https://www.vinmonopolet.no/vmpws/v2/vmp/stores";
+  VINMONOPOLET_BASE_URL + "/vmpws/v2/vmp/stores";

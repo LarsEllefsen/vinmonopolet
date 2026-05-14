@@ -28,6 +28,10 @@ Please see CHANGELOG for a list of breaking changes if you are coming from the o
 
 This project is a rewrite of the original package in typescript, so it is now fully typed! The package comes with both ESM and CommonJS, with browser support on the way. There have also been some fixes to previously broken functionality, such as GetStores.
 
+## Configuration
+
+You can override the base URL (`www.vinmonopolet.no`) by setting the `VINMONOPOLET_BASE_URL` environment variable, for example `VINMONOPOLET_BASE_URL=http://localhost:3000`.
+
 ## Documentation
 
 ### GetProducts

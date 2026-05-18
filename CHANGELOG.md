@@ -1,5 +1,11 @@
 ## [5.2.11]
 
+### Changed
+
+- All functions now throw `VinmonopoletError` if fetch fails.
+
+## [5.2.11]
+
 ### Added
 
 - Added the ability to override vinmonopolet base url by setting an environment variable

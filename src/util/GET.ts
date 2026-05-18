@@ -1,4 +1,4 @@
-import { VinmonopoletError } from "../exceptions/VinmonopoletError";
+import VinmonopoletError from "../exceptions/VinmonopoletError";
 
 export async function GET<T>(url: string, queryparams?: URLSearchParams) {
   try {

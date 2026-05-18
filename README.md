@@ -32,6 +32,24 @@ This project is a rewrite of the original package in typescript, so it is now fu
 
 You can override the base URL (`www.vinmonopolet.no`) by setting the `VINMONOPOLET_BASE_URL` environment variable, for example `VINMONOPOLET_BASE_URL=http://localhost:3000`.
 
+## Error handling
+
+All the functions throws `VinmonopoletError` if something goes wrong. It extends from the base javascript `Error`class and contains a http status code.
+
+```ts
+import { VinmonopoletError } from "vinmonopolet-ts";
+
+async function getAllProducs() {
+  try {
+    const procuts = await getProducts();
+  } catch (error) {
+    if (error instanceof VinmonopoletError) {
+      // Handle error
+    }
+  }
+}
+```
+
 ## Documentation
 
 ### GetProducts

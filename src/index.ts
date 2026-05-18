@@ -12,6 +12,8 @@ export { default as RawMaterial } from "./models/RawMaterial";
 export { default as BaseStore } from "./models/store/BaseStore";
 export { default as PopulatedStore } from "./models/store/BaseStore";
 
+export { default as VinmonopoletError } from "./exceptions/VinmonopoletError";
+
 export { default as getProducts } from "./retrievers/getProducts";
 export { default as getProduct } from "./retrievers/getProduct";
 export { default as getFacets } from "./retrievers/getFacets";
